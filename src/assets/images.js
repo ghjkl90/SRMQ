@@ -1,7 +1,10 @@
 // src/assets/images.js
+import bookViewerImg from './bookviewer.png';
+
 
 export const IMAGES = {
   // 표지 및 인트로
+  bookViewer: bookViewerImg,
   coverPlant: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?auto=format&fit=crop&w=800&q=80',
   
   // 인사말 / 비전 영역

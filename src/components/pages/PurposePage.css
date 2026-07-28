@@ -1,0 +1,205 @@
+/* src/components/pages/PurposePage.css */
+.purpose-container {
+  width: 100vw;
+  height: calc(100vh - 72px);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* 상단 히어로 섹션 */
+.purpose-hero {
+  width: 100%;
+  min-height: 380px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 50px 0;
+}
+
+.purpose-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+}
+
+.purpose-hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.purpose-hero-content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 80px;
+  width: 100%;
+  max-width: 1400px;
+  box-sizing: border-box;
+}
+
+.purpose-badge-box {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+
+.badge-kr {
+  background-color: #82C91E;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 10px;
+}
+
+.badge-en {
+  background-color: #083c38;
+  color: #a3e635;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 10px;
+  letter-spacing: 0.05em;
+}
+
+.purpose-tag {
+  display: inline-block;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.purpose-hero-title {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+}
+
+/* 하단 주요사업 컨테이너 (3열 그리드로 밀도 있게 정렬) */
+.purpose-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 80px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.section-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 36px;
+  letter-spacing: -0.02em;
+}
+
+.business-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3열 정렬로 벌어짐 방지 */
+  gap: 40px 32px;
+}
+
+.business-card {
+  background-color: #ffffff;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+/* 둥근 원형 테두리 아이콘 */
+.business-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background-color: transparent;
+}
+
+/* 요청하신 개별 아이콘 및 테두리 컬러 */
+.icon-blue { 
+  border-color: #1B7894; 
+}
+.icon-blue svg {
+  stroke: #1B7894;
+}
+
+.icon-green-dark { 
+  border-color: #1B9461; 
+}
+.icon-green-dark svg {
+  stroke: #1B9461;
+}
+
+.icon-green-light { 
+  border-color: #4B9321; 
+}
+.icon-green-light svg {
+  stroke: #4B9321;
+}
+
+.business-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.business-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.business-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* 최하단 바 */
+.purpose-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 400;
+  color: #9ca3af;
+  padding: 20px 80px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}

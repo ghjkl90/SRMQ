@@ -1,0 +1,119 @@
+.header-container {
+  width: 100%;
+  height: 72px; /* 헤더 세로 높이 축소 */
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: relative;
+  z-index: 50;
+}
+
+.header-inner {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.header-logo img {
+  height: 44px; /* 로고 크기 확대 및 정돈 */
+  object-fit: contain;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  height: 100%;
+}
+
+.nav-item {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-link {
+  font-size: 16px; /* [폰트 크기 1] 네비게이션 메뉴 */
+  font-weight: 700;
+  color: #374151;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.nav-item:hover .nav-link,
+.nav-item.active .nav-link {
+  color: #82C91E;
+}
+
+.active-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #82C91E;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 240px;
+  background-color: #ffffff;
+  border: 1px solid #f3f4f6;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-top-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #82C91E;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  font-size: 14px; /* [폰트 크기 2] 드롭다운 서브메뉴 */
+  font-weight: 500;
+  color: #4b5563;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.dropdown-item:hover {
+  color: #82C91E;
+  background-color: #f9fafb;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  color: #4b5563;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.search-btn:hover {
+  color: #82C91E;
+}

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 폰트 사이즈 4개로 엄격히 통일 */
+
 :root {
   --font-title: 32px;    /* 주요 대제목 */
   --font-subtitle: 20px; /* 섹션 중제목 / 서브 타이틀 */
@@ -13,9 +13,9 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #0f172a; /* 1920x1080 프레젠테이션/웹 뷰 배경 */
+  background-color: #ffffff; /* 1920x1080 프레젠테이션/웹 뷰 배경 */
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #1e293b;
+  color: #4a4a4a;
   overflow-x: hidden;
 }
 
