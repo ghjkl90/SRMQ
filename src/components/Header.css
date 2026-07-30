@@ -21,10 +21,11 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin-left: 40px;
 }
 
 .header-logo img {
-  height: 44px; /* 로고 크기 확대 및 정돈 */
+  height: 88px; /* 로고 크기 확대 및 정돈 */
   object-fit: contain;
 }
 
