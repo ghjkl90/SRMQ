@@ -1,0 +1,184 @@
+/* src/components/pages/AwardPage.css */
+.award-container {
+  width: 100vw;
+  height: calc(100vh - 72px);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.award-content-wrap {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 80px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* 전체적인 간격을 좁혀 통일감 부여 */
+}
+
+/* 상단 타이틀 영역 */
+.award-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.award-badge-box {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.badge-kr {
+  background-color: #82C91E;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 10px;
+  
+}
+
+.badge-en {
+  background-color: #e5e7eb;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+}
+
+.award-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.02em;
+}
+
+.award-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+/* 상단 대형 이미지 영역 */
+.award-image-wrapper {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f3f4f6;
+}
+
+.award-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 섹션 박스 스타일 (기획재정부 장관상 / 회장상) */
+.award-section-box {
+  background-color: #f4fbf7;
+  border-radius: 10px;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.award-section-box.blue-theme {
+  background-color: #f0f7fb;
+}
+
+.section-box-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* 대상 카드 그리드 */
+.award-cards-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.award-cards-grid.grid-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.award-cards-grid.grid-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.award-card {
+  background-color: #ffffff;
+  border: 1px solid #d1fae5;
+  border-radius: 8px;
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #065f46;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s;
+}
+
+.award-card:hover {
+  transform: translateY(-2px);
+}
+
+.award-card.blue-card {
+  border-color: #bae6fd;
+  color: #0369a1;
+}
+
+/* 하단 2분할 영역 (평가영역 / 참여 효과) */
+.award-bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.award-info-card {
+  background-color: #F6F8FF;
+  border: 1px solid #f3f4f6;
+  border-radius: 10px;
+  padding: 16px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.info-card-desc {
+  font-size: 13px;
+  font-weight: 400;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+
+.award-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 400;
+  color: #9ca3af;
+  padding: 16px 80px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}

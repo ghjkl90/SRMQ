@@ -1,0 +1,198 @@
+/* src/components/pages/OrgPage.css */
+.org-container {
+  width: 100vw;
+  height: calc(100vh - 72px);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.org-content-wrap {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 80px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 상단 타이틀 영역 */
+.org-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.org-badge-box {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.badge-kr {
+  background-color: #82C91E;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 10px;
+}
+
+.badge-en {
+  background-color: #e5e7eb;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+}
+
+.org-main-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.02em;
+}
+
+/* 섹션 타이틀 공통 */
+.org-section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 4px;
+}
+
+.table-title-spacing {
+  margin-top: 16px !important;
+}
+
+/* 상단 조직도 이미지 박스 */
+.org-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 380px; 
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #f3f4f6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.org-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.org-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 23, 42, 0.2);
+  pointer-events: none;
+}
+
+/* 조직도 노드 배치 레이어 */
+.org-tree-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px 30px;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.org-row {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  align-items: center;
+}
+
+.org-row.sub-row {
+  gap: 16px;
+}
+
+.org-node {
+  background-color: #ffffff;
+  color: #111827;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  min-width: 90px;
+}
+
+.org-node.highlight {
+  color: #059669;
+}
+
+.org-node.small {
+  font-size: 12px;
+  padding: 6px 14px;
+  min-width: 80px;
+}
+
+/* 역대 위원장/회장 테이블 스타일 */
+.org-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.org-table th {
+  background-color: #1B7894;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.org-table td {
+  font-size: 13px;
+  color: #374151;
+  padding: 11px 16px;
+  text-align: center;
+  border-bottom: 1px solid #f3f4f6;
+  border-right: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.org-table td:last-child {
+  border-right: none;
+  text-align: center !important;
+}
+
+.org-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* 최하단 바 */
+.org-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 400;
+  color: #9ca3af;
+  padding: 16px 80px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}

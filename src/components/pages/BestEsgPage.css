@@ -1,0 +1,217 @@
+/* src/components/pages/BestEsgPage.css */
+.esg-container {
+  width: 100vw;
+  height: calc(100vh - 72px);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.esg-content-wrap {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px 80px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 상단 타이틀 영역 */
+.esg-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.esg-badge-box {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.badge-kr {
+  background-color: #82C91E;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 3px 10px;
+}
+
+.badge-en {
+  background-color: #e5e7eb;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+}
+
+.esg-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.02em;
+}
+
+/* 설명 영역 (2분할 Grid) */
+.esg-info-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  margin-top: 2px;
+}
+
+.info-column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info-column-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.esg-bullet-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.esg-bullet-list li {
+  font-size: 13px;
+  font-weight: 400;
+  color: #4b5563;
+  position: relative;
+  padding-left: 12px;
+  line-height: 1.45;
+}
+
+.esg-bullet-list li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: #6b7280;
+}
+
+/* 기업 로고 그리드 레퍼런스 표 (시원시원한 간격으로 조정) */
+.esg-matrix-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.esg-category-row {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  min-height: 52px;
+}
+
+/* 좌측 섹터 타이틀 셀 */
+.sector-title-cell {
+  width: 125px;
+  flex-shrink: 0;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #334155;
+  text-align: center;
+  padding: 4px;
+}
+
+/* 우측 기업 카드 리스트 */
+.companies-grid {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+  align-items: center;
+}
+
+.company-logo-card {
+  position: relative;
+  width: 135px;
+  height: 75px;
+  background-color: #ffffff;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.company-logo-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.company-logo-card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.esg-badge-wrapper {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  display: flex;
+  gap: 1px;
+}
+
+.esg-mini-badge {
+  font-size: 8.5px;
+  font-weight: 700;
+  width: 11px;
+  height: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border-radius: 2px;
+}
+
+.esg-mini-badge.e {
+  background-color: #2e8b57; /* 초록 계열 E */
+}
+
+.esg-mini-badge.s {
+  background-color: #16a34a; /* 초록 계열 S */
+}
+
+.esg-mini-badge.g {
+  background-color: #0d9488; /* 청록 계열 G */
+}
+/* ================================================= */
+
+/* 최하단 바 */
+.esg-bottom-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 400;
+  color: #9ca3af;
+  padding: 16px 80px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
