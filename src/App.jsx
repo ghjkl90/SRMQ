@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
-<<<<<<< HEAD
 import CoverPage from './components/pages/ProgramPage';
-=======
-import CoverPage from './components/pages/CoverPage';
->>>>>>> d96e3641c91227e69548784b5fc61c4f4b665c91
 import GreetingPage from './components/pages/GreetingPage';
 import VisionPage from './components/pages/VisionPage';
 import PurposePage from './components/pages/PurposePage';
@@ -24,10 +20,7 @@ import EducationCoursePage from './components/pages/EducationCoursePage';
 import PolicyResearchPage from './components/pages/PolicyResearchPage';
 import DonationPage from './components/pages/DonationPage';
 import NoticePage from './components/pages/NoticePage';
-<<<<<<< HEAD
 import AwardGalleryPage from './components/pages/AwardGalleryPage';
-=======
->>>>>>> d96e3641c91227e69548784b5fc61c4f4b665c91
 
 
 export default function App() {
@@ -85,11 +78,7 @@ export default function App() {
       return <AwardCriteriaPage />;
     }
 
-<<<<<<< HEAD
     if (currentSubmenu === '교육과정') {
-=======
-    if (currentSubmenu === '공개교육') {
->>>>>>> d96e3641c91227e69548784b5fc61c4f4b665c91
       return <EducationCoursePage />;
     }
 
@@ -97,13 +86,10 @@ export default function App() {
       return <PolicyResearchPage />;
     }
 
-<<<<<<< HEAD
     if (currentSubmenu === '포상 갤러리') {
       return <AwardGalleryPage />;
     }
 
-=======
->>>>>>> d96e3641c91227e69548784b5fc61c4f4b665c91
     if (currentSubmenu === '기부금후원안내' || currentSubmenu === '기부금 모금액 및 활용실적') {
       return <DonationPage />;
     }
