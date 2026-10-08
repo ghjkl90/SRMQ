@@ -20,25 +20,12 @@ export default function Header({ currentMenu, setCurrentMenu, onSelectSubmenu })
       submenus: ['의의 및 분야', '분야별 응모 및 시상 기준', '포상 심사 및 운영 절차', '역대 수상조직', 'SRMQ명예의전당', '포상 갤러리']
     },
     {
-<<<<<<< HEAD
-  id: 'edu',
-  label: '교육',
-  submenus: [
-    '교육과정'
-  ]
-},
-=======
       id: 'edu',
       label: '교육',
       submenus: [
-        {
-          name: '공개교육',
-          children: ['SR(사회적책임)지도자 과정', 'ESG 경영전략 과정']
-        },
-        '맞춤 교육'
+        '교육과정'
       ]
     },
->>>>>>> d96e3641c91227e69548784b5fc61c4f4b665c91
     {
       id: 'research',
       label: '정책연구',
