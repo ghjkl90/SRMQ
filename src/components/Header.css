@@ -1,0 +1,166 @@
+/* 공통 헤더 뼈대 */
+.header-container {
+  width: 100%;
+  height: 72px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  position: relative;
+  z-index: 50;
+}
+
+.header-inner {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 40px;
+}
+
+.header-logo img {
+  height: 88px;
+  object-fit: contain;
+}
+
+/* 네비게이션 영역 */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  height: 100%;
+}
+
+.nav-item {
+  position: relative; /* 자식인 드롭다운 메뉴의 기준점 */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.nav-link {
+  font-size: 16px;
+  font-weight: 700;
+  color: #374151;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.nav-item:hover .nav-link,
+.nav-item.active .nav-link {
+  color: #82C91E;
+}
+
+.active-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #82C91E;
+}
+
+/* 검색 버튼 */
+.search-btn {
+  background: none;
+  border: none;
+  color: #4b5563;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.search-btn:hover {
+  color: #82C91E;
+}
+
+/* =========================================
+   드롭다운 메뉴 (1번 이미지 레이아웃: 가로 배치)
+========================================= */
+
+/* 드롭다운 전체 래퍼: 왼쪽 패널(2단계)과 오른쪽 패널(1단계)을 가로로 감쌈 */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0; /* 우측 정렬 (네비 메뉴를 기준으로 오른쪽을 맞춤) */
+  display: flex;
+  flex-direction: row; /* 핵심: 좌우로 나란히 배치 */
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* 상단 초록색 포인트 라인 (각 패널에 독립적으로 적용) */
+.dropdown-top-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #82C91E;
+}
+
+/* 왼쪽 패널: 2단계 하위 세부과정 (SR지도사 등) */
+.dropdown-submenu-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+  padding: 12px 0;
+  background-color: #ffffff;
+  border-left: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  border-bottom-left-radius: 8px; /* 왼쪽에 있으므로 왼쪽 하단 모서리 둥글게 */
+}
+
+/* 오른쪽 패널: 1단계 기본 드롭다운 리스트 (공개교육, 맞춤교육 등) */
+.dropdown-main-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+  padding: 12px 0;
+  background-color: #ffffff;
+  border-right: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  border-bottom-right-radius: 8px;
+}
+
+/* 각 아이템 링크 공통 스타일 */
+.dropdown-item,
+.dropdown-child-item {
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  white-space: nowrap;
+  display: block;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+/* 호버 시 혹은 활성화 상태 (하이라이트) */
+.dropdown-item:hover,
+.dropdown-child-item:hover,
+.dropdown-item.highlight {
+  color: #82C91E;
+  font-weight: 700;
+  background-color: #f9fafb;
+}
+
+/* 2단계 세부과정 아이템 폰트 세부 조정 */
+.dropdown-child-item {
+  color: #1f2937;
+}

@@ -1,0 +1,22 @@
+/* src/components/pages/CiPage.css
+   컨테이너 · 헤더 · 하단 바는 SubpageLayout.css에서 가져옵니다. */
+
+.ci-info-img-wrapper {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 10px 0 30px 0;
+}
+
+.ci-info-img-wrapper img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+}

@@ -1,0 +1,80 @@
+/* src/components/pages/AwardProcessPage.css
+   컨테이너 · 헤더 · 하단 바는 SubpageLayout.css에서 가져옵니다. */
+
+/* ===== 배너 ===== */
+.proc-banner {
+  width: 100%;
+  height: 240px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f3f4f6;
+}
+
+.proc-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%;
+  display: block;
+}
+
+/* ===== 절차 카드 ===== */
+.proc-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 24px;
+  padding-bottom: 20px;
+}
+
+.proc-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 18px 16px 20px;
+  border: 1px solid #e8ebee;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.proc-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 999px;
+  line-height: 1.3;
+}
+
+.proc-tag.green { background-color: #4B9321; }
+.proc-tag.teal  { background-color: #1B9461; }
+.proc-tag.cyan  { background-color: #1B7894; }
+.proc-tag.blue  { background-color: #285AA5; }
+
+.proc-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.proc-desc {
+  font-size: 12px;
+  font-weight: 400;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 230px;
+}
+
+@media (max-width: 1024px) {
+  .proc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .proc-grid { grid-template-columns: 1fr; }
+  .proc-desc { max-width: none; }
+}

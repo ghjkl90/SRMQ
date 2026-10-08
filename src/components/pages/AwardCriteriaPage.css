@@ -1,0 +1,387 @@
+/* src/components/pages/AwardCriteriaPage.css
+   컨테이너 · 헤더 · 하단 바는 SubpageLayout.css에서 가져옵니다. */
+
+/* ===== 색상 토큰 (이 페이지 전용) ===== */
+.crit-page {
+  --c-green: #4B9321;
+  --c-teal: #1B9461;
+  --c-cyan: #1B7894;
+  --c-blue: #285AA5;
+  --bg-sky: #F0F7FB;
+  --bg-lavender: #F6F8FF;
+  --line: #eceef1;
+  --border: #e8ebee;
+}
+
+/* 공통 점 목록 */
+.crit-dot-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.crit-dot-list li {
+  position: relative;
+  padding-left: 12px;
+}
+
+.crit-dot-list li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: #9ca3af;
+}
+
+/* 공통 알약 뱃지 */
+.crit-pill {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  padding: 3px 10px;
+  border-radius: 999px;
+  line-height: 1.3;
+}
+
+.crit-pill.blue { background-color: var(--c-blue); }
+
+/* 공통 칩 */
+.crit-chip {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 12px;
+  color: #374151;
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+.crit-chip.gray {
+  background-color: #f3f4f6;
+  border-color: #f3f4f6;
+  color: #4b5563;
+}
+
+/* ===== 4대 시상분야 카드 ===== */
+.crit-field-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.crit-field-card {
+  --tone: var(--c-green);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px 18px 18px;
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.crit-field-card.teal { --tone: var(--c-teal); }
+.crit-field-card.cyan { --tone: var(--c-cyan); }
+.crit-field-card.blue { --tone: var(--c-blue); }
+
+.crit-field-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.crit-field-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--tone);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+/* 분야 이니셜 사각 뱃지 */
+.crit-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background-color: var(--tone);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.crit-field-desc {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 230px;
+  min-height: 38px;
+}
+
+.crit-field-card .crit-dot-list {
+  margin-top: 4px;
+}
+
+.crit-code-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+/* ===== 05. 유공자 분야 ===== */
+.crit-merit-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 18px 22px;
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  margin-top: 16px;
+}
+
+.crit-merit-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.crit-merit-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.crit-merit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 880px;
+  margin: 16px auto 0;
+}
+
+.crit-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 14px 18px;
+  background-color: var(--bg-sky);
+  border-radius: 8px;
+}
+
+.crit-info-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--c-cyan);
+}
+
+.crit-info-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.crit-info-desc {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.crit-info-box .crit-dot-list {
+  font-size: 12px;
+  gap: 4px;
+}
+
+.crit-class-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.crit-class-item.divider {
+  border-top: 1px solid #dfe9f0;
+  padding-top: 10px;
+  margin-top: 4px;
+}
+
+/* ===== 하단 2단 ===== */
+.crit-bottom-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+  padding-bottom: 20px;
+}
+
+/* 명예의 전당 패널 */
+.crit-hall-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 18px 22px;
+  background-color: var(--bg-lavender);
+  border-radius: 10px;
+}
+
+.crit-hall-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.01em;
+  margin: 4px 0 0;
+}
+
+.crit-hall-desc {
+  font-size: 12px;
+  color: #4b5563;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.crit-hall-note {
+  font-size: 11px;
+  color: #9ca3af;
+  margin: -4px 0 0;
+}
+
+.crit-score-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.crit-score-box {
+  flex: 0 1 164px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 10px;
+  background-color: #ffffff;
+  border: 1px solid #e3e7f2;
+  border-radius: 8px;
+}
+
+.crit-score-label {
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.crit-score-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--c-blue);
+  letter-spacing: -0.01em;
+}
+
+.crit-score-sub {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.crit-benefit-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #e3e7f2;
+}
+
+.crit-benefit-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.crit-benefit-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* 사무국 안내 카드 */
+.crit-contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 18px 22px;
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.crit-contact-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.01em;
+  margin: 4px 0 6px;
+}
+
+.crit-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+}
+
+.crit-contact-item dt {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-bottom: 3px;
+}
+
+.crit-contact-item dd {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.crit-contact-item dd a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.crit-contact-item dd.accent {
+  color: var(--c-green);
+}
+
+.crit-contact-item dd a:hover {
+  text-decoration: underline;
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 1100px) {
+  .crit-field-grid { grid-template-columns: repeat(2, 1fr); }
+  .crit-bottom-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .crit-field-grid,
+  .crit-merit-grid { grid-template-columns: 1fr; }
+  .crit-score-row { flex-wrap: wrap; }
+}
