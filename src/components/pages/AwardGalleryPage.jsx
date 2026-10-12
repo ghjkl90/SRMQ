@@ -3,8 +3,6 @@ import { useRef, useState } from 'react';
 import './SubpageLayout.css';
 import './AwardGalleryPage.css';
 
-// 사진 파일 위치: src/assets/award-gallery/{연도}/
-// 다른 페이지 이미지처럼 Vite가 import로 묶어 주므로 배포 경로(base)가 바뀌어도 그대로 보입니다.
 const IMAGES = import.meta.glob('../../assets/award-gallery/*/*.{jpg,jpeg,png,webp}', {
   eager: true,
   import: 'default',
@@ -12,13 +10,48 @@ const IMAGES = import.meta.glob('../../assets/award-gallery/*/*.{jpg,jpeg,png,we
 
 const imageSrc = (year, file) => IMAGES[`../../assets/award-gallery/${year}/${file}`];
 
-// 연도별 사진 데이터. 새 연도는 배열 맨 앞에 추가하면 탭이 최신순으로 유지됩니다.
-// 섹션 title이 null이면 소제목 없이 연도 제목 바로 아래에 사진이 놓입니다.
 const GALLERY = [
   {
     year: 2026,
     title: '2026년 SRMQ 컨벤션 사진',
-    sections: [],
+    sections: [
+      {
+        title: null,
+        photos: [
+          { file: '1.jpg', caption: '사회 – 김재룡 전임 원장님' },
+          { file: '2.jpg', caption: '대회사 – 사회적책임경영품질원 신완선 회장님' },
+          { file: '5.jpg', caption: '축사 – 사회적책임경영품질원 박성현 구 회장님' },
+          { file: '3.jpg', caption: '인사말 – 배이열 신임 원장님' },
+          { file: '4.jpg', caption: '사경원 회원 • 내빈 기념촬영' },
+        ],
+      },
+      {
+        title: '사경원 임원 국제 활동',
+        photos: [
+          {
+            file: '6.jpg',
+            caption: 'ANQ 2026 샤오미 레이준 대표 – AI를 품질에 적용한 사례 소개',
+          },
+          {
+            file: '9.jpg',
+            caption: '신완선 회장 – 2026년 ANQ 중국 (청두) 대회, 기조강연 ',
+          },
+        ],
+      },
+      {
+        title: '사경원 임원 국제 활동',
+        photos: [
+          {
+            file: '8.jpg',
+            caption: '한영넉스 한영수 회장 – 품질제일 철학',
+          },
+          {
+            file: '7.jpg',
+            caption: '한영넉스의 AI 기반 품질경영시스템',
+          },
+        ],
+      },
+    ],
   },
   {
     year: 2025,
