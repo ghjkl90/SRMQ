@@ -151,3 +151,9 @@
 .esg-mini-badge.g {
   background-color: #0d9488; /* 청록 계열 G */
 }
+
+.company-logo-card.small-logo-card img {
+  width: 45% !important;
+  height: auto !important;
+  object-fit: contain !important;
+}

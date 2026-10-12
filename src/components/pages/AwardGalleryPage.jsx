@@ -109,7 +109,7 @@ const AwardGalleryPage = () => {
             <span className="subpage-badge-kr">포상갤러리</span>
             <span className="subpage-badge-en">AWARDS &amp; EVENTS</span>
           </div>
-          <h1 className="subpage-title">포상 및 행사 갤러리</h1>
+          <h1 className="subpage-title">포상 갤러리</h1>
           <p className="subpage-desc">
             사단법인 사회적책임경영품질원의 국가경영대상/SRMQ상 시상식과 컨벤션 현장을 사진으로
             전해드립니다.

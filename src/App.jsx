@@ -82,19 +82,19 @@ export default function App() {
       return <EducationCoursePage />;
     }
 
-    if (currentSubmenu === '연구보고서') {
-      return <PolicyResearchPage />;
-    }
-
     if (currentSubmenu === '포상 갤러리') {
       return <AwardGalleryPage />;
     }
 
-    if (currentSubmenu === '기부금후원안내' || currentSubmenu === '기부금 모금액 및 활용실적') {
+    if (currentSubmenu === '정책연구 개요') {
+      return <PolicyResearchPage />;
+    }
+
+    if (currentSubmenu === '기부금후원안내') {
       return <DonationPage />;
     }
 
-    if (currentSubmenu === '공지사항' || currentSubmenu === '사경원 뉴스') {
+    if (currentSubmenu === '공지사항') {
       return <NoticePage />;
     }
 
@@ -122,7 +122,6 @@ export default function App() {
     if (
       currentSubmenu.includes('발전방향') || 
       currentSubmenu.includes('FUTURE') ||
-      currentSubmenu === 'SRMQ명예의전당' ||
       currentSubmenu.includes('방향')
     ) {
       return <FuturePage />;

@@ -9,7 +9,6 @@ const getImgSrc = (fileName) => {
   return match ? images[match].default : '';
 };
 
-// 각 기업별로 이미지 파일명과 하단에 들어갈 뱃지(esg) 배열을 정의합니다.
 const esgData = [
   {
     category: '산업재',
@@ -71,7 +70,8 @@ const esgData = [
       { img: '커뮤니케이션서비스1.png', badges: ['E', 'S', 'G'] },
       { img: '커뮤니케이션서비스2.png', badges: ['E', 'S', 'G'] },
       { img: '커뮤니케이션서비스3.png', badges: ['E', 'S', 'G'] },
-      { img: '커뮤니케이션서비스4.png', badges: ['E', 'G'] },
+      { img: '커뮤니케이션서비스4.png', badges: ['S'] },
+      { img: '커뮤니케이션서비스5.png', badges: ['S'] },
     ],
   },
   {
@@ -148,30 +148,37 @@ export default function BestEsgPage() {
           </div>
 
           {/* 섹터별 기업 로고 그리드 및 우측 하단 E·S·G 미니 뱃지 렌더링 */}
-          <div className="esg-matrix-container">
-            {esgData.map((row, idx) => (
-              <div key={idx} className="esg-category-row">
-                <div className="sector-title-cell">{row.category}</div>
-                <div className="companies-grid">
-                  {row.companies.map((comp, imgIdx) => (
-                    <div key={imgIdx} className="company-logo-card">
-                      <img src={getImgSrc(comp.img)} alt={`${row.category} 로고 ${imgIdx + 1}`} />
-                      
-                      {/* 우측 하단 E·S·G 작은 박스 추가 */}
-                      <div className="esg-badge-wrapper">
-                        {comp.badges.map((b, bIdx) => (
-                          <span key={bIdx} className={`esg-mini-badge ${b.toLowerCase()}`}>
-                            {b}
-                          </span>
-                        ))}
-                      </div>
+<div className="esg-matrix-container">
+  {esgData.map((row, idx) => (
+    <div key={idx} className="esg-category-row">
+      <div className="sector-title-cell">{row.category}</div>
+      <div className="companies-grid">
+        {row.companies.map((comp, imgIdx) => {
+          // 커뮤니케이션서비스5.png 인지 확인
+          const isSmallLogo = comp.img === '커뮤니케이션서비스5.png';
 
-                    </div>
-                  ))}
-                </div>
+          return (
+            <div 
+              key={imgIdx} 
+              className={`company-logo-card ${isSmallLogo ? 'small-logo-card' : ''}`}
+            >
+              <img src={getImgSrc(comp.img)} alt={`${row.category} 로고 ${imgIdx + 1}`} />
+              
+              {/* 우측 하단 E·S·G 작은 박스 추가 */}
+              <div className="esg-badge-wrapper">
+                {comp.badges.map((b, bIdx) => (
+                  <span key={bIdx} className={`esg-mini-badge ${b.toLowerCase()}`}>
+                    {b}
+                  </span>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  ))}
+</div>
         </div>
 
       </div>

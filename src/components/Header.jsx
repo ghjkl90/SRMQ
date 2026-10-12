@@ -7,17 +7,17 @@ export default function Header({ currentMenu, setCurrentMenu, onSelectSubmenu })
     {
       id: 'home',
       label: '사경원 소개',
-      submenus: ['인사말', '설립목적', '연혁', '조직도', 'C.I.', '오시는길']
+      submenus: ['인사말', '설립목적', '연혁', '조직도', '발전방향', 'C.I.', '오시는길']
     },
     {
       id: 'eval',
       label: '진단/평가',
-      submenus: ['사회책임 진단/평가', 'ESG경영 진단/평가', '경영품질 진단/평가', 'ISO 26000 운영수준 진단']
+      submenus: ['진단 · 평가 프로세스']
     },
     {
       id: 'award',
       label: 'SRMQ포상',
-      submenus: ['의의 및 분야', '분야별 응모 및 시상 기준', '포상 심사 및 운영 절차', '역대 수상조직', 'SRMQ명예의전당', '포상 갤러리']
+      submenus: ['의의 및 분야', '분야별 응모 및 시상 기준', '포상 심사 및 운영 절차', '역대 수상조직', '포상 갤러리']
     },
     {
       id: 'edu',
@@ -29,17 +29,17 @@ export default function Header({ currentMenu, setCurrentMenu, onSelectSubmenu })
     {
       id: 'research',
       label: '정책연구',
-      submenus: ['연구보고서', '정책제안']
+      submenus: ['정책연구 개요']
     },
     {
       id: 'donation',
       label: '기부금후원',
-      submenus: ['기부금후원안내', '기부자 현황', '기부금 모금액 및 활용실적']
+      submenus: ['기부금후원안내', '회원 안내']
     },
     {
       id: 'notice',
       label: '공지사항',
-      submenus: ['공지사항', '사경원 뉴스']
+      submenus: ['공지사항']
     }
   ];
 
@@ -70,7 +70,6 @@ export default function Header({ currentMenu, setCurrentMenu, onSelectSubmenu })
       }}
     >
       <div className="header-inner">
-        {/* 로고 */}
         <div className="header-logo" onClick={() => handleSubmenuClick('home', '표지')}>
           <img src={logoImg} alt="사회책임경영품질원 로고" />
         </div>

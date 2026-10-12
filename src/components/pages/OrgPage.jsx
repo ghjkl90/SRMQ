@@ -109,14 +109,14 @@ export default function OrgPage() {
             </tr>
             <tr>
               <td>박성현</td>
-              <td>2016.02 ~ 현재</td>
+              <td>2016.02 ~ 2026.09</td>
               <td style={{ textAlign: 'left', paddingLeft: '20px' }}>
                 (전)한국과학기술한림원 원장<br />서울대학교 명예교수
               </td>
             </tr>
             <tr>
               <td>신완선</td>
-              <td>2026.09.01 (예정)</td>
+              <td>2026.10.01 ~ 현재</td>
               <td style={{ textAlign: 'left', paddingLeft: '20px' }}>
                 (전)아시아품질협회 ANQ 의장<br />(전)세계품질한림원 IAQ 석학
               </td>
