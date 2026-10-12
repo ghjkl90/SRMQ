@@ -21,7 +21,7 @@ import PolicyResearchPage from './components/pages/PolicyResearchPage';
 import DonationPage from './components/pages/DonationPage';
 import NoticePage from './components/pages/NoticePage';
 import AwardGalleryPage from './components/pages/AwardGalleryPage';
-
+import OperationPlanPage from './components/pages/OperationPlanPage';
 
 export default function App() {
   const [currentMenu, setCurrentMenu] = useState('home');
@@ -80,6 +80,10 @@ export default function App() {
 
     if (currentSubmenu === '교육과정') {
       return <EducationCoursePage />;
+    }
+
+    if (currentSubmenu === '운영 계획') {
+      return <OperationPlanPage />;
     }
 
     if (currentSubmenu === '포상 갤러리') {

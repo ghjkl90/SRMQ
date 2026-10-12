@@ -7,7 +7,7 @@ export default function Header({ currentMenu, setCurrentMenu, onSelectSubmenu })
     {
       id: 'home',
       label: '사경원 소개',
-      submenus: ['인사말', '설립목적', '연혁', '조직도', '발전방향', 'C.I.', '오시는길']
+      submenus: ['인사말', '설립목적', '연혁', '조직도', '발전방향', '운영 계획', 'C.I.', '오시는길']
     },
     {
       id: 'eval',
