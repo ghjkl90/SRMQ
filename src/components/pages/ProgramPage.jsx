@@ -33,7 +33,7 @@ export default function CoverPage() {
       {/* 상단 로고 및 타이틀 영역 */}
       <div>
         <h1 style={{ fontSize: '56px', fontWeight: '700', color: '#111827', margin: '80px 0 8px 0', lineHeight: '1.2' }}>
-          사회책임경영품질원
+          사회적책임경영품질원
         </h1>
         <p style={{ fontSize: '26px', fontWeight: '600', color: '#82C91E', margin: '0 0 20px 0' }}>
           Social Responsibility & Management Quality Institute
