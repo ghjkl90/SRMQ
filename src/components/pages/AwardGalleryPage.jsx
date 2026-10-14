@@ -13,16 +13,16 @@ const imageSrc = (year, file) => IMAGES[`../../assets/award-gallery/${year}/${fi
 const GALLERY = [
   {
     year: 2026,
-    title: '2026년 SRMQ 컨벤션 사진',
+    title: '2026년 임시 이사회',
     sections: [
       {
         title: null,
         photos: [
-          { file: '1.jpg', caption: '사회 – 김재룡 전임 원장님' },
-          { file: '2.jpg', caption: '대회사 – 사회적책임경영품질원 신완선 회장님' },
-          { file: '5.jpg', caption: '축사 – 사회적책임경영품질원 박성현 구 회장님' },
+          { file: '5.jpg', caption: '이임사 – 사회적책임경영품질원 박성현 전임 회장님' },
+          { file: '1.jpg', caption: '경과보고 – 김재룡 전임 원장님' },
+          { file: '2.jpg', caption: '취임사 – 사회적책임경영품질원 신완선 회장님' },
           { file: '3.jpg', caption: '인사말 – 배이열 신임 원장님' },
-          { file: '4.jpg', caption: '사경원 회원 • 내빈 기념촬영' },
+          { file: '4.jpg', caption: '사경원 이사회 단체사진' },
         ],
       },
       {
@@ -36,10 +36,14 @@ const GALLERY = [
             file: '9.jpg',
             caption: '신완선 회장 – 2026년 ANQ 중국 (청두) 대회, 기조강연 ',
           },
+          {
+            file: '10.jpg',
+            caption: 'ANQ 스리랑카 임원진 소개 (2029년 ANQ 개최)',
+          },
         ],
       },
       {
-        title: '사경원 임원 국제 활동',
+        title: '기획재정부 장관상 수상자 동향',
         photos: [
           {
             file: '8.jpg',
@@ -377,7 +381,7 @@ const AwardGalleryPage = () => {
             <span className="subpage-badge-kr">포상갤러리</span>
             <span className="subpage-badge-en">AWARDS &amp; EVENTS</span>
           </div>
-          <h1 className="subpage-title">포상 갤러리</h1>
+          <h1 className="subpage-title">포상 및 활동 갤러리</h1>
           <p className="subpage-desc">
             사단법인 사회적책임경영품질원의 국가경영대상/SRMQ상 시상식과 컨벤션 현장을 사진으로
             전해드립니다.
