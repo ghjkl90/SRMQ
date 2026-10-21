@@ -66,3 +66,71 @@
   color: #6b7280;
   padding-top: 16px;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 1024px) {
+  .cover-container {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    overflow: visible;
+  }
+  .cover-container {
+    padding: 40px;
+    justify-content: flex-start;
+    gap: 24px;
+  }
+
+  .cover-footer {
+    margin-top: auto;
+  }
+
+  .cover-title {
+    font-size: 40px;
+  }
+
+  .cover-subtitle {
+    font-size: 21px;
+  }
+
+  .cover-image-wrapper {
+    height: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cover-container {
+    padding: 28px 20px 20px;
+  }
+
+  .cover-title {
+    font-size: 30px;
+    word-break: keep-all;
+  }
+
+  .cover-subtitle {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+
+  .cover-desc {
+    font-size: 14px;
+    word-break: keep-all;
+  }
+
+  .cover-image-wrapper {
+    height: 220px;
+  }
+
+  .cover-footer {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    font-size: 12px;
+  }
+}

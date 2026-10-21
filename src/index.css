@@ -23,3 +23,92 @@ body {
 .font-subtitle { font-size: var(--font-subtitle); font-weight: 600; line-height: 1.4; }
 .font-body { font-size: var(--font-body); font-weight: 400; line-height: 1.6; }
 .font-caption { font-size: var(--font-caption); font-weight: 400; line-height: 1.4; }
+
+/* =========================================================
+   앱 전체 틀 (App.jsx)
+   - PC(1025px 이상): 화면 높이에 고정, 각 페이지 안에서 스크롤 (기존 방식 그대로)
+   - 모바일·태블릿(1024px 이하): 문서 전체가 자연스럽게 스크롤, 헤더는 상단 고정
+   ========================================================= */
+:root {
+  --header-h: 72px; /* 헤더 높이. 페이지 높이 계산에 함께 쓰입니다 */
+}
+
+.app-shell {
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-main-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+/* 없는 주소 안내 */
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 60vh;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.not-found-link {
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 4px;
+  background-color: #82C91E;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --header-h: 64px;
+  }
+
+  .app-shell {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
+  .app-main {
+    overflow: visible;
+  }
+
+  .app-main-inner {
+    height: auto;
+    flex: 1;
+  }
+
+  /* 긴 영문·주소가 화면 밖으로 밀려나지 않도록 */
+  body {
+    overflow-wrap: break-word;
+    -webkit-text-size-adjust: 100%;
+  }
+}

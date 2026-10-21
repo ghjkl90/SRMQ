@@ -94,3 +94,84 @@
   border-top: 1px solid #e5e7eb;
   background-color: #ffffff;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 1024px) {
+  .location-container {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    overflow: visible;
+  }
+
+  .location-content-wrap {
+    padding: 40px 40px 64px;
+  }
+
+  .location-bottom-bar {
+    padding: 16px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .location-content-wrap {
+    padding: 32px 20px 56px;
+  }
+
+  .location-header {
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .location-badge-box {
+    flex-wrap: wrap;
+  }
+
+  .location-badge-box .badge-kr,
+  .location-badge-box .badge-en {
+    font-size: 12px;
+  }
+
+  .location-title {
+    font-size: 22px;
+    line-height: 1.35;
+    word-break: keep-all;
+  }
+
+  .location-bottom-bar {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 14px 20px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .location-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .location-map-wrapper {
+    height: 460px;
+  }
+}
+
+@media (max-width: 768px) {
+  .location-map-wrapper {
+    height: 360px;
+    margin: 0 auto 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .location-map-wrapper {
+    height: 300px;
+  }
+}

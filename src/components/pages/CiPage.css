@@ -20,3 +20,15 @@
   object-fit: contain;
   image-rendering: -webkit-optimize-contrast;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 768px) {
+  .ci-info-img-wrapper {
+    padding: 0 0 16px 0;
+    border-radius: 6px;
+  }
+}

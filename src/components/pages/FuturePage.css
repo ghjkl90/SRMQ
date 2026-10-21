@@ -84,3 +84,48 @@
   object-fit: cover;
   object-position: center;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 1024px) {
+  .future-row-card {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .future-grid-section {
+    gap: 12px;
+  }
+
+  /* 글 → 사진 순서로 한 줄씩 */
+  .future-row-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 12px 0;
+  }
+
+  .future-row-card .future-square-image-box {
+    order: 2;
+    aspect-ratio: 16 / 10;
+    max-height: none;
+    border-radius: 12px;
+  }
+
+  .future-text-group {
+    gap: 28px;
+  }
+
+  .future-text-group .strategy-title {
+    font-size: 16px;
+    word-break: keep-all;
+  }
+
+  .strategy-desc {
+    font-size: 13.5px;
+    word-break: keep-all;
+  }
+}

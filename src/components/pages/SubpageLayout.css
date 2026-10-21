@@ -87,10 +87,26 @@
   background-color: #ffffff;
 }
 
-/* 반응형 */
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   - 1024px 이하에서는 페이지 박스가 화면 높이에 고정되지 않고
+     내용 길이만큼 늘어나며, 문서 전체가 스크롤됩니다.
+   ========================================================== */
 @media (max-width: 1024px) {
+  .subpage-container {
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    overflow: visible;
+    scrollbar-gutter: auto;
+  }
+
   .subpage-content {
     padding: 40px 40px 64px;
+  }
+
+  .subpage-bottom-bar {
+    padding: 16px 40px;
   }
 }
 
@@ -100,10 +116,39 @@
   }
 
   .subpage-header {
+    gap: 16px;
     margin-bottom: 36px;
+  }
+
+  .subpage-badge-box {
+    flex-wrap: wrap;
+  }
+
+  .subpage-badge-kr,
+  .subpage-badge-en {
+    font-size: 12px;
   }
 
   .subpage-title {
     font-size: 22px;
+    line-height: 1.35;
+    word-break: keep-all;
+  }
+
+  .subpage-bottom-bar {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 14px 20px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .subpage-title {
+    font-size: 20px;
+  }
+
+  .subpage-desc {
+    font-size: 13.5px;
   }
 }

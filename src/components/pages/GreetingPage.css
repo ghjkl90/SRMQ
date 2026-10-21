@@ -118,3 +118,74 @@
 .highlight-trust {
   color: #8EB62B;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 1024px) {
+  .greeting-container {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    overflow: visible;
+  }
+  .greeting-container {
+    padding: 40px 40px 24px;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 세로로 긴 화면: 사진은 하단에 가로폭 맞춤으로 두고, 글씨가 사진 위에 와도 읽히도록 어둡게 덮음 */
+  .greeting-container {
+    padding: 32px 20px 20px;
+    gap: 28px;
+    background:
+      linear-gradient(to bottom, #0B4F4A 0%, #0B4F4A calc(100% - 320px), rgba(11, 79, 74, 0.8) calc(100% - 150px), rgba(11, 79, 74, 0.72) 100%),
+      url('../../assets/greenting.png') center bottom / 100% auto no-repeat,
+      #0B4F4A;
+  }
+
+  .greeting-badge-box {
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .greeting-badge-box .badge-kr,
+  .greeting-badge-box .badge-en {
+    font-size: 12px;
+  }
+
+  .greeting-title {
+    font-size: 26px;
+    margin-bottom: 18px;
+    word-break: keep-all;
+  }
+
+  .greeting-desc-box {
+    gap: 12px;
+  }
+
+  .greeting-desc {
+    font-size: 14px;
+    line-height: 1.75;
+    word-break: keep-all;
+  }
+
+  .author-name {
+    font-size: 19px;
+  }
+
+  .greeting-bottom-bar {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .greeting-title {
+    font-size: 23px;
+  }
+}

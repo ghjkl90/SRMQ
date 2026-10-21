@@ -1,0 +1,176 @@
+/* src/components/pages/ProgramPage.css
+   첫 화면(도메인/). 기존 인라인 스타일 값을 그대로 옮겨 왔습니다. */
+
+.program-container {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  padding: 40px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.program-title {
+  font-size: 56px;
+  font-weight: 700;
+  color: #111827;
+  margin: 80px 0 8px 0;
+  line-height: 1.2;
+}
+
+.program-subtitle {
+  font-size: 26px;
+  font-weight: 600;
+  color: #82C91E;
+  margin: 0 0 20px 0;
+}
+
+.program-desc {
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 700px;
+}
+
+/* 사진 슬라이더 */
+.program-slider {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  margin: 16px 0;
+  overflow: hidden;
+}
+
+.program-slider-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.program-slide {
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.program-dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.program-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.program-dot.is-active {
+  width: 24px;
+  background-color: #82C91E;
+}
+
+/* 하단 법적 고지 */
+.program-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #9ca3af;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 16px;
+}
+
+/* ==========================================================
+   반응형
+   ========================================================== */
+@media (max-width: 1024px) {
+  .program-container {
+    justify-content: flex-start;
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    padding: 32px 40px 24px;
+  }
+
+  .program-title {
+    font-size: 44px;
+    margin-top: 24px;
+  }
+
+  .program-subtitle {
+    font-size: 21px;
+  }
+
+  .program-slider {
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin: 28px 0;
+  }
+
+  .program-footer {
+    margin-top: auto; /* 내용이 짧으면 하단 고지를 화면 맨 아래로 */
+  }
+}
+
+@media (max-width: 768px) {
+  .program-container {
+    padding: 28px 20px 20px;
+  }
+
+  .program-title {
+    font-size: 32px;
+    margin-top: 8px;
+    word-break: keep-all;
+  }
+
+  .program-subtitle {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
+
+  .program-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    word-break: keep-all;
+  }
+
+  .program-slider {
+    aspect-ratio: 4 / 3;
+    margin: 24px 0;
+  }
+
+  .program-dots {
+    bottom: 12px;
+  }
+
+  .program-footer {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .program-title {
+    font-size: 27px;
+  }
+
+  .program-subtitle {
+    font-size: 14.5px;
+  }
+}

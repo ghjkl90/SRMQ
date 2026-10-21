@@ -157,3 +157,48 @@
   height: auto !important;
   object-fit: contain !important;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 768px) {
+  .esg-info-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .esg-bullet-list li {
+    word-break: keep-all;
+  }
+
+  .esg-matrix-container {
+    gap: 14px;
+  }
+
+  /* 업종명은 위, 로고는 아래 격자로 */
+  .esg-category-row {
+    flex-direction: column;
+    gap: 6px;
+    min-height: 0;
+  }
+
+  .sector-title-cell {
+    width: auto;
+    justify-content: flex-start;
+    padding: 7px 12px;
+  }
+
+  .companies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 6px;
+  }
+
+  .company-logo-card {
+    width: auto;
+    height: 64px;
+    padding: 6px 10px;
+  }
+}

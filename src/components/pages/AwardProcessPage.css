@@ -78,3 +78,28 @@
   .proc-grid { grid-template-columns: 1fr; }
   .proc-desc { max-width: none; }
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 768px) {
+  .proc-banner {
+    height: 180px;
+  }
+
+  .proc-grid {
+    margin-top: 8px;
+  }
+
+  .proc-desc {
+    word-break: keep-all;
+  }
+}
+
+@media (max-width: 480px) {
+  .proc-banner {
+    height: 150px;
+  }
+}

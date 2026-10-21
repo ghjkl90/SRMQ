@@ -134,3 +134,75 @@
   padding-top: 16px;
   border-top: 1px solid #e5e7eb;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 1024px) {
+  .vision-container {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    overflow: visible;
+  }
+  .vision-container {
+    padding: 32px 40px 24px;
+    gap: 32px;
+  }
+
+  .vision-image-wrapper {
+    height: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .vision-container {
+    padding: 28px 20px 20px;
+  }
+
+  .vision-badge-box {
+    flex-wrap: wrap;
+  }
+
+  .vision-badge-box .badge-kr,
+  .vision-badge-box .badge-en {
+    font-size: 12px;
+  }
+
+  .vision-image-wrapper {
+    height: 200px;
+  }
+
+  .vision-intro-text {
+    font-size: 14.5px;
+    text-align: left;
+    word-break: keep-all;
+  }
+
+  .vision-list {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .vision-item {
+    padding: 18px 20px;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .vision-number {
+    font-size: 28px;
+  }
+
+  .vision-item-title {
+    font-size: 20px;
+  }
+
+  .vision-bottom-bar {
+    font-size: 12px;
+  }
+}

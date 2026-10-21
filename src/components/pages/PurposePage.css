@@ -203,3 +203,105 @@
   border-top: 1px solid #e5e7eb;
   background-color: #ffffff;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 1024px) {
+  .purpose-container {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    overflow: visible;
+  }
+
+  .purpose-hero-content {
+    padding: 0 40px;
+  }
+
+  .purpose-content {
+    padding: 40px 40px 56px;
+  }
+
+  .business-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .purpose-bottom-bar {
+    padding: 16px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .purpose-hero {
+    min-height: 0;
+    padding: 36px 0 40px;
+  }
+
+  .purpose-hero-content {
+    padding: 0 20px;
+  }
+
+  .purpose-badge-box {
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .purpose-badge-box .badge-kr,
+  .purpose-badge-box .badge-en {
+    font-size: 12px;
+  }
+
+  .purpose-tag {
+    font-size: 13px;
+  }
+
+  .purpose-hero-title {
+    font-size: 18px;
+    line-height: 1.55;
+    word-break: keep-all;
+  }
+
+  /* 좁은 화면에서는 강제 줄바꿈 대신 자연스럽게 줄바꿈 */
+  .purpose-hero-title br {
+    display: none;
+  }
+
+  .purpose-content {
+    padding: 32px 20px 48px;
+  }
+
+  .purpose-content .section-title {
+    font-size: 22px;
+    margin-bottom: 24px;
+  }
+
+  .business-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .business-card {
+    flex-direction: row;
+    gap: 14px;
+  }
+
+  .business-name {
+    font-size: 16px;
+    word-break: keep-all;
+  }
+
+  .business-desc {
+    word-break: keep-all;
+  }
+
+  .purpose-bottom-bar {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 14px 20px;
+    font-size: 12px;
+  }
+}

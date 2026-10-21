@@ -1,5 +1,6 @@
 // src/components/pages/NoticePage.jsx
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { NOTICES } from "./noticeData";
 import "./NoticePage.css";
 
@@ -446,12 +447,19 @@ const NoticePage = ({ notices = NOTICES, onSelectNotice }) => {
   const [keywordInput, setKeywordInput] = useState("");
   const [keyword, setKeyword] = useState("");
   const [selectedId, setSelectedId] = useState(readNoticeNoFromUrl);
+  const location = useLocation();
+
+  // 상단 메뉴의 '공지사항'을 누르는 등 라우터로 주소가 바뀌면 그 주소에 맞춰 목록/상세 전환
+  useEffect(() => {
+    setSelectedId(readNoticeNoFromUrl());
+  }, [location.key]);
 
   // 브라우저 뒤로가기/앞으로가기 → 주소의 글 번호에 맞춰 목록/상세 전환
   useEffect(() => {
     const handlePopState = () => {
       setSelectedId(readNoticeNoFromUrl());
       containerRef.current?.scrollTo({ top: 0 });
+      window.scrollTo({ top: 0 });
     };
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
@@ -484,7 +492,11 @@ const NoticePage = ({ notices = NOTICES, onSelectNotice }) => {
   const nextNotice =
     selectedIndex >= 0 && selectedIndex < filtered.length - 1 ? filtered[selectedIndex + 1] : null;
 
-  const scrollToTop = () => containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+  // PC는 페이지 박스 안에서, 모바일은 문서 전체가 스크롤되므로 둘 다 맨 위로
+  const scrollToTop = () => {
+    containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const changePage = (p) => {
     setPage(p);

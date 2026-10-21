@@ -210,3 +210,121 @@
   border-top: 1px solid #e5e7eb;
   background-color: #ffffff;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 1024px) {
+  .history-container {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    overflow: visible;
+  }
+
+  .history-content-wrap {
+    padding: 40px 40px 64px;
+  }
+
+  .history-bottom-bar {
+    padding: 16px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .history-content-wrap {
+    padding: 32px 20px 56px;
+  }
+
+  .history-header {
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .history-badge-box {
+    flex-wrap: wrap;
+  }
+
+  .history-badge-box .badge-kr,
+  .history-badge-box .badge-en {
+    font-size: 12px;
+  }
+
+  .history-title {
+    font-size: 22px;
+    line-height: 1.35;
+    word-break: keep-all;
+  }
+
+  .history-bottom-bar {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 14px 20px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .history-title {
+    font-size: 20px;
+  }
+}
+
+/* 모바일: 연혁 카드를 사진 위에 띄우지 않고 사진 영역 안에서 내용 높이만큼 늘어나게 */
+@media (max-width: 768px) {
+  .history-image-wrapper {
+    height: auto;
+    min-height: 320px;
+    padding: 14px;
+    box-sizing: border-box;
+  }
+
+  .history-image-wrapper img {
+    position: absolute;
+    inset: 0;
+  }
+
+  .history-card-overlay {
+    position: relative;
+    top: auto;
+    left: auto;
+    max-width: none;
+    padding: 20px 16px;
+  }
+
+  .history-card-title {
+    font-size: 15px;
+    line-height: 1.45;
+    word-break: keep-all;
+  }
+
+  .timeline-desc {
+    word-break: keep-all;
+  }
+
+  .contact-section-title {
+    font-size: 17px;
+  }
+
+  .contact-grid {
+    gap: 12px;
+  }
+
+  .contact-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .contact-label {
+    width: auto;
+  }
+
+  .contact-value {
+    line-height: 1.5;
+    word-break: keep-all;
+  }
+}

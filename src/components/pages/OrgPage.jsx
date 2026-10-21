@@ -60,6 +60,7 @@ export default function OrgPage() {
 
         {/* 2. SRMQ 역대 위원장 / 회장 섹션 */}
         <h3 className="org-section-title table-title-spacing">SRMQ 역대 위원장 / 회장</h3>
+        <div className="org-table-wrap">
         <table className="org-table">
           <thead>
             <tr>
@@ -123,6 +124,7 @@ export default function OrgPage() {
             </tr>
           </tbody>
         </table>
+        </div>
 
       </div>
 

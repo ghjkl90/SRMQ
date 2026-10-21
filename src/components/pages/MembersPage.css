@@ -155,3 +155,38 @@
   font-weight: 700;
   color: #059669;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 768px) {
+  .member-section-box {
+    padding: 20px 16px;
+    gap: 10px;
+  }
+
+  .member-section-box .section-title {
+    font-size: 18px;
+  }
+
+  .member-list li {
+    word-break: keep-all;
+  }
+
+  .member-table th,
+  .member-table td {
+    padding: 10px 8px;
+    font-size: 12.5px;
+  }
+
+  .corporate-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .corp-card {
+    padding: 18px;
+  }
+}

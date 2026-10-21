@@ -366,3 +366,49 @@
     margin-left: 0;
   }
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 768px) {
+  .donation-greeting {
+    margin-bottom: 32px;
+  }
+
+  .donation-greeting p {
+    font-size: 13.5px;
+  }
+
+  .donation-step-title {
+    font-size: 16px;
+  }
+
+  /* 가/나/다 표시는 왼쪽 칸에 고정, 글과 부가 표시(기간·혜택 뱃지)는 오른쪽 칸에 */
+  .donation-mark-item {
+    display: grid;
+    grid-template-columns: 18px minmax(0, 1fr);
+    column-gap: 8px;
+    row-gap: 6px;
+    align-items: start;
+    font-size: 13.5px;
+  }
+
+  .donation-mark-item > :nth-child(n + 3) {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .donation-mark {
+    margin-top: 2px;
+  }
+
+  .donation-account-number {
+    font-size: 15px;
+  }
+
+  .donation-contact-list li {
+    font-size: 13.5px;
+  }
+}

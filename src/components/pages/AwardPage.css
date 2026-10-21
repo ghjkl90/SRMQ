@@ -177,3 +177,108 @@
   border-top: 1px solid #e5e7eb;
   background-color: #ffffff;
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 1024px) {
+  .award-container {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    overflow: visible;
+  }
+
+  .award-content-wrap {
+    padding: 40px 40px 64px;
+  }
+
+  .award-bottom-bar {
+    padding: 16px 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .award-content-wrap {
+    padding: 32px 20px 56px;
+  }
+
+  .award-header {
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .award-badge-box {
+    flex-wrap: wrap;
+  }
+
+  .award-badge-box .badge-kr,
+  .award-badge-box .badge-en {
+    font-size: 12px;
+  }
+
+  .award-title {
+    font-size: 22px;
+    line-height: 1.35;
+    word-break: keep-all;
+  }
+
+  .award-bottom-bar {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    padding: 14px 20px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .award-title {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .award-cards-grid.grid-6 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .award-cards-grid.grid-5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .award-desc {
+    line-height: 1.6;
+    word-break: keep-all;
+  }
+
+  .award-image-wrapper {
+    height: 160px;
+  }
+
+  .award-section-box {
+    padding: 16px;
+  }
+
+  .award-cards-grid.grid-6,
+  .award-cards-grid.grid-5 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-card {
+    font-size: 13px;
+  }
+
+  .award-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-card-desc {
+    word-break: keep-all;
+  }
+}

@@ -147,3 +147,46 @@
     gap: 40px;
   }
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 768px) {
+  /* 연도 탭이 많아도 가로로 밀어서 볼 수 있게 */
+  .award-gallery-toolbar {
+    gap: 12px;
+  }
+
+  .award-gallery-tabs {
+    flex: 1;
+    min-width: 0;
+    gap: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .award-gallery-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .award-gallery-tab {
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+
+  .award-gallery-total {
+    flex-shrink: 0;
+    font-size: 12px;
+  }
+
+  .award-gallery-grid {
+    gap: 24px 16px;
+  }
+
+  .award-gallery-item figcaption {
+    font-size: 13.5px;
+  }
+}

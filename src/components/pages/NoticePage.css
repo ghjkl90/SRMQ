@@ -841,3 +841,51 @@
     display: none;
   }
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 1024px) {
+  .notice-container {
+    width: 100%;
+    height: auto;
+    min-height: calc(100vh - var(--header-h));
+    min-height: calc(100dvh - var(--header-h));
+    overflow: visible;
+  }
+}
+
+@media (max-width: 768px) {
+  .notice-header {
+    gap: 16px;
+  }
+
+  .notice-badge-box {
+    flex-wrap: wrap;
+  }
+
+  .notice-badge-kr,
+  .notice-badge-en {
+    font-size: 12px;
+  }
+
+  .notice-pagination {
+    flex-wrap: wrap;
+  }
+
+  .notice-detail-head {
+    padding: 22px 0 18px;
+  }
+
+  .notice-detail-body {
+    padding: 22px 0 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notice-title {
+    font-size: 20px;
+  }
+}

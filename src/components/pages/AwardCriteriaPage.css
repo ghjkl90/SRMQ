@@ -385,3 +385,40 @@
   .crit-merit-grid { grid-template-columns: 1fr; }
   .crit-score-row { flex-wrap: wrap; }
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 720px) {
+  .crit-field-desc {
+    max-width: none;
+    min-height: 0;
+  }
+
+  .crit-code-row {
+    padding-top: 8px;
+  }
+
+  .crit-merit-head {
+    flex-wrap: wrap;
+  }
+
+  .crit-merit-grid {
+    margin-top: 14px;
+  }
+
+  .crit-score-box {
+    flex: 1 1 90px;
+  }
+
+  .crit-hall-title,
+  .crit-contact-title {
+    word-break: keep-all;
+  }
+
+  .crit-contact-item dd {
+    word-break: break-all;
+  }
+}

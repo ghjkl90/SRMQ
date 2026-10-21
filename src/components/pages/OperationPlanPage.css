@@ -197,3 +197,39 @@
     font-size: 13px;
   }
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 768px) {
+  .plan-section-box {
+    padding: 20px 16px;
+    gap: 10px;
+  }
+
+  .plan-section-title {
+    font-size: 18px;
+  }
+
+  .plan-card {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .plan-vision-banner {
+    font-size: 14px;
+    padding: 12px 14px;
+  }
+
+  .plan-vision-roof {
+    font-size: 8.5px;
+    letter-spacing: 0.08em;
+  }
+
+  .plan-vision-base {
+    font-size: 12px;
+  }
+}

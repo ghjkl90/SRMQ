@@ -551,3 +551,49 @@
   .edu-section-head { flex-wrap: wrap; }
   .edu-section-aside { margin-left: 0; width: 100%; }
 }
+
+
+/* ==========================================================
+   반응형 (태블릿 1024px 이하 · 모바일 768px 이하 · 소형 480px 이하)
+   1024px 이하에서는 페이지가 화면 높이에 고정되지 않고 내용만큼 늘어납니다.
+   ========================================================== */
+@media (max-width: 720px) {
+  .edu-section {
+    margin-top: 16px;
+  }
+
+  .edu-section-title {
+    font-size: 16px;
+    word-break: keep-all;
+  }
+
+  .edu-overview {
+    padding: 16px 14px 18px;
+  }
+
+  .edu-ov-desc,
+  .edu-dot-list,
+  .edu-custom-desc {
+    word-break: keep-all;
+  }
+
+  .edu-custom {
+    padding: 14px;
+  }
+
+  .edu-table-note {
+    text-align: left;
+    margin: -6px 0 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .edu-banner {
+    height: 160px;
+  }
+
+  .edu-req-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
