@@ -96,6 +96,15 @@ Figma로 정밀 설계된 UI/UX 디자인 시안을 바탕으로, 데스크톱�
 ### 4. 검색 엔진 최적화(SEO) 및 소유권 인증
 - Google Search Console 및 Naver Search Advisor의 HTML 소유권 확인 태그(`public/google*.html`, `public/naver*.html`)를 빌드 파이프라인에 배치하고 재색인을 요청하여 포털 검색 결과 정상화 처리.
 
+### 5. Node.js 의존성 패키지 보안 취약점 조치 및 Git 동기화 트러블슈팅
+- **문제 상황:**
+  * 프로젝트 의존성 감사(`npm audit`) 결과 `nanoid`, `source-map-js`, `vite` 관련 개발 및 빌드 환경 High 등급 보안 취약점 3건 발견.
+  * 패키지 보안 패치 커밋 후 원격 저장소(`main`)로 푸시하는 과정에서, 원격 저장소와 로컬 커밋 간 히스토리 불일치로 인한 `[rejected] fetch first` 충돌 발생.
+- **해결 조치:**
+  * **보안 취약점 패치:** `npm audit fix`를 통해 버전 호환성을 유지하면서 패키지들을 안전한 최신 패치 버전으로 업데이트하여 `found 0 vulnerabilities` 달성.
+  * **Git Rebase 동기화:** `git pull --rebase origin main`을 실행하여 원격 변경 사항(README 편집 내역)을 로컬 커밋 히스토리 뒤로 병합 충돌 없이 재정렬.
+  * **최종 배포:** 동기화된 `package.json` 및 `package-lock.json`을 원격 저장소에 성공적으로 푸시하여 Vercel 프로덕션 빌드 환경까지 안전하게 갱신 완료.
+
 ---
 
 ## 🚀 시작하기 (Getting Started)
