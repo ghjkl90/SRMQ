@@ -31,6 +31,11 @@
       "permanent": true
     },
     {
+      "source": "/introduction/introduction/organization-chart/(.*)",
+      "destination": "/org",
+      "permanent": true
+    },
+    {
       "source": "/policy-and-institutional-research/policy-and-institutional-research-summary(.*)",
       "destination": "/policy-research",
       "permanent": true
