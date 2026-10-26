@@ -1,27 +1,27 @@
 {
   "redirects": [
     {
-      "source": "/srmq-reward/significance-and-field/:path*",
+      "source": "/srmq-reward/significance-and-field(.*)",
       "destination": "/award2",
       "permanent": true
     },
     {
-      "source": "/introduction/major-bussiness/:path*",
+      "source": "/introduction/major-bussiness(.*)",
       "destination": "/operation-plan",
       "permanent": true
     },
     {
-      "source": "/introduction/location/:path*",
+      "source": "/introduction/location(.*)",
       "destination": "/location",
       "permanent": true
     },
     {
-      "source": "/introduction/purpose-of-establishment/:path*",
+      "source": "/introduction/purpose-of-establishment(.*)",
       "destination": "/purpose",
       "permanent": true
     },
     {
-      "source": "/policy-and-institutional-research/policy-and-institutional-research-summary/:path*",
+      "source": "/policy-and-institutional-research/policy-and-institutional-research-summary(.*)",
       "destination": "/policy-research",
       "permanent": true
     }
