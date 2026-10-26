@@ -21,6 +21,16 @@
       "permanent": true
     },
     {
+      "source": "/introduction/history/(.*)",
+      "destination": "/history",
+      "permanent": true
+    },
+    {
+      "source": "/introduction/greeting/(.*)",
+      "destination": "/greeting",
+      "permanent": true
+    },
+    {
       "source": "/policy-and-institutional-research/policy-and-institutional-research-summary(.*)",
       "destination": "/policy-research",
       "permanent": true
