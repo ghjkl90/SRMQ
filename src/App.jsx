@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Header from './components/Header';
+import { withGuard } from './auth/RouteGuards';
 import { PAGES, REDIRECTS, SITE_NAME, findPageByPath } from './routes';
 
 // 등록되지 않은 주소로 들어왔을 때
@@ -35,8 +36,9 @@ export default function App() {
       <main className="app-main">
         <div className="app-main-inner">
           <Routes>
-            {PAGES.map(({ path, Component }) => (
-              <Route key={path} path={path} element={<Component />} />
+            {/* guard: 'auth'(로그인 필요) · 'admin'(관리자 전용) — routes.jsx 에서 지정 */}
+            {PAGES.map(({ path, Component, guard }) => (
+              <Route key={path} path={path} element={withGuard(guard, <Component />)} />
             ))}
             {REDIRECTS.map(({ from, to }) => (
               <Route key={from} path={from} element={<Navigate to={to} replace />} />

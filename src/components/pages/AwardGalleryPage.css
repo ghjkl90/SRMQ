@@ -67,6 +67,25 @@
   padding-top: 8px;
 }
 
+/* 한 연도에 앨범이 여러 개일 때 (서버 갤러리) */
+.award-gallery-album + .award-gallery-album {
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.award-gallery-album-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin-bottom: 20px;
+}
+
+.award-gallery-album-head .award-gallery-year-title {
+  margin: 0;
+}
+
 .award-gallery-year-title {
   margin: 0 0 20px;
   font-size: 20px;

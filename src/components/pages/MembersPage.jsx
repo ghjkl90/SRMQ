@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './SubpageLayout.css';
 import './MembersPage.css';
+import '../member/memberService.css';
 
 export default function MemberPage() {
   return (
@@ -127,6 +129,20 @@ export default function MemberPage() {
               <li>특별회원 후원금은 본원 발전을 위해 사용하며, 사용용도를 지정할 수 있음</li>
               <li>ANQ (아시아품질네트워크) 사례발표 및 우수사례 (AREQP) 포상 지원</li>
             </ul>
+          </div>
+
+          {/* 4. 회원가입 · 회비 납부 안내 */}
+          <div className="ms-cta">
+            <div>
+              <p className="ms-cta-title">사경원 회원이 되어 주세요</p>
+              <p className="ms-cta-text">
+                홈페이지에서 회원가입 후 카드 · 간편결제 또는 무통장입금으로 회비를 납부하시면 회원 자격이 바로 시작됩니다.
+              </p>
+            </div>
+            <div className="ms-actions-group">
+              <Link to="/signup" className="ms-btn ms-btn-outline">회원가입</Link>
+              <Link to="/membership/checkout" className="ms-btn ms-btn-primary">회비 납부하기</Link>
+            </div>
           </div>
 
         </div>

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import logoImg from '../assets/logo-2.png';
+import { useAuth } from '../auth/AuthContext';
 import { MENUS, findMenuByPath, isCurrentPath } from '../routes';
 import './Header.css';
 
@@ -19,9 +20,89 @@ const SearchIcon = () => (
   </svg>
 );
 
+const UserIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1" />
+  </svg>
+);
+
+/* PC: 검색 버튼 오른쪽의 로그인 / 회원 메뉴 */
+function AuthMenu() {
+  const { user, isAdmin, logout, status } = useAuth();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
+  const boxRef = useRef(null);
+
+  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    if (!open) return undefined;
+    const onDown = (e) => !boxRef.current?.contains(e.target) && setOpen(false);
+    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('mousedown', onDown);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', onDown);
+      document.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  if (status === 'loading') return <span className="auth-menu-placeholder" aria-hidden="true" />;
+
+  if (!user) {
+    return (
+      <div className="auth-menu">
+        <Link to="/login" className="auth-login-btn">로그인</Link>
+        <Link to="/signup" className="auth-join-link">회원가입</Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="auth-menu" ref={boxRef}>
+      <button
+        type="button"
+        className={`auth-user-btn ${open ? 'is-open' : ''}`}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen((o) => !o);
+        }}
+      >
+        <UserIcon />
+        <span className="auth-user-name">{user.name}님</span>
+        <ChevronIcon />
+      </button>
+      {open && (
+        <div className="auth-dropdown" role="menu">
+          <div className="dropdown-top-line"></div>
+          <Link to="/mypage" className="dropdown-item" role="menuitem">마이페이지</Link>
+          <Link to="/membership/checkout" className="dropdown-item" role="menuitem">회비 납부</Link>
+          {isAdmin && <Link to="/admin" className="dropdown-item" role="menuitem">관리자 콘솔</Link>}
+          <button
+            type="button"
+            className="dropdown-item auth-logout"
+            role="menuitem"
+            onClick={async () => {
+              await logout();
+              navigate('/');
+            }}
+          >
+            로그아웃
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Header() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { user, isAdmin, logout } = useAuth();
   const activeMenuId = findMenuByPath(pathname)?.id ?? null;
 
   // PC 드롭다운
@@ -157,6 +238,8 @@ export default function Header() {
           <button type="button" className="search-btn" aria-label="검색">
             <SearchIcon />
           </button>
+
+          <AuthMenu />
         </nav>
 
         {/* ===== 모바일: 햄버거 버튼 ===== */}
@@ -179,6 +262,35 @@ export default function Header() {
         <>
           <div className="mobile-nav-backdrop" onClick={() => setMobileOpen(false)} aria-hidden="true" />
           <nav className="mobile-nav" id="mobile-nav" aria-label="모바일 메뉴">
+            {/* 회원 메뉴 (로그인 · 회원가입 / 마이페이지 · 로그아웃) */}
+            <div className="mobile-auth">
+              {user ? (
+                <>
+                  <p className="mobile-auth-hello"><b>{user.name}</b>님 환영합니다</p>
+                  <div className="mobile-auth-links">
+                    <Link to="/mypage" onClick={closeAll}>마이페이지</Link>
+                    <Link to="/membership/checkout" onClick={closeAll}>회비 납부</Link>
+                    {isAdmin && <Link to="/admin" onClick={closeAll}>관리자</Link>}
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        closeAll();
+                        await logout();
+                        navigate('/');
+                      }}
+                    >
+                      로그아웃
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="mobile-auth-links is-guest">
+                  <Link to="/login" className="is-primary" onClick={closeAll}>로그인</Link>
+                  <Link to="/signup" onClick={closeAll}>회원가입</Link>
+                </div>
+              )}
+            </div>
+
             {MENUS.map((menu) => {
               const isActive = activeMenuId === menu.id;
 

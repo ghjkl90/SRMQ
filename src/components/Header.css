@@ -87,6 +87,144 @@
 }
 
 /* =========================================
+   회원 메뉴 (검색 버튼 오른쪽: 로그인 · 회원가입 / 회원 이름 드롭다운)
+========================================= */
+.auth-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: -12px; /* 검색 아이콘과의 간격을 메뉴 간격보다 조금 좁게 */
+  height: 100%;
+}
+
+.auth-menu-placeholder {
+  display: inline-block;
+  width: 132px;
+}
+
+.auth-login-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background-color: #82C91E;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.15s;
+}
+
+.auth-login-btn:hover {
+  background-color: #74B816;
+}
+
+.auth-join-link {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #4b5563;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.auth-join-link:hover {
+  color: #82C91E;
+}
+
+.auth-user-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 10px 0 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #374151;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.auth-user-btn:hover,
+.auth-user-btn.is-open {
+  border-color: #82C91E;
+  color: #4B9321;
+}
+
+.auth-user-btn svg:last-child {
+  transition: transform 0.2s;
+}
+
+.auth-user-btn.is-open svg:last-child {
+  transform: rotate(180deg);
+}
+
+.auth-user-name {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.auth-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  padding: 12px 0;
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.auth-dropdown .dropdown-item {
+  border: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.auth-dropdown .auth-logout {
+  margin-top: 4px;
+  border-top: 1px solid #f3f4f6;
+  color: #6b7280;
+}
+
+/* 메뉴 + 회원 버튼이 한 줄에 들어가도록 좁은 PC 화면에서 간격 조정 */
+@media (min-width: 1025px) and (max-width: 1360px) {
+  .header-inner {
+    padding: 0 28px;
+  }
+
+  .header-logo {
+    margin-left: 8px;
+  }
+
+  .header-nav {
+    gap: 24px;
+  }
+
+  .nav-link {
+    font-size: 15px;
+  }
+
+  .auth-join-link {
+    display: none;
+  }
+}
+
+/* =========================================
    드롭다운 메뉴 (1번 이미지 레이아웃: 가로 배치)
 ========================================= */
 
@@ -270,6 +408,58 @@
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
     padding-bottom: 12px;
     animation: mobile-nav-slide 0.22s ease;
+  }
+
+  /* 모바일 회원 메뉴 */
+  .mobile-auth {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #f9fafb;
+  }
+
+  .mobile-auth-hello {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #4b5563;
+  }
+
+  .mobile-auth-hello b {
+    color: #111827;
+  }
+
+  .mobile-auth-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .mobile-auth-links a,
+  .mobile-auth-links button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #374151;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-auth-links.is-guest a {
+    flex: 1;
+  }
+
+  .mobile-auth-links a.is-primary {
+    border-color: #82C91E;
+    background-color: #82C91E;
+    color: #ffffff;
   }
 
   .mobile-nav-group {

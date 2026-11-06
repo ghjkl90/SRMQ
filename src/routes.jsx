@@ -35,6 +35,19 @@ import NoticePage from './components/pages/NoticePage';
 import AwardGalleryPage from './components/pages/AwardGalleryPage';
 import OperationPlanPage from './components/pages/OperationPlanPage';
 import CoverPage from './components/pages/CoverPage';
+// ── 회원 서비스 · 결제 · 관리자 (추가) ──
+import { matchPath } from 'react-router-dom';
+import LoginPage from './components/pages/LoginPage';
+import SignupPage from './components/pages/SignupPage';
+import PasswordResetPage from './components/pages/PasswordResetPage';
+import MyPage from './components/pages/MyPage';
+import WithdrawalPage from './components/pages/WithdrawalPage';
+import MembershipCheckoutPage from './components/pages/MembershipCheckoutPage';
+import PaymentSuccessPage from './components/pages/PaymentSuccessPage';
+import PaymentFailPage from './components/pages/PaymentFailPage';
+import OrderDetailPage from './components/pages/OrderDetailPage';
+import GalleryEditorPage from './components/pages/GalleryEditorPage';
+import AdminConsolePage from './components/pages/AdminConsolePage';
 
 export const SITE_NAME = '사회적책임경영품질원 SRMQ';
 
@@ -80,6 +93,22 @@ export const PAGES = [
   { path: '/award',            Component: AwardPage,           title: '포상제도' },
   { path: '/vision',           Component: VisionPage,          title: '비전·핵심가치' },
   { path: '/cover',            Component: CoverPage,           title: '표지' },
+
+  // 회원 서비스 (guard: 'auth' = 로그인 필요, 'admin' = 관리자 전용)
+  { path: '/login',                        Component: LoginPage,              title: '로그인' },
+  { path: '/signup',                       Component: SignupPage,             title: '회원가입' },
+  { path: '/password-reset',               Component: PasswordResetPage,      title: '비밀번호 찾기' },
+  { path: '/mypage',                       Component: MyPage,                 title: '마이페이지',   guard: 'auth' },
+  { path: '/mypage/withdraw',              Component: WithdrawalPage,         title: '회원탈퇴',     guard: 'auth' },
+  { path: '/membership/checkout',          Component: MembershipCheckoutPage, title: '회비 결제',    guard: 'auth' },
+  { path: '/membership/payment/success',   Component: PaymentSuccessPage,     title: '결제 완료',    guard: 'auth' },
+  { path: '/membership/payment/fail',      Component: PaymentFailPage,        title: '결제 실패' },
+  { path: '/membership/orders/:orderNo',   Component: OrderDetailPage,        title: '결제 상세',    guard: 'auth' },
+
+  // 관리자
+  { path: '/admin',                        Component: AdminConsolePage,       title: '관리자 콘솔',  guard: 'admin' },
+  { path: '/award-gallery/new',            Component: GalleryEditorPage,      title: '갤러리 등록',  guard: 'admin' },
+  { path: '/award-gallery/:albumId/edit',  Component: GalleryEditorPage,      title: '갤러리 수정',  guard: 'admin' },
 ];
 
 // 다른 주소로 보내는 주소 (from → to)
@@ -139,6 +168,7 @@ export const MENUS = [
     items: [
       { label: '기부금후원안내', path: '/donation' },
       { label: '회원 안내', path: '/members' },
+      { label: '회비 납부', path: '/membership/checkout' },
     ],
   },
   {
@@ -168,7 +198,12 @@ export const findMenuByPath = (pathname) => {
 
 export const findPageByPath = (pathname) => {
   const p = normalize(pathname);
-  return PAGES.find((page) => page.path === p) ?? null;
+  return (
+    PAGES.find((page) => page.path === p) ??
+    // /membership/orders/SRMQ-... 처럼 주소 안에 값이 들어가는 페이지
+    PAGES.find((page) => page.path.includes(':') && matchPath({ path: page.path, end: true }, p)) ??
+    null
+  );
 };
 
 export const isCurrentPath = (pathname, path) => normalize(pathname) === path;

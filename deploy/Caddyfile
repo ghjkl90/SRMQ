@@ -1,0 +1,49 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  사경원 홈페이지 웹서버(Caddy) 설정 틀
+#  setup-server.sh 가 __...__ 자리를 채워 /etc/caddy/Caddyfile 로 복사합니다. (이 파일을 직접 쓰지 않음)
+#  도메인만 서버 IP 를 가리키면 HTTPS 인증서(Let's Encrypt)를 자동으로 발급 · 갱신합니다.
+# ─────────────────────────────────────────────────────────────────────────────
+{
+	email __ACME_EMAIL__
+}
+
+__SITE_DOMAIN__ {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+
+	# 1) API (회원 · 결제 · 갤러리) → 같은 서버의 Node API
+	handle /api/* {
+		reverse_proxy 127.0.0.1:4000
+	}
+
+	# 2) 업로드된 갤러리 사진 (파일 이름이 매번 달라 오래 캐시해도 안전)
+	handle_path /uploads/* {
+		root * __DATA_DIR__/uploads
+		header Cache-Control "public, max-age=2592000, immutable"
+		file_server
+	}
+
+	# 3) 프론트엔드 (React 빌드 결과). 없는 주소는 index.html 로 → React Router 가 처리
+	handle {
+		root * __DATA_DIR__/site/current
+		@assets path /assets/*
+		header @assets Cache-Control "public, max-age=31536000, immutable"
+		@html not path /assets/*
+		header @html Cache-Control "no-cache"
+		try_files {path} /index.html
+		file_server
+	}
+}
+
+# >>> redirect
+# 두 번째 주소(예: srmq.or.kr)로 들어오면 첫 번째 주소(예: www.srmq.or.kr)로 이동
+__REDIRECT_DOMAIN__ {
+	redir https://__SITE_DOMAIN__{uri} permanent
+}
+# <<< redirect
