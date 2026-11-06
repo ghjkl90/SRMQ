@@ -1,0 +1,51 @@
+# (선택) 자동 배포: 이 파일을 저장소의 .github/workflows/deploy.yml 로 옮기면
+# main 브랜치에 push 할 때마다 ① 백엔드 테스트(실제 PostgreSQL) ② 프론트 빌드 확인 ③ 오라클 서버 배포 순서로 실행됩니다.
+#
+# 깃허브 저장소 > Settings > Secrets and variables > Actions 에 등록할 값
+#   OCI_HOST     : 오라클 서버 공인 IP
+#   OCI_SSH_KEY  : 서버 접속용 SSH 개인키 (VM 만들 때 받은 키)
+name: Test & Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: srmq
+          POSTGRES_PASSWORD: srmq
+          POSTGRES_DB: srmq_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U srmq"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 백엔드 테스트
+        working-directory: server
+        run: npm ci && npm test
+        env:
+          TEST_DATABASE_URL: postgres://srmq:srmq@localhost:5432/srmq_test
+      - name: 프론트엔드 빌드 확인
+        run: npm ci && npm run build
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 오라클 서버에 배포
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.OCI_HOST }}
+          username: ubuntu
+          key: ${{ secrets.OCI_SSH_KEY }}
+          script: bash ~/srmq-web/deploy/update.sh
