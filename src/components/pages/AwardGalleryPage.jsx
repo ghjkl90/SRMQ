@@ -219,12 +219,6 @@ const AwardGalleryPage = () => {
           )}
         </section>
       </div>
-
-      {/* 최하단 바 */}
-      <footer className="subpage-bottom-bar">
-        <span>© National Awards & Quality Management Convention. All rights reserved.</span>
-        <span>Awards &amp; Events Gallery</span>
-      </footer>
     </div>
   );
 };

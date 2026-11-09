@@ -42,12 +42,6 @@ export default function GreetingPage() {
           <span className="author-name">회장 신완선</span>
         </div>
       </div>
-
-      <div className="greeting-bottom-bar">
-        <span>사회책임경영품질원</span>
-        <span>02</span>
-      </div>
-
     </div>
   );
 }

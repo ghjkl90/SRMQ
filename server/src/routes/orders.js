@@ -5,6 +5,8 @@ import { HttpError, badRequest, notFound } from '../lib/errors.js';
 import { bizNoSchema, parse, text } from '../lib/validation.js';
 import { requireAuth } from '../middleware/auth.js';
 import { getPlan } from '../services/plans.js';
+import { buildQuote } from '../services/membership.js';
+import { overTossLimit, tossAvailableFor } from '../lib/tossAccess.js';
 import { adminNewDepositEmail, bankTransferEmail, paymentCompletedEmail } from '../services/emails.js';
 import { cancelOrderByUser, createOrder, getOrderByNo, serializeOrder } from '../services/orders.js';
 
@@ -72,11 +74,21 @@ export default function orderRoutes({ db, config, toss, mailer }) {
     if (input.method === 'TOSS' && (!config.toss.clientKey || !toss.isConfigured)) {
       throw new HttpError(503, 'TOSS_NOT_CONFIGURED', '카드·간편결제는 준비 중입니다. 무통장입금을 이용해 주세요.');
     }
+    if (input.method === 'TOSS' && !tossAvailableFor(config, toss, req.user)) {
+      throw new HttpError(403, 'TOSS_NOT_AVAILABLE', '카드·간편결제는 준비 중입니다. 무통장입금을 이용해 주세요.');
+    }
     if (input.method === 'TEST' && !config.testPayment.enabled) {
       throw new HttpError(403, 'TEST_PAYMENT_DISABLED', '테스트 결제가 꺼져 있습니다. 카드·간편결제 또는 무통장입금을 이용해 주세요.');
     }
 
     const plan = await getPlan(db, input.planCode);
+    if (input.method === 'TOSS' && overTossLimit(config, buildQuote(req.user, plan).amount)) {
+      throw new HttpError(
+        400,
+        'TOSS_AMOUNT_LIMIT',
+        `${config.toss.maxAmount.toLocaleString('ko-KR')}원 이상은 카드·간편결제를 이용할 수 없습니다. 무통장입금을 이용해 주세요.`,
+      );
+    }
     const { order, user, paid } = await createOrder(db, { userId: req.user.id, plan, input, bank: config.bank });
 
     // 0원 테스트 결제: 주문과 동시에 결제완료 · 회원 자격 반영

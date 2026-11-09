@@ -90,12 +90,6 @@ const PolicyResearchPage = () => {
         </div>
 
       </div>
-
-      {/* 최하단 바 */}
-      <footer className="subpage-bottom-bar">
-        <span>© National Awards & Quality Management Convention. All rights reserved.</span>
-        <span>Policy Research & R&D</span>
-      </footer>
     </div>
   );
 };

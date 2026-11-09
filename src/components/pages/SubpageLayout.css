@@ -5,14 +5,12 @@
 
 .subpage-container {
   width: 100%;
-  height: calc(100vh - 72px);
+  min-height: calc(100vh - var(--header-h));
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  overflow-y: auto;
-  scrollbar-gutter: stable; /* 스크롤바가 있든 없든 본문 가로 위치를 같게 유지 */
 }
 
 .subpage-content {

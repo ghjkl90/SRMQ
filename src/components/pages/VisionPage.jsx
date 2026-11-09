@@ -51,13 +51,6 @@ export default function VisionPage() {
 
         </div>
       </div>
-
-      {/* 최하단 바 */}
-      <div className="vision-bottom-bar">
-        <span>사회책임경영품질원</span>
-        <span>03</span>
-      </div>
-
     </div>
   );
 }

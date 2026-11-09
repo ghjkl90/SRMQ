@@ -458,7 +458,7 @@ const NoticePage = ({ notices = NOTICES, onSelectNotice }) => {
   useEffect(() => {
     const handlePopState = () => {
       setSelectedId(readNoticeNoFromUrl());
-      containerRef.current?.scrollTo({ top: 0 });
+      containerRef.current?.closest(".app-main")?.scrollTo({ top: 0 });
       window.scrollTo({ top: 0 });
     };
     window.addEventListener("popstate", handlePopState);
@@ -492,9 +492,9 @@ const NoticePage = ({ notices = NOTICES, onSelectNotice }) => {
   const nextNotice =
     selectedIndex >= 0 && selectedIndex < filtered.length - 1 ? filtered[selectedIndex + 1] : null;
 
-  // PC는 페이지 박스 안에서, 모바일은 문서 전체가 스크롤되므로 둘 다 맨 위로
+  // PC는 본문 영역(.app-main) 안에서, 모바일은 문서 전체가 스크롤되므로 둘 다 맨 위로
   const scrollToTop = () => {
-    containerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    containerRef.current?.closest(".app-main")?.scrollTo({ top: 0, behavior: "smooth" });
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

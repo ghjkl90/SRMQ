@@ -1,0 +1,142 @@
+/* src/components/member/PolicyDocument.css — 이용약관 · 개인정보처리방침 · 환불정책 */
+
+.policy-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.policy-tab {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  margin-bottom: 12px;
+}
+
+.policy-tab:hover {
+  border-color: #82c91e;
+  color: #4b9321;
+}
+
+.policy-tab.is-active {
+  border-color: #82c91e;
+  background: #82c91e;
+  color: #ffffff;
+}
+
+.policy-doc {
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-bottom: 24px;
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.75;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.policy-section-title {
+  margin: 0 0 8px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.01em;
+}
+
+.policy-p {
+  margin: 0 0 6px;
+}
+
+.policy-list {
+  margin: 4px 0 8px;
+  padding-left: 1.2em;
+  list-style: disc;
+}
+
+.policy-list li + li {
+  margin-top: 4px;
+}
+
+.policy-table-wrap {
+  margin: 8px 0 10px;
+  overflow-x: auto;
+}
+
+.policy-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.policy-table th,
+.policy-table td {
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.policy-table th {
+  background: #f9fafb;
+  color: #111827;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* 좁은 화면: 표를 카드 모양으로 세로 배치 */
+@media (max-width: 768px) {
+  .policy-doc {
+    font-size: 14.5px;
+  }
+
+  .policy-table thead {
+    display: none;
+  }
+
+  .policy-table,
+  .policy-table tbody,
+  .policy-table tr,
+  .policy-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .policy-table tr {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+
+  .policy-table td {
+    border: none;
+    border-top: 1px solid #f3f4f6;
+    padding: 8px 12px;
+  }
+
+  .policy-table td:first-child {
+    border-top: none;
+    background: #f9fafb;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  .policy-table td:not(:first-child)::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+  }
+}

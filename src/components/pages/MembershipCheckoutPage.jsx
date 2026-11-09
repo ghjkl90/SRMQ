@@ -109,6 +109,14 @@ export default function MembershipCheckoutPage() {
     };
   }, [planCode]);
 
+  // 카드 · 간편결제 한도(기본 500만 원) 이상이면 무통장입금만
+  const tossLimit = config?.tossMaxAmount || 0;
+  const overTossLimit = Boolean(tossLimit && amount && amount >= tossLimit);
+  const tossSelectable = Boolean(config?.tossEnabled) && !overTossLimit;
+  useEffect(() => {
+    if (method === 'TOSS' && overTossLimit) setMethod('BANK_TRANSFER');
+  }, [method, overTossLimit]);
+
   const toss = useTossPaymentWidget({
     enabled: Boolean(config?.tossEnabled && method),
     clientKey: config?.tossClientKey,
@@ -340,15 +348,21 @@ export default function MembershipCheckoutPage() {
             <div className="ms-method-grid">
               <button
                 type="button"
-                className={`ms-method${method === 'TOSS' ? ' is-selected' : ''}${config.tossEnabled ? '' : ' is-disabled'}`}
-                onClick={() => config.tossEnabled && setMethod('TOSS')}
-                disabled={!config.tossEnabled}
+                className={`ms-method${method === 'TOSS' ? ' is-selected' : ''}${tossSelectable ? '' : ' is-disabled'}`}
+                onClick={() => tossSelectable && setMethod('TOSS')}
+                disabled={!tossSelectable}
                 aria-pressed={method === 'TOSS'}
               >
                 <span className="ms-method-icon"><CardIcon size={19} /></span>
                 <span className="ms-method-text">
                   <span className="ms-method-name">카드 · 간편결제</span>
-                  <span className="ms-method-desc">{config.tossEnabled ? '신용카드 · 계좌이체 · 가상계좌 · 카카오페이 · 토스페이 · 네이버페이' : '준비 중입니다'}</span>
+                  <span className="ms-method-desc">
+                    {!config.tossEnabled
+                      ? '준비 중입니다'
+                      : overTossLimit
+                        ? `${formatWon(tossLimit)} 이상은 무통장입금으로 납부해 주세요`
+                        : '신용카드 · 계좌이체 · 가상계좌 · 카카오페이 · 토스페이 · 네이버페이'}
+                  </span>
                 </span>
               </button>
               <button
@@ -507,7 +521,10 @@ export default function MembershipCheckoutPage() {
 
               <div className={errors.agreeOrder ? 'has-error' : ''}>
                 <Checkbox checked={agreeOrder} onChange={setAgreeOrder}>
-                  <span className="ms-text-sm">주문 내용(회원 유형 · 금액)을 확인하였으며 결제 진행에 동의합니다.</span>
+                  <span className="ms-text-sm">
+                    주문 내용(회원 유형 · 금액)과{' '}
+                    <a href="/refund" target="_blank" rel="noreferrer" className="ms-link">환불 · 취소 정책</a>을 확인하였으며 결제 진행에 동의합니다.
+                  </span>
                 </Checkbox>
               </div>
 
@@ -519,6 +536,9 @@ export default function MembershipCheckoutPage() {
             </div>
           </Card>
           <div className="ms-side-help">
+            회원 자격은 온라인 서비스로 배송 상품이 없으며, 카드 · 간편결제는 결제 즉시, 무통장입금은 입금 확인 후 시작됩니다.
+            결제일부터 7일 이내 · 혜택 미이용 시 전액 환불 (<Link to="/refund">환불 · 취소 정책</Link>)
+            <br />
             결제 · 영수증 문의 <a href="tel:0220259171">02-2025-9171~2</a> (평일 09:00~18:00)
             <br />
             카드 · 간편결제 영수증은 결제 완료 후 결제 상세에서 확인할 수 있습니다.

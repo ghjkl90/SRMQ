@@ -81,12 +81,6 @@ export default function HistoryPage() {
         </div>
 
       </div>
-
-      <div className="history-bottom-bar">
-        <span>사회책임경영품질원</span>
-        <span>11</span>
-      </div>
-
     </div>
   );
 }

@@ -23,3 +23,29 @@ body {
 .font-subtitle { font-size: var(--font-subtitle); font-weight: 600; line-height: 1.4; }
 .font-body { font-size: var(--font-body); font-weight: 400; line-height: 1.6; }
 .font-caption { font-size: var(--font-caption); font-weight: 400; line-height: 1.4; }
+
+/* 메인 화면이 화면 전체(100vh)를 온전히 차지하게 강제 */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.app-main {
+  flex: 1 0 auto;
+  min-height: 100vh; /* 첫 화면에서 본문이 100% 채워지고 푸터는 화면 아래로 밀려남 */
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main-inner {
+  flex: 1 0 auto;
+  min-height: 100vh; /* 슬라이더/본문 영역이 줄어들지 않도록 화면 높이 유지 */
+}
+
+/* 푸터는 본문이 끝난 뒤에 나타나도록 설정 */
+.site-footer {
+  flex-shrink: 0;
+  width: 100%;
+}

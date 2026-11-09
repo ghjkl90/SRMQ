@@ -7,6 +7,7 @@ import { requireAuth } from '../middleware/auth.js';
 import { paymentCompletedEmail } from '../services/emails.js';
 import { applyTossPayment, confirmTossPayment, getOrderByNo, logPaymentEvent, serializeOrder } from '../services/orders.js';
 import { findUserById } from '../services/users.js';
+import { tossAvailableFor } from '../lib/tossAccess.js';
 
 const confirmSchema = z.object({
   paymentKey: z.string().min(1).max(200),
@@ -28,10 +29,12 @@ export default function paymentRoutes({ db, config, toss, mailer }) {
   }
 
   // 결제 화면 설정값 (토스 클라이언트 키는 공개용 키라 내려보내도 됩니다)
-  router.get('/config', (_req, res) => {
+  router.get('/config', (req, res) => {
+    const tossEnabled = tossAvailableFor(config, toss, req.user);
     res.json({
-      tossEnabled: Boolean(config.toss.clientKey && toss.isConfigured),
-      tossClientKey: config.toss.clientKey || null,
+      tossEnabled,
+      tossClientKey: tossEnabled ? config.toss.clientKey : null,
+      tossMaxAmount: config.toss.maxAmount, // 이 금액 이상은 무통장입금만 (0 이면 제한 없음)
       testPayment: config.testPayment.enabled, // 0원 테스트 결제 (사업자등록 · PG 계약 전 시험용)
       bankTransfer: {
         bankName: config.bank.name,

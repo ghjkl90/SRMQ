@@ -102,12 +102,6 @@ const AwardPage2 = () => {
         </div>
 
       </div>
-
-      {/* 최하단 바 */}
-      <footer className="subpage-bottom-bar">
-        <span>© National Awards & Quality Management Convention. All rights reserved.</span>
-        <span>National Awards Overview</span>
-      </footer>
     </div>
   );
 };

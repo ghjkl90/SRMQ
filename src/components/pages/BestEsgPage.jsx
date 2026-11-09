@@ -182,11 +182,6 @@ export default function BestEsgPage() {
         </div>
 
       </div>
-
-      <footer className="subpage-bottom-bar">
-        <span>사회책임경영품질원</span>
-        <span>09</span>
-      </footer>
     </div>
   );
 }

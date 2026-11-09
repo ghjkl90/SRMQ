@@ -100,13 +100,6 @@ export default function PurposePage() {
 
         </div>
       </div>
-
-      {/* 최하단 바 */}
-      <div className="purpose-bottom-bar">
-        <span>사회책임경영품질원</span>
-        <span>04</span>
-      </div>
-
     </div>
   );
 }

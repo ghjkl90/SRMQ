@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+
 import Header from './components/Header';
+import SiteFooter from './components/SiteFooter';
 import { withGuard } from './auth/RouteGuards';
 import { PAGES, REDIRECTS, SITE_NAME, findPageByPath } from './routes';
 
@@ -17,9 +19,11 @@ function NotFoundPage() {
 
 export default function App() {
   const { pathname } = useLocation();
+  const mainRef = useRef(null);
 
-  // 페이지가 바뀌면 맨 위로 (모바일은 문서 전체가 스크롤되므로 필요)
+  // 페이지가 바뀌면 맨 위로 (PC는 본문 영역, 모바일은 문서 전체가 스크롤)
   useEffect(() => {
+    mainRef.current?.scrollTo(0, 0);
     window.scrollTo(0, 0);
   }, [pathname]);
 
@@ -30,10 +34,10 @@ export default function App() {
   }, [pathname]);
 
   return (
-    <div className="app-shell font-sans">
+    <div className="app-shell font-sans min-h-screen">
       <Header />
 
-      <main className="app-main">
+      <main className="app-main" ref={mainRef}>
         <div className="app-main-inner">
           <Routes>
             {/* guard: 'auth'(로그인 필요) · 'admin'(관리자 전용) — routes.jsx 에서 지정 */}
@@ -46,6 +50,9 @@ export default function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
+
+        {/* 푸터는 본문 바로 아래에 붙어서, 스크롤을 내려야 보입니다 */}
+        <SiteFooter />
       </main>
     </div>
   );

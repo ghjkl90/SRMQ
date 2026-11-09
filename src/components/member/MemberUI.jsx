@@ -18,16 +18,12 @@ const cx = (...names) => names.filter(Boolean).join(' ');
 /**
  * width: 'narrow'(로그인 480px) | 'default'(폼 1040px) | 'wide'(관리자 전체 폭)
  */
-export function MemberPage({ width = 'default', children, footerLeft = '사회적책임경영품질원', footerRight = 'Member Service' }) {
+export function MemberPage({ width = 'default', children }) {
   return (
     <div className="subpage-container">
       <div className="subpage-content">
         <div className={cx('ms-page', `ms-page--${width}`)}>{children}</div>
       </div>
-      <footer className="subpage-bottom-bar">
-        <span>{footerLeft}</span>
-        <span>{footerRight}</span>
-      </footer>
     </div>
   );
 }

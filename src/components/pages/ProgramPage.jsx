@@ -78,13 +78,6 @@ export default function CoverPage() {
           ))}
         </div>
       </div>
-
-      {/* 하단 법적 고지 및 웹사이트 주소 */}
-      <div className="program-footer">
-        <span>기획재정부 승인 비영리법인</span>
-        <span>www.srmq.or.kr</span>
-      </div>
-
     </div>
   );
 }

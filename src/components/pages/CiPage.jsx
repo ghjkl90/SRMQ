@@ -26,11 +26,6 @@ const CiPage = () => {
 
       </div>
 
-
-      <footer className="subpage-bottom-bar">
-        <span>사회적책임경영품질원 (SRMQ)</span>
-        <span>Corporate Identity Guide</span>
-      </footer>
     </div>
   );
 };

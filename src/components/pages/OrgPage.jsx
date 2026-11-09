@@ -127,13 +127,6 @@ export default function OrgPage() {
         </div>
 
       </div>
-
-      {/* 최하단 바 */}
-      <div className="org-bottom-bar">
-        <span>사회책임경영품질원</span>
-        <span>10</span>
-      </div>
-
     </div>
   );
 }

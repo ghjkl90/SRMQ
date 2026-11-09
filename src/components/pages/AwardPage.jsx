@@ -62,13 +62,6 @@ export default function AwardPage() {
         </div>
 
       </div>
-
-      {/* 최하단 바 */}
-      <div className="award-bottom-bar">
-        <span>사회책임경영품질원</span>
-        <span>05</span>
-      </div>
-
     </div>
   );
 }

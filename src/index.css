@@ -26,7 +26,7 @@ body {
 
 /* =========================================================
    앱 전체 틀 (App.jsx)
-   - PC(1025px 이상): 화면 높이에 고정, 각 페이지 안에서 스크롤 (기존 방식 그대로)
+   - PC(1025px 이상): 헤더 아래 본문 영역(.app-main) 하나만 스크롤. 페이지 → 푸터 순서로 이어짐
    - 모바일·태블릿(1024px 이하): 문서 전체가 자연스럽게 스크롤, 헤더는 상단 고정
    ========================================================= */
 :root {
@@ -48,6 +48,7 @@ body {
   width: 100%;
   min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden; /* 가로 스크롤바 방지 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,11 +56,12 @@ body {
 
 .app-main-inner {
   width: 100%;
-  height: 100%;
+  flex: 1 0 auto; /* 본문이 짧아도 첫 화면을 채워 푸터는 스크롤해야 보임 */
+  min-height: calc(100vh - var(--header-h));
+  min-height: calc(100dvh - var(--header-h));
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   background-color: #ffffff;
 }
 
@@ -101,10 +103,6 @@ body {
     overflow: visible;
   }
 
-  .app-main-inner {
-    height: auto;
-    flex: 1;
-  }
 
   /* 긴 영문·주소가 화면 밖으로 밀려나지 않도록 */
   body {

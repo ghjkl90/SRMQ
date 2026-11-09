@@ -161,12 +161,6 @@ const AwardCriteriaPage = () => {
         </div>
 
       </div>
-
-      {/* 최하단 바 */}
-      <footer className="subpage-bottom-bar">
-        <span>© National Awards & Quality Management Convention. All rights reserved.</span>
-        <span>Award Criteria & Classes</span>
-      </footer>
     </div>
   );
 };

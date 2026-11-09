@@ -56,6 +56,7 @@
   border: none;
   cursor: pointer;
   padding: 0;
+  white-space: nowrap; /* 메뉴 이름이 글자 중간에서 두 줄로 갈라지지 않게 */
   transition: color 0.2s;
 }
 
@@ -221,6 +222,37 @@
 
   .auth-join-link {
     display: none;
+  }
+}
+
+/* 1025~1199px: 로그인 후 "OOO님" 버튼까지 메뉴가 한 줄에 들어가도록 한 단계 더 촘촘하게 */
+@media (min-width: 1025px) and (max-width: 1199px) {
+  .header-inner {
+    padding: 0 20px;
+  }
+
+  .header-logo {
+    margin-left: 0;
+  }
+
+  .header-logo img {
+    height: 72px;
+  }
+
+  .header-nav {
+    gap: 16px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+
+  .auth-menu {
+    margin-left: -6px;
+  }
+
+  .auth-user-name {
+    max-width: 96px;
   }
 }
 

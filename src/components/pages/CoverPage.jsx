@@ -22,12 +22,6 @@ export default function CoverPage() {
           alt="표지 이미지" 
         />
       </div>
-
-      <div className="cover-footer">
-        <span>기획재정부 승인 비영리법인</span>
-        <span>www.srmq.or.kr</span>
-      </div>
-
     </div>
   );
 }

@@ -28,12 +28,6 @@ export default function LocationPage() {
           />
         </div>
       </div>
-
-      {/* 하단 바 */}
-      <div className="location-bottom-bar">
-        <span>서울특별시 송파구 거여동 568-1</span>
-        <span>Tel: 02-000-0000</span>
-      </div>
     </div>
   );
 }

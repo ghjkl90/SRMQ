@@ -1,12 +1,11 @@
 .location-container {
-  width: 99vw;
-  height: calc(100vh - 72px);
+  width: 100%;
+  min-height: calc(100vh - var(--header-h));
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-  overflow-y: auto;
 }
 
 .location-content-wrap {

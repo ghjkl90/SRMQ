@@ -148,13 +148,6 @@ export default function MemberPage() {
         </div>
 
       </div>
-
-      {/* 최하단 바 */}
-      <footer className="subpage-bottom-bar">
-        <span>사회책임경영품질원</span>
-        <span>08</span>
-      </footer>
-
     </div>
   );
 }
