@@ -48,6 +48,10 @@ import PaymentFailPage from './components/pages/PaymentFailPage';
 import OrderDetailPage from './components/pages/OrderDetailPage';
 import GalleryEditorPage from './components/pages/GalleryEditorPage';
 import AdminConsolePage from './components/pages/AdminConsolePage';
+// ── 약관 · 정책 (사이트 하단 링크 · 결제 화면) ──
+import TermsPage from './components/pages/TermsPage';
+import PrivacyPage from './components/pages/PrivacyPage';
+import RefundPage from './components/pages/RefundPage';
 
 export const SITE_NAME = '사회적책임경영품질원 SRMQ';
 
@@ -85,6 +89,7 @@ export const PAGES = [
   // 기부금후원
   { path: '/donation',         Component: DonationPage,        title: '기부금후원안내' },
   { path: '/members',          Component: MembersPage,         title: '회원 안내' },
+  { path: '/refund',           Component: RefundPage,          title: '환불 · 취소 정책' },
 
   // 공지사항
   { path: '/notice',           Component: NoticePage,          title: '공지사항' },
@@ -93,6 +98,8 @@ export const PAGES = [
   { path: '/award',            Component: AwardPage,           title: '포상제도' },
   { path: '/vision',           Component: VisionPage,          title: '비전·핵심가치' },
   { path: '/cover',            Component: CoverPage,           title: '표지' },
+  { path: '/terms',            Component: TermsPage,           title: '이용약관' },
+  { path: '/privacy',          Component: PrivacyPage,         title: '개인정보처리방침' },
 
   // 회원 서비스 (guard: 'auth' = 로그인 필요, 'admin' = 관리자 전용)
   { path: '/login',                        Component: LoginPage,              title: '로그인' },
@@ -169,6 +176,7 @@ export const MENUS = [
       { label: '기부금후원안내', path: '/donation' },
       { label: '회원 안내', path: '/members' },
       { label: '회비 납부', path: '/membership/checkout' },
+      { label: '환불 · 취소 정책', path: '/refund' },
     ],
   },
   {
