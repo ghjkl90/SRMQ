@@ -8,7 +8,7 @@
   padding: 40px 56px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   box-sizing: border-box;
   position: relative;
 }
@@ -36,16 +36,21 @@
   max-width: 700px;
 }
 
-/* 사진 슬라이더 */
+/* 사진 슬라이더
+   PC: 글 아래 남은 화면 높이를 사진이 모두 채움 (글과 사진 사이 빈 여백 없음) */
 .program-slider {
   position: relative;
   width: 100%;
-  height: 480px;
-  margin: 16px 0;
+  flex: 1 1 auto;
+  min-height: 400px; /* 세로가 짧은 노트북 화면에서도 너무 납작해지지 않도록 */
+  margin: 40px 0 0;
   overflow: hidden;
 }
 
 .program-slider-track {
+  position: absolute; /* 슬라이더 높이가 늘어나는 만큼 사진도 함께 늘어남 */
+  top: 0;
+  left: 0;
   display: flex;
   height: 100%;
   transition: transform 0.6s ease-in-out;
@@ -117,6 +122,8 @@
   }
 
   .program-slider {
+    flex: none;
+    min-height: 0;
     height: auto;
     aspect-ratio: 16 / 9;
     margin: 28px 0;
