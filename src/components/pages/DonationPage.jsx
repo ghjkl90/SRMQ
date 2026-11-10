@@ -273,7 +273,7 @@ const DonationPage = () => {
               <ul className="donation-contact-list">
                 <li className="donation-contact-org">{ACCOUNT_HOLDER} 사무국</li>
                 <li>
-                  Tel: <a href="tel:02-2025-9171">02-2025-9171~2</a>
+                  Tel: <a href="tel:02-408-9171">02-408-9171</a>
                 </li>
                 <li>
                   E-mail:{" "}

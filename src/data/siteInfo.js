@@ -9,8 +9,8 @@ export const SITE_INFO = {
   representative: '신완선', // ★ 대표자
   bizNoLabel: '사업자등록번호', // 고유번호증이어도 그 번호(000-82-00000)를 그대로 적으면 됩니다
   bizNo: '119-82-09863',
-  address: '서울특별시 송파구 거여동 568-1', // ★ 증명서의 사업장 소재지와 같게
-  tel: '02-2025-9171~2',
+  address: '서울특별시 송파구 양산로8길 5-12, 비01호(거여동)', // ★ 사업자등록증 사업장 소재지 그대로
+  tel: '02-408-9171', // ★ 사업자등록증 전화번호 그대로
   fax: '02-2025-9179',
   email: 'srmq2015@daum.net',
   hours: '평일 09:00~18:00',
@@ -18,7 +18,7 @@ export const SITE_INFO = {
     name: '이종성',
     position: '사무국장',
     department: '사무국',
-    tel: '02-2025-9171',
+    tel: '02-408-9171',
     email: 'srmq2015@daum.net',
   },
 };

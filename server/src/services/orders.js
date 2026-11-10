@@ -352,7 +352,7 @@ export async function cancelOrderByUser(db, { userId, orderNo }) {
     const cancellable =
       order.status === 'READY' || (order.method === 'BANK_TRANSFER' && order.status === 'WAITING_FOR_DEPOSIT');
     if (!cancellable) {
-      throw conflict('NOT_CANCELLABLE', '이 주문은 직접 취소할 수 없습니다. 사무국(02-2025-9171)으로 문의해 주세요.');
+      throw conflict('NOT_CANCELLABLE', '이 주문은 직접 취소할 수 없습니다. 사무국(02-408-9171)으로 문의해 주세요.');
     }
     const { rows } = await client.query(
       `UPDATE orders SET status = 'CANCELED', canceled_at = now(), updated_at = now() WHERE id = $1 RETURNING *`,

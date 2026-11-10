@@ -22,7 +22,7 @@ export default function LocationPage() {
         <div className="location-map-wrapper">
           <iframe
             title="Google Map Location"
-            src="https://maps.google.com/maps?q=서울특별시%20송파구%20거여동%20568-1&t=&z=17&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=서울특별시%20송파구%20양산로8길%205-12&t=&z=17&ie=UTF8&iwloc=&output=embed"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />

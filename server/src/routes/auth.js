@@ -191,7 +191,7 @@ export default function authRoutes({ db, config, mailer, limits }) {
     if (!user || !ok) {
       throw new HttpError(401, 'INVALID_CREDENTIALS', '아이디 또는 비밀번호가 올바르지 않습니다.');
     }
-    if (user.status === 'SUSPENDED') throw forbidden('이용이 정지된 계정입니다. 사무국(02-2025-9171)으로 문의해 주세요.');
+    if (user.status === 'SUSPENDED') throw forbidden('이용이 정지된 계정입니다. 사무국(02-408-9171)으로 문의해 주세요.');
 
     await db.query('UPDATE users SET last_login_at = now() WHERE id = $1', [user.id]);
     issueSession(res, config, user, { remember });

@@ -30,7 +30,7 @@ function Checking() {
 function Offline() {
   return (
     <GuardMessage title="회원 서비스에 연결할 수 없습니다">
-      <p className="ms-guard-text">잠시 후 다시 시도해 주세요. 문제가 계속되면 사무국(02-2025-9171~2)으로 연락 바랍니다.</p>
+      <p className="ms-guard-text">잠시 후 다시 시도해 주세요. 문제가 계속되면 사무국(02-408-9171)으로 연락 바랍니다.</p>
       <Link to="/" className="ms-btn ms-btn-outline">첫 화면으로</Link>
     </GuardMessage>
   );

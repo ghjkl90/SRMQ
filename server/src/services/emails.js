@@ -2,7 +2,7 @@
 // 안내 메일 문구. 문구를 바꿀 때는 이 파일만 수정하면 됩니다.
 import { formatKstDate, formatWon } from '../lib/dates.js';
 
-const SIGNATURE = '\n\n(사)사회적책임경영품질원 사무국\nTel. 02-2025-9171~2 · srmq@srmq.or.kr';
+const SIGNATURE = '\n\n(사)사회적책임경영품질원 사무국\nTel. 02-408-9171 · srmq@srmq.or.kr';
 
 const wrap = (title, bodyHtml) => `
 <div style="font-family:Pretendard,'Apple SD Gothic Neo',sans-serif;max-width:560px;margin:0 auto;color:#334155">
@@ -11,7 +11,7 @@ const wrap = (title, bodyHtml) => `
     <h1 style="margin:0 0 20px;font-size:20px;color:#0F172A">${title}</h1>
     ${bodyHtml}
     <p style="margin-top:28px;font-size:12px;color:#64748B;line-height:1.6">
-      (사)사회적책임경영품질원 사무국 · Tel. 02-2025-9171~2 · srmq@srmq.or.kr
+      (사)사회적책임경영품질원 사무국 · Tel. 02-408-9171 · srmq@srmq.or.kr
     </p>
   </div>
 </div>`;

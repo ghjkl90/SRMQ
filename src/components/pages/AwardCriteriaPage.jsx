@@ -39,7 +39,7 @@ const BENEFITS = [
 
 const CONTACTS = [
   { label: '주관기관', value: '(사)사회적책임경영품질원 포상사무국' },
-  { label: '전화문의', value: '02-2025-9171 ~ 2' },
+  { label: '전화문의', value: '02-408-9171' },
   { label: '이메일 접수', value: 'srmq@srmq.or.kr', href: 'mailto:srmq@srmq.or.kr' },
   { label: '홈페이지', value: 'www.srmq.or.kr', href: 'https://www.srmq.or.kr', accent: true },
 ];

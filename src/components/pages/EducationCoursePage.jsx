@@ -289,7 +289,7 @@ const EducationCoursePage = () => {
                 기관의 세부 교육 희망일정 및 인원을 알려주시면 전담 교수진과의 검토 후 맞춤 제안서를 송부해 드립니다.
               </p>
               <dl className="edu-contact-list">
-                <div><dt>전화 :</dt><dd className="mono strong">02-2025-9171~2</dd></div>
+                <div><dt>전화 :</dt><dd className="mono strong">02-408-9171</dd></div>
                 <div><dt>팩스 :</dt><dd className="mono">02-2025-9179</dd></div>
                 <div><dt>이메일 :</dt><dd className="accent"><a href="mailto:srmq@srmq.or.kr">srmq@srmq.or.kr</a></dd></div>
               </dl>

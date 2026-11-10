@@ -94,7 +94,7 @@ export default function OrderDetailPage() {
         onCancel={() => setConfirmCancel(false)}
         onConfirm={cancel}
       >
-        이미 입금하셨다면 취소하지 말고 사무국(02-2025-9171~2)으로 연락해 주세요.
+        이미 입금하셨다면 취소하지 말고 사무국(02-408-9171)으로 연락해 주세요.
       </ConfirmDialog>
     </MemberPage>
   );

@@ -76,7 +76,7 @@ export default function PaymentSuccessPage() {
             <p className="ms-result-text">{error}</p>
           </div>
           <Alert tone="info" className="ms-mt-16">
-            카드 승인이 되었는데 이 화면이 보인다면 결제가 자동 취소되거나 곧 반영됩니다. 문제가 계속되면 사무국(02-2025-9171~2)으로 문의해 주세요.
+            카드 승인이 되었는데 이 화면이 보인다면 결제가 자동 취소되거나 곧 반영됩니다. 문제가 계속되면 사무국(02-408-9171)으로 문의해 주세요.
           </Alert>
           <div className="ms-actions">
             <ButtonLink to="/mypage?tab=orders" variant="outline">결제 내역 확인</ButtonLink>
