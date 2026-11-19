@@ -8,7 +8,7 @@ export default function RefundPage() {
       badge="환불 · 취소"
       badgeEn="REFUND"
       title="환불 · 취소 정책"
-      desc="회비 결제 후 회원 자격이 시작되는 시점과 취소 · 환불 기준입니다."
+      desc="회비와 교육 · 세미나 · 행사 참가비의 취소 · 환불 기준입니다."
       text={REFUND_POLICY}
     />
   );

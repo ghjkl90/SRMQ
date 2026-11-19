@@ -28,8 +28,8 @@ export default function SiteFooter() {
         <nav className="site-footer-links" aria-label="약관 및 정책">
           <Link to="/terms">이용약관</Link>
           <Link to="/privacy" className="is-strong">개인정보처리방침</Link>
-          <Link to="/refund">환불 · 취소 정책</Link>
           <Link to="/members">회원 안내 · 회비</Link>
+          <Link to="/refund">환불 · 취소 정책</Link>
         </nav>
 
         {/* 중단: 기관 기본 정보 */}
