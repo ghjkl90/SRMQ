@@ -52,6 +52,10 @@ import AdminConsolePage from './components/pages/AdminConsolePage';
 import TermsPage from './components/pages/TermsPage';
 import PrivacyPage from './components/pages/PrivacyPage';
 import RefundPage from './components/pages/RefundPage';
+// ── 홈페이지 콘텐츠 (메인 슬라이드 · 베스트 기업) ──
+import BestCompaniesPage from './components/pages/BestCompaniesPage';
+import BestCompaniesEditorPage from './components/pages/BestCompaniesEditorPage';
+import HomeSlidesEditorPage from './components/pages/HomeSlidesEditorPage';
 
 export const SITE_NAME = '사회적책임경영품질원 SRMQ';
 
@@ -80,6 +84,7 @@ export const PAGES = [
   { path: '/award-criteria',   Component: AwardCriteriaPage,   title: '분야별 응모 및 시상 기준' },
   { path: '/award-process',    Component: AwardProcessPage,    title: '포상 심사 및 운영 절차' },
   { path: '/best-esg',         Component: BestEsgPage,         title: '역대 수상조직' },
+  { path: '/best-companies',   Component: BestCompaniesPage,   title: '베스트 기업' },
   { path: '/award-gallery',    Component: AwardGalleryPage,    title: '포상 갤러리' },
 
   // 교육 · 정책연구
@@ -116,6 +121,8 @@ export const PAGES = [
   { path: '/admin',                        Component: AdminConsolePage,       title: '관리자 콘솔',  guard: 'admin' },
   { path: '/award-gallery/new',            Component: GalleryEditorPage,      title: '갤러리 등록',  guard: 'admin' },
   { path: '/award-gallery/:albumId/edit',  Component: GalleryEditorPage,      title: '갤러리 수정',  guard: 'admin' },
+  { path: '/admin/home-slides',            Component: HomeSlidesEditorPage,   title: '메인 슬라이드 관리', guard: 'admin' },
+  { path: '/admin/best-companies',         Component: BestCompaniesEditorPage, title: '베스트 기업 순위 입력', guard: 'admin' },
 ];
 
 // 다른 주소로 보내는 주소 (from → to)
@@ -156,6 +163,7 @@ export const MENUS = [
       { label: '분야별 응모 및 시상 기준', path: '/award-criteria' },
       { label: '포상 심사 및 운영 절차', path: '/award-process' },
       { label: '역대 수상조직', path: '/best-esg' },
+      { label: '베스트 기업', path: '/best-companies' },
       { label: '포상 갤러리', path: '/award-gallery' },
     ],
   },

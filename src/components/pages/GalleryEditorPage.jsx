@@ -1,6 +1,6 @@
 // src/components/pages/GalleryEditorPage.jsx — 포상갤러리 앨범 등록 · 수정 (관리자 전용)
 // 화면 구성은 공지사항 등록 디자인(분류 · 제목 · 작성정보 박스 · 첨부 드롭존 · 목록으로/임시저장/등록하기)을 따릅니다.
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { api, assetUrl } from '../../api/client';
 import { useAuth } from '../../auth/AuthContext';
@@ -15,13 +15,9 @@ import {
   SectionTitle,
   Spinner,
 } from '../member/MemberUI';
-import { ArrowDownIcon, ArrowLeftIcon, ArrowUpIcon, PaperclipIcon, PlusIcon, TrashIcon, UploadCloudIcon } from '../member/icons';
+import { ArrowDownIcon, ArrowLeftIcon, ArrowUpIcon, PlusIcon, TrashIcon } from '../member/icons';
+import ImageDropzone, { tempKey as newKey, toUploadItems, uploadItems } from '../member/ImageDropzone';
 import { formatDate } from '../member/membership';
-
-const MAX_MB = 15;
-const ACCEPT = 'image/jpeg,image/png,image/webp';
-let tempSeq = 0;
-const newKey = () => `t${Date.now()}-${(tempSeq += 1)}`;
 
 const emptySection = () => ({ key: newKey(), title: '', photos: [] });
 
@@ -53,44 +49,6 @@ const move = (list, from, to) => {
   next.splice(to, 0, item);
   return next;
 };
-
-function Dropzone({ onFiles }) {
-  const inputRef = useRef(null);
-  const [over, setOver] = useState(false);
-  return (
-    <div
-      className={`ms-dropzone${over ? ' is-over' : ''}`}
-      onDragOver={(e) => {
-        e.preventDefault();
-        setOver(true);
-      }}
-      onDragLeave={() => setOver(false)}
-      onDrop={(e) => {
-        e.preventDefault();
-        setOver(false);
-        onFiles([...e.dataTransfer.files]);
-      }}
-    >
-      <span className="ms-dropzone-icon"><UploadCloudIcon size={20} /></span>
-      <p className="ms-dropzone-title">사진을 마우스로 끌어다 놓거나 아래 버튼을 클릭하여 선택하세요.</p>
-      <p className="ms-dropzone-hint">지원 형식: JPG, PNG, WEBP (사진당 최대 {MAX_MB}MB, 여러 장 선택 가능 · 자동으로 웹용 크기로 변환됩니다)</p>
-      <Button variant="outline" size="sm" icon={<PaperclipIcon size={14} />} onClick={() => inputRef.current?.click()}>
-        파일 찾아보기
-      </Button>
-      <input
-        ref={inputRef}
-        type="file"
-        accept={ACCEPT}
-        multiple
-        hidden
-        onChange={(e) => {
-          onFiles([...e.target.files]);
-          e.target.value = '';
-        }}
-      />
-    </div>
-  );
-}
 
 export default function GalleryEditorPage() {
   const { albumId } = useParams();
@@ -148,38 +106,10 @@ export default function GalleryEditorPage() {
     }));
 
   async function addFiles(sKey, files) {
-    const accepted = files.filter((f) => ACCEPT.includes(f.type));
-    const rejected = files.length - accepted.length;
+    const { items, rejected } = toUploadItems(files, { caption: '' });
     if (rejected) setSaveError(`JPG, PNG, WEBP 이미지만 올릴 수 있습니다. (${rejected}개 제외)`);
-
-    const items = accepted.map((file) => ({
-      key: newKey(),
-      file,
-      status: file.size > MAX_MB * 1024 * 1024 ? 'error' : 'uploading',
-      error: file.size > MAX_MB * 1024 * 1024 ? `${MAX_MB}MB 초과` : null,
-      progress: 0,
-      preview: URL.createObjectURL(file),
-      caption: '',
-      imageKey: null,
-    }));
     updateSection(sKey, (s) => ({ ...s, photos: [...s.photos, ...items] }));
-
-    // 3장씩 나누어 순서대로 업로드
-    const queue = items.filter((i) => i.status === 'uploading');
-    const worker = async () => {
-      while (queue.length) {
-        const item = queue.shift();
-        try {
-          const res = await api.upload('/api/admin/uploads', item.file, {
-            onProgress: (p) => updatePhoto(sKey, item.key, { progress: p }),
-          });
-          updatePhoto(sKey, item.key, { status: 'done', imageKey: res.imageKey, progress: 100 });
-        } catch (err) {
-          updatePhoto(sKey, item.key, { status: 'error', error: err.message });
-        }
-      }
-    };
-    await Promise.all([worker(), worker(), worker()]);
+    await uploadItems(items, (itemKey, patch) => updatePhoto(sKey, itemKey, patch));
   }
 
   async function save(publish) {
@@ -391,7 +321,7 @@ export default function GalleryEditorPage() {
                   ))}
                 </ul>
               )}
-              <Dropzone onFiles={(files) => addFiles(section.key, files)} />
+              <ImageDropzone onFiles={(files) => addFiles(section.key, files)} />
             </div>
           </div>
         ))}

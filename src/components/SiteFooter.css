@@ -120,4 +120,19 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+  /* 긴 항목(개인정보 보호책임자 연락처 등)이 화면 밖으로 나가지 않도록 줄바꿈 */
+  .site-footer-info > div {
+    flex-wrap: wrap;
+    white-space: normal;
+    max-width: 100%;
+  }
+
+  .site-footer-info dd {
+    overflow-wrap: anywhere;
+  }
+
+  .site-footer-info > div:not(:last-child)::after {
+    display: none; /* 세로로 쌓이므로 구분선 불필요 */
+  }
 }

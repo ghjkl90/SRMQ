@@ -1098,3 +1098,169 @@
 .ms-method-name .ms-badge { margin-left: 6px; vertical-align: 1px; }
 .ms-summary-line.is-discount dt,
 .ms-summary-line.is-discount dd { color: #b45309; }
+
+/* ── 메인 슬라이드 관리 (/admin/home-slides) ── */
+.ms-slide-list { display: flex; flex-direction: column; gap: 10px; margin: 0 0 26px; padding: 0; list-style: none; }
+.ms-slide-item {
+  display: grid;
+  grid-template-columns: 24px 176px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px;
+  border: 1px solid var(--ms-line-2);
+  border-radius: 8px;
+  background: #fff;
+}
+.ms-slide-no { font-size: 13px; font-weight: 800; color: var(--ms-green-dark); text-align: center; }
+.ms-slide-thumb { aspect-ratio: 16 / 9; }
+.ms-slide-fields { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.ms-slide-fields .ms-input { height: 38px; font-size: 13px; }
+.ms-slide-warn { margin: 0; padding: 6px 10px; border-radius: 6px; background: #fffbeb; color: #92400e; font-size: 12px; line-height: 1.5; }
+.ms-slide-pick-lowres {
+  position: absolute;
+  inset: 6px auto auto 6px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(146, 64, 14, 0.85);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+.ms-slide-tools { display: flex; flex-direction: column; gap: 4px; }
+.ms-slide-source { margin-bottom: 14px; max-width: 480px; }
+.ms-slide-picker { display: flex; flex-direction: column; gap: 12px; }
+.ms-slide-picker .ms-select { max-width: 480px; }
+.ms-slide-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ms-slide-pick {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--ms-bg);
+  cursor: pointer;
+}
+.ms-slide-pick img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.2s; }
+.ms-slide-pick:hover:not(:disabled) { border-color: var(--ms-green); }
+.ms-slide-pick:hover:not(:disabled) img { transform: scale(1.04); }
+.ms-slide-pick:focus-visible { outline: 3px solid var(--ms-green); outline-offset: 2px; }
+.ms-slide-pick.is-used { cursor: default; border-color: var(--ms-green); }
+.ms-slide-pick.is-used img { opacity: 0.45; }
+.ms-slide-pick-badge {
+  position: absolute;
+  inset: auto 6px 6px auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--ms-green-deep);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+/* ── 베스트 기업 순위 입력 (/admin/best-companies) ── */
+.ms-best-unit { max-width: 140px; }
+.ms-best-table { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.ms-best-row {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1.4fr) minmax(0, 1.2fr) 120px auto;
+  align-items: start;
+  gap: 8px;
+}
+.ms-best-row.is-head { align-items: end; font-size: 12px; font-weight: 700; color: var(--ms-muted); }
+.ms-best-row .ms-input { height: 40px; }
+.ms-best-row .ms-error { margin-top: 4px; }
+.ms-best-row .has-error .ms-input { border-color: var(--ms-red); }
+.ms-best-rank { align-self: center; font-size: 13px; font-weight: 800; color: var(--ms-green-dark); text-align: center; }
+.ms-best-score { text-align: right; font-variant-numeric: tabular-nums; }
+.ms-best-tools { display: flex; gap: 4px; padding-top: 5px; }
+.ms-best-tools-head { text-align: center; }
+.ms-best-quick { margin-top: 22px; padding-top: 18px; border-top: 1px dashed var(--ms-line-2); }
+.ms-best-quick-title { margin: 0 0 10px; font-size: 13px; font-weight: 700; color: var(--ms-text); }
+.ms-best-quick .ms-chip:disabled { cursor: default; }
+
+@media (max-width: 768px) {
+  .ms-slide-item { grid-template-columns: 120px minmax(0, 1fr); grid-template-areas: 'thumb tools' 'fields fields'; }
+  .ms-slide-no { display: none; }
+  .ms-slide-thumb { grid-area: thumb; }
+  .ms-slide-tools { grid-area: tools; flex-direction: row; justify-content: flex-end; align-self: start; }
+  .ms-slide-fields { grid-area: fields; }
+
+  .ms-best-row { grid-template-columns: 40px minmax(0, 1fr) 96px; }
+  .ms-best-row.is-head span:nth-child(3),
+  .ms-best-row.is-head .ms-best-tools-head { display: none; }
+  .ms-best-row > div:nth-child(3) { grid-column: 2 / 4; grid-row: 2; }
+  .ms-best-row > .ms-best-tools { grid-column: 2 / 4; grid-row: 3; justify-content: flex-end; padding-top: 0; }
+  .ms-best-row:not(.is-head) { padding-bottom: 10px; border-bottom: 1px solid var(--ms-line-2); }
+}
+
+/* ===================== 회원 등급 이미지 (회원증 모양 카드) ===================== */
+.ms-plan-art {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 1.586 / 1;
+  padding: 14px 16px;
+  border-radius: 12px;
+  overflow: hidden;
+  color: #fff;
+  background: linear-gradient(135deg, #8cc63f 0%, #5c9a1b 100%);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+  box-sizing: border-box;
+  isolation: isolate;
+}
+
+.ms-plan-art::after {
+  content: '';
+  position: absolute;
+  right: -18%;
+  bottom: -38%;
+  z-index: -1;
+  width: 75%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.ms-plan-art.tone-green { background: linear-gradient(135deg, #10b981 0%, #047857 100%); }
+.ms-plan-art.tone-blue { background: linear-gradient(135deg, #0ea5e9 0%, #075985 100%); }
+.ms-plan-art.tone-teal { background: linear-gradient(135deg, #2a9bbd 0%, #155e75 100%); }
+.ms-plan-art.tone-special { background: linear-gradient(135deg, #065f46 0%, #022c22 100%); }
+.ms-plan-art.tone-special .ms-plan-art-name { color: #fde68a; }
+
+.ms-plan-art-top { display: flex; align-items: center; gap: 8px; }
+.ms-plan-art-logo { width: 26px; height: 26px; object-fit: contain; filter: brightness(0) invert(1); }
+.ms-plan-art-org { font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; opacity: 0.9; }
+.ms-plan-art-name { font-size: 20px; font-weight: 800; letter-spacing: -0.01em; line-height: 1.15; }
+.ms-plan-art-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; }
+.ms-plan-art-kr { font-size: 13px; font-weight: 700; }
+.ms-plan-art-code {
+  padding: 2px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.ms-plan-art.is-sm { padding: 10px 12px; border-radius: 10px; }
+.ms-plan-art.is-sm .ms-plan-art-logo { width: 20px; height: 20px; }
+.ms-plan-art.is-sm .ms-plan-art-org { font-size: 9px; }
+.ms-plan-art.is-sm .ms-plan-art-name { font-size: 16px; }
+.ms-plan-art.is-sm .ms-plan-art-kr { font-size: 12px; }
+
+/* 결제 화면: 토스 결제위젯 아래 안내 */
+.ms-toss-note { margin: 10px 2px 0; font-size: 12px; color: #b45309; }

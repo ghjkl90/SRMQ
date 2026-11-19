@@ -27,7 +27,7 @@ describe('테스트 키 기간: 허용 계정만 카드 · 간편결제', () => 
     const { data } = await ctx.member.get('/api/payments/config');
     assert.equal(data.tossEnabled, false);
     assert.equal(data.tossClientKey, null);
-    assert.equal(data.tossMaxAmount, 5000000);
+    assert.equal(data.tossMaxAmount, 10000000);
     const anonymous = await ctx.client().get('/api/payments/config');
     assert.equal(anonymous.data.tossEnabled, false);
   });
@@ -48,14 +48,30 @@ describe('테스트 키 기간: 허용 계정만 카드 · 간편결제', () => 
   });
 });
 
-describe('고액 결제 한도 (기본 500만 원)', () => {
-  test('글로벌 ESG(500만 원)는 카드로 결제할 수 없고 무통장입금은 된다', async () => {
-    const card = await ctx.corp.post('/api/orders', { planCode: 'GES', method: 'TOSS' });
-    assert.equal(card.status, 400);
-    assert.equal(card.data.error.code, 'TOSS_AMOUNT_LIMIT');
-    const bank = await ctx.corp.post('/api/orders', { planCode: 'GES', method: 'BANK_TRANSFER', depositorName: '한국사회적책임' });
-    assert.equal(bank.status, 201);
-    assert.equal(bank.data.order.amount, 5000000);
+describe('1회 결제 한도 (기본 1,000만 원 = 토스 입점 한도)', () => {
+  test('최고가 상품인 특별회원(1,000만 원)도 카드 · 간편결제로 결제창을 연다', async () => {
+    const card = await ctx.corp.post('/api/orders', { planCode: 'SPECIAL', method: 'TOSS' });
+    assert.equal(card.status, 201);
+    assert.equal(card.data.toss.amount, 10000000);
+    await ctx.corp.post(`/api/orders/${card.data.order.orderNo}/cancel`);
+  });
+
+  test('한도를 낮추면 넘는 금액은 카드로 결제할 수 없고 무통장입금은 된다', async () => {
+    const original = ctx.config.toss.maxAmount;
+    ctx.config.toss.maxAmount = 3000000; // TOSS_MAX_AMOUNT=3000000 과 같은 상태
+    try {
+      const card = await ctx.corp.post('/api/orders', { planCode: 'GES', method: 'TOSS' });
+      assert.equal(card.status, 400);
+      assert.equal(card.data.error.code, 'TOSS_AMOUNT_LIMIT');
+      const atLimit = await ctx.corp.post('/api/orders', { planCode: 'BES', method: 'TOSS' });
+      assert.equal(atLimit.status, 201, '한도와 같은 금액은 카드 결제 가능');
+      await ctx.corp.post(`/api/orders/${atLimit.data.order.orderNo}/cancel`);
+      const bank = await ctx.corp.post('/api/orders', { planCode: 'GES', method: 'BANK_TRANSFER', depositorName: '한국사회적책임' });
+      assert.equal(bank.status, 201);
+      assert.equal(bank.data.order.amount, 5000000);
+    } finally {
+      ctx.config.toss.maxAmount = original;
+    }
   });
 });
 
@@ -81,12 +97,12 @@ describe('설정 판단', () => {
     assert.equal(tossAvailableFor(loadConfig(base), { isConfigured: false }, user), false);
   });
 
-  test('한도: 기본 500만 원 이상, 0 이면 제한 없음, 빈 값은 기본값', () => {
+  test('한도: 기본 1,000만 원까지 허용 · 넘으면 막음, 0 이면 제한 없음, 빈 값은 기본값', () => {
     const base = { DATABASE_URL: 'postgres://x', JWT_SECRET: 'x'.repeat(40) };
     const def = loadConfig(base);
-    assert.equal(overTossLimit(def, 4999999), false);
-    assert.equal(overTossLimit(def, 5000000), true);
-    assert.equal(overTossLimit(loadConfig({ ...base, TOSS_MAX_AMOUNT: '0' }), 10000000), false);
-    assert.equal(loadConfig({ ...base, TOSS_MAX_AMOUNT: '' }).toss.maxAmount, 5000000);
+    assert.equal(overTossLimit(def, 10000000), false);
+    assert.equal(overTossLimit(def, 10000001), true);
+    assert.equal(overTossLimit(loadConfig({ ...base, TOSS_MAX_AMOUNT: '0' }), 50000000), false);
+    assert.equal(loadConfig({ ...base, TOSS_MAX_AMOUNT: '' }).toss.maxAmount, 10000000);
   });
 });

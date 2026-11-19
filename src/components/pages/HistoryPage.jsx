@@ -1,4 +1,5 @@
 import React from 'react';
+import { SITE_INFO } from '../../data/siteInfo';
 import './HistoryPage.css';
 
 const images = import.meta.glob('../../assets/*.{png,jpg,jpeg}', { eager: true });
@@ -63,7 +64,7 @@ export default function HistoryPage() {
             </div>
             <div className="contact-row">
               <span className="contact-label">주소</span>
-              <span className="contact-value">(05773) 서울특별시 송파구 양산로 8길 5-12, B01호</span>
+              <span className="contact-value">{SITE_INFO.address}</span>
             </div>
             <div className="contact-row">
               <span className="contact-label">전화 · 이메일</span>

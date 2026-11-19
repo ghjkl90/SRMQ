@@ -136,7 +136,7 @@ describe('무통장입금 → 관리자 입금확인', () => {
     assert.equal(status, 201);
     assert.equal(data.order.status, 'WAITING_FOR_DEPOSIT');
     assert.equal(data.order.amount, 150000);
-    assert.equal(data.order.bankAccount.accountNumber, '821301-00-058386');
+    assert.equal(data.order.bankAccount.accountNumber, '821301-00-058360');
     assert.match(data.order.orderNo, /^SRMQ-\d{8}-[A-Z0-9]{10}$/);
     ctx.bankOrderNo = data.order.orderNo;
 
@@ -469,6 +469,109 @@ describe('포상갤러리 관리', () => {
 
     assert.equal((await admin().delete(`/api/admin/gallery/albums/${ctx.albumId}`)).status, 200);
     assert.equal((await ctx.client().get('/api/gallery')).data.albums.length, 0);
+  });
+});
+
+describe('메인 슬라이드 · 베스트 기업', () => {
+  const jpeg = () =>
+    sharp({ create: { width: 1600, height: 900, channels: 3, background: { r: 30, g: 120, b: 150 } } }).jpeg().toBuffer();
+  const uploadKey = async () => {
+    const form = new FormData();
+    form.append('file', new Blob([await jpeg()], { type: 'image/jpeg' }), 'slide.jpg');
+    return (await admin().request('POST', '/api/admin/uploads', { form })).data.imageKey;
+  };
+  const attached = async (key) => (await ctx.db.query('SELECT attached FROM uploads WHERE key = $1', [key])).rows[0].attached;
+
+  test('슬라이드 저장 → 공개 목록에 순서대로 표시, 일반 회원은 저장 불가', async () => {
+    assert.deepEqual((await ctx.client().get('/api/home-slides')).data.slides, []);
+    const a = await uploadKey();
+    const b = await uploadKey();
+    assert.equal((await member().put('/api/admin/home-slides', { slides: [{ imageKey: a }] })).status, 403);
+
+    const saved = await admin().put('/api/admin/home-slides', {
+      slides: [
+        { imageKey: b, caption: '2026 SRMQ 컨벤션', linkUrl: '/award-gallery?year=2026' },
+        { imageKey: a, caption: '', linkUrl: '' },
+      ],
+    });
+    assert.equal(saved.status, 200);
+    const { slides } = (await ctx.client().get('/api/home-slides')).data;
+    assert.deepEqual(slides.map((s) => s.imageKey), [b, a]);
+    assert.equal(slides[0].linkUrl, '/award-gallery?year=2026');
+    assert.equal(slides[1].linkUrl, null);
+    assert.ok(slides[0].thumbUrl.endsWith('_thumb.jpg'));
+    assert.equal(await attached(a), true);
+    ctx.slideKeys = { a, b };
+  });
+
+  test('잘못된 링크 · 없는 사진은 거절', async () => {
+    const { a } = ctx.slideKeys;
+    const bad = await admin().put('/api/admin/home-slides', { slides: [{ imageKey: a, linkUrl: 'javascript:alert(1)' }] });
+    assert.equal(bad.status, 400);
+    const protocolRelative = await admin().put('/api/admin/home-slides', { slides: [{ imageKey: a, linkUrl: '//evil.example' }] });
+    assert.equal(protocolRelative.status, 400);
+    const missing = await admin().put('/api/admin/home-slides', { slides: [{ imageKey: 'gallery/2026/01/nope.jpg' }] });
+    assert.equal(missing.status, 400);
+  });
+
+  test('갤러리와 함께 쓰는 사진은 한쪽에서 빠져도 지워지지 않는다', async () => {
+    const { a, b } = ctx.slideKeys;
+    const album = await admin().post('/api/admin/gallery/albums', {
+      year: 2026, title: '공유 사진 앨범', sections: [{ title: null, photos: [{ imageKey: a, caption: '' }] }],
+    });
+    assert.equal(album.status, 201);
+
+    // 슬라이드에서 a 를 빼도 갤러리가 쓰고 있으므로 연결 유지, b 는 해제
+    await admin().put('/api/admin/home-slides', { slides: [] });
+    assert.equal(await attached(a), true);
+    assert.equal(await attached(b), false);
+
+    // 다시 슬라이드에 넣고 앨범을 지우면 슬라이드가 쓰고 있으므로 연결 유지
+    await admin().put('/api/admin/home-slides', { slides: [{ imageKey: a }] });
+    await admin().delete(`/api/admin/gallery/albums/${album.data.album.id}`);
+    assert.equal(await attached(a), true);
+
+    await ctx.db.query(`UPDATE uploads SET attached = false, detached_at = now() - interval '25 hours' WHERE key = ANY($1)`, [[a, b]]);
+    const storage = createStorage(ctx.config.uploads);
+    await cleanupUploads(ctx.db, storage);
+    await access(path.join(ctx.uploadDir, a)); // 슬라이드가 쓰는 파일은 남음
+    await assert.rejects(access(path.join(ctx.uploadDir, b)));
+  });
+
+  test('베스트 기업: 점수 높은 순, 같은 기업명 · 음수 거절', async () => {
+    const empty = (await ctx.client().get('/api/best-companies')).data;
+    assert.deepEqual(empty.companies, []);
+    assert.equal(empty.title, '베스트 기업');
+    assert.equal(empty.unit, '점');
+
+    assert.equal((await member().put('/api/admin/best-companies', { companies: [] })).status, 403);
+
+    const saved = await admin().put('/api/admin/best-companies', {
+      title: '2026 베스트 기업',
+      basis: '2026년 SRMQ 종합평가',
+      unit: '점',
+      companies: [
+        { name: '한국중부발전(주)', category: '경영품질 대상', score: 88.5 },
+        { name: '한전KDN(주)', category: '사회적책임 대상', score: 95 },
+        { name: '대일특수강(주)', category: '품질혁신 부문', score: 72 },
+        { name: '삼광기계', category: '기술혁신 부문', score: 90 },
+      ],
+    });
+    assert.equal(saved.status, 200);
+    const pub = (await ctx.client().get('/api/best-companies')).data;
+    assert.deepEqual(pub.companies.map((c) => c.name), ['한전KDN(주)', '삼광기계', '한국중부발전(주)', '대일특수강(주)']);
+    assert.equal(pub.companies[2].score, 88.5);
+    assert.equal(pub.title, '2026 베스트 기업');
+    assert.equal(pub.basis, '2026년 SRMQ 종합평가');
+
+    const dup = await admin().put('/api/admin/best-companies', { companies: [{ name: 'A', score: 1 }, { name: 'A', score: 2 }] });
+    assert.equal(dup.status, 400);
+    const negative = await admin().put('/api/admin/best-companies', { companies: [{ name: 'A', score: -1 }] });
+    assert.equal(negative.status, 400);
+    const text = await admin().put('/api/admin/best-companies', { companies: [{ name: 'A', score: '많음' }] });
+    assert.equal(text.status, 400);
+    // 거절된 요청은 기존 순위를 바꾸지 않음
+    assert.equal((await ctx.client().get('/api/best-companies')).data.companies.length, 4);
   });
 });
 

@@ -76,13 +76,26 @@ async function albumImageKeys(client, albumId) {
   return rows.map((r) => r.image_key);
 }
 
-async function detachUnused(client, keys) {
+// 사진 파일은 포상갤러리와 메인 슬라이드가 함께 쓸 수 있으므로, 두 곳 모두에서 빠졌을 때만 정리 대상입니다.
+const KEYS_IN_USE = '(SELECT image_key FROM gallery_photos UNION SELECT image_key FROM home_slides)';
+
+/** 갤러리 · 메인 슬라이드 어디에도 없는 사진을 '연결 해제'로 표시 (24시간 뒤 cleanupUploads 가 삭제) */
+export async function detachUnused(client, keys) {
   if (!keys.length) return;
   await client.query(
     `UPDATE uploads SET attached = false, detached_at = now()
-      WHERE key = ANY($1) AND key NOT IN (SELECT image_key FROM gallery_photos)`,
+      WHERE key = ANY($1) AND key NOT IN ${KEYS_IN_USE}`,
     [keys],
   );
+}
+
+/** 저장하려는 사진이 모두 업로드 완료된 파일인지 확인 */
+export async function assertUploaded(client, keys) {
+  if (!keys.length) return;
+  const { rows } = await client.query('SELECT key FROM uploads WHERE key = ANY($1)', [keys]);
+  if (rows.length !== new Set(keys).size) {
+    throw badRequest('업로드가 완료되지 않은 사진이 있습니다. 해당 사진을 다시 올려 주세요.');
+  }
 }
 
 /**
@@ -92,12 +105,7 @@ async function detachUnused(client, keys) {
 export async function saveAlbum(db, { albumId = null, data, userId }) {
   return db.tx(async (client) => {
     const keys = data.sections.flatMap((s) => s.photos.map((p) => p.imageKey));
-    if (keys.length) {
-      const { rows } = await client.query('SELECT key FROM uploads WHERE key = ANY($1)', [keys]);
-      if (rows.length !== new Set(keys).size) {
-        throw badRequest('업로드가 완료되지 않은 사진이 있습니다. 해당 사진을 다시 올려 주세요.');
-      }
-    }
+    await assertUploaded(client, keys);
 
     let id = albumId;
     let previousKeys = [];
@@ -151,13 +159,13 @@ export async function deleteAlbum(db, albumId) {
   });
 }
 
-/** 스케줄러: 갤러리에 연결되지 않은 지 24시간이 지난 업로드 파일 삭제 */
+/** 스케줄러: 갤러리 · 메인 슬라이드에 연결되지 않은 지 24시간이 지난 업로드 파일 삭제 */
 export async function cleanupUploads(db, storage) {
   const { rows } = await db.query(
     `SELECT id, key, thumb_key FROM uploads
       WHERE attached = false
         AND COALESCE(detached_at, created_at) < now() - interval '24 hours'
-        AND key NOT IN (SELECT image_key FROM gallery_photos)
+        AND key NOT IN ${KEYS_IN_USE}
       LIMIT 500`,
   );
   for (const row of rows) {

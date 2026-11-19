@@ -22,6 +22,7 @@ import {
   Spinner,
 } from '../member/MemberUI';
 import { BankIcon, BuildingIcon, CardIcon, CheckIcon, SparkIcon, UserIcon } from '../member/icons';
+import PlanCardArt from '../member/PlanCardArt';
 import {
   CATEGORY_LABEL,
   ORDER_TYPE_LABEL,
@@ -109,9 +110,9 @@ export default function MembershipCheckoutPage() {
     };
   }, [planCode]);
 
-  // 카드 · 간편결제 한도(기본 500만 원) 이상이면 무통장입금만
+  // 카드 · 간편결제 1회 한도(기본 1,000만 원)를 넘으면 무통장입금만 — 한도 금액 자체는 카드 결제 가능
   const tossLimit = config?.tossMaxAmount || 0;
-  const overTossLimit = Boolean(tossLimit && amount && amount >= tossLimit);
+  const overTossLimit = Boolean(tossLimit && amount && amount > tossLimit);
   const tossSelectable = Boolean(config?.tossEnabled) && !overTossLimit;
   useEffect(() => {
     if (method === 'TOSS' && overTossLimit) setMethod('BANK_TRANSFER');
@@ -360,7 +361,7 @@ export default function MembershipCheckoutPage() {
                     {!config.tossEnabled
                       ? '준비 중입니다'
                       : overTossLimit
-                        ? `${formatWon(tossLimit)} 이상은 무통장입금으로 납부해 주세요`
+                        ? `${formatWon(tossLimit)}을 넘는 금액은 무통장입금으로 납부해 주세요`
                         : '신용카드 · 계좌이체 · 가상계좌 · 카카오페이 · 토스페이 · 네이버페이'}
                   </span>
                 </span>
@@ -409,6 +410,7 @@ export default function MembershipCheckoutPage() {
               )}
               <div id="toss-payment-methods" />
               <div id="toss-agreement" />
+              {toss.status === 'ready' && <p className="ms-toss-note">하나카드는 카드사 정책에 따라 이용할 수 없습니다.</p>}
             </div>
 
             {method === 'BANK_TRANSFER' && config.bankTransfer && (
@@ -468,6 +470,7 @@ export default function MembershipCheckoutPage() {
         <aside className="ms-checkout-side">
           <Card title="결제 금액">
             <div className="ms-summary">
+              {plan && <PlanCardArt plan={plan} size="sm" />}
               {plan && (
                 <div className="ms-summary-plan">
                   {plan.name}
@@ -502,7 +505,7 @@ export default function MembershipCheckoutPage() {
                   </div>
                   <dl className="ms-summary-meta">
                     <div>
-                      <dt>자격 기간</dt>
+                      <dt>이용 기간</dt>
                       <dd>
                         {plan?.term === 'ANNUAL'
                           ? quote.data.orderType === 'RENEWAL' && user.membership.expiresAt && new Date(user.membership.expiresAt) > new Date()

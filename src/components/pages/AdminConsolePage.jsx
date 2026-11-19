@@ -1,4 +1,4 @@
-// src/components/pages/AdminConsolePage.jsx — 관리자 콘솔 (입금 확인 · 결제 내역 · 회원 관리 · 포상갤러리)
+// src/components/pages/AdminConsolePage.jsx — 관리자 콘솔 (입금 확인 · 결제 내역 · 회원 관리 · 콘텐츠: 메인 슬라이드 · 베스트 기업 · 포상갤러리)
 import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { api, apiUrl } from '../../api/client';
@@ -20,14 +20,14 @@ import {
   PlanBadge,
   Spinner,
 } from '../member/MemberUI';
-import { BankIcon, DownloadIcon, ImageIcon, PlusIcon, ReceiptIcon, RefreshIcon, UserIcon } from '../member/icons';
+import { BankIcon, DownloadIcon, EditIcon, ImageIcon, PlusIcon, ReceiptIcon, RefreshIcon, UserIcon } from '../member/icons';
 import { METHOD_LABEL, ORDER_STATUS, formatDate, formatDateTime, formatWon } from '../member/membership';
 
 const TABS = [
   { key: 'deposits', label: '입금 확인', icon: <BankIcon size={15} /> },
   { key: 'payments', label: '결제 내역', icon: <ReceiptIcon size={15} /> },
   { key: 'members', label: '회원 관리', icon: <UserIcon size={15} /> },
-  { key: 'gallery', label: '포상갤러리', icon: <ImageIcon size={15} /> },
+  { key: 'gallery', label: '콘텐츠 관리', icon: <ImageIcon size={15} /> },
 ];
 
 const memberCell = (o) => (
@@ -461,18 +461,45 @@ function MembersTab({ onChanged }) {
 
 function GalleryTab() {
   return (
-    <Card title="포상갤러리 관리">
-      <div className="ms-stack">
-        <p className="ms-text-sm" style={{ margin: 0, lineHeight: 1.7 }}>
-          포상갤러리 화면에서 관리자 계정으로 로그인한 상태라면 각 앨범 제목 옆 <b>[수정]</b> 버튼과 상단 <b>[새 앨범 등록]</b> 버튼이 보입니다.
-          사진은 올리는 즉시 웹용 크기(최대 2000px)와 목록용 썸네일로 자동 변환되며, 비공개(임시저장)로 먼저 저장해 두고 확인 후 공개할 수 있습니다.
-        </p>
-        <div className="ms-row">
-          <ButtonLink to="/award-gallery" variant="outline" icon={<ImageIcon size={15} />}>포상갤러리 바로가기</ButtonLink>
-          <ButtonLink to="/award-gallery/new" icon={<PlusIcon size={15} />}>새 앨범 등록</ButtonLink>
+    <div className="ms-stack">
+      <Card title="메인 화면 슬라이드">
+        <div className="ms-stack">
+          <p className="ms-text-sm" style={{ margin: 0, lineHeight: 1.7 }}>
+            첫 화면에서 자동으로 넘어가는 사진입니다. 새 사진을 올리거나 포상갤러리 사진을 골라 넣고, 순서 · 문구 · 링크를 정할 수 있습니다.
+            슬라이드가 없으면 기본 사진 4장이 보입니다.
+          </p>
+          <div className="ms-row">
+            <ButtonLink to="/" variant="outline" icon={<ImageIcon size={15} />}>메인 화면 보기</ButtonLink>
+            <ButtonLink to="/admin/home-slides" icon={<EditIcon size={15} />}>슬라이드 관리</ButtonLink>
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+
+      <Card title="베스트 기업 순위">
+        <div className="ms-stack">
+          <p className="ms-text-sm" style={{ margin: 0, lineHeight: 1.7 }}>
+            SRMQ포상 &gt; 베스트 기업 페이지에 표시됩니다. 기업별 점수를 입력하면 1~3위는 그래프로, 4위부터는 이름만 보입니다.
+          </p>
+          <div className="ms-row">
+            <ButtonLink to="/best-companies" variant="outline" icon={<ImageIcon size={15} />}>베스트 기업 보기</ButtonLink>
+            <ButtonLink to="/admin/best-companies" icon={<EditIcon size={15} />}>순위 입력</ButtonLink>
+          </div>
+        </div>
+      </Card>
+
+      <Card title="포상갤러리">
+        <div className="ms-stack">
+          <p className="ms-text-sm" style={{ margin: 0, lineHeight: 1.7 }}>
+            포상갤러리 화면에서 관리자 계정으로 로그인한 상태라면 각 앨범 제목 옆 <b>[수정]</b> 버튼과 상단 <b>[새 앨범 등록]</b> 버튼이 보입니다.
+            사진은 올리는 즉시 웹용 크기(최대 2000px)와 목록용 썸네일로 자동 변환되며, 비공개(임시저장)로 먼저 저장해 두고 확인 후 공개할 수 있습니다.
+          </p>
+          <div className="ms-row">
+            <ButtonLink to="/award-gallery" variant="outline" icon={<ImageIcon size={15} />}>포상갤러리 바로가기</ButtonLink>
+            <ButtonLink to="/award-gallery/new" icon={<PlusIcon size={15} />}>새 앨범 등록</ButtonLink>
+          </div>
+        </div>
+      </Card>
+    </div>
   );
 }
 
@@ -492,7 +519,7 @@ export default function AdminConsolePage() {
 
   return (
     <MemberPage width="wide" footerRight="Admin Console">
-      <MemberPageHeader badge="관리자" badgeEn="ADMIN CONSOLE" title="관리자 콘솔" desc="회원 · 회비 납부 · 포상갤러리를 관리합니다." />
+      <MemberPageHeader badge="관리자" badgeEn="ADMIN CONSOLE" title="관리자 콘솔" desc="회원 · 회비 납부 · 홈페이지 콘텐츠(메인 슬라이드 · 베스트 기업 · 포상갤러리)를 관리합니다." />
 
       {testPayment && (
         <Alert tone="warn" title="0원 테스트 결제가 켜져 있습니다">

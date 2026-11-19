@@ -86,7 +86,7 @@ export default function orderRoutes({ db, config, toss, mailer }) {
       throw new HttpError(
         400,
         'TOSS_AMOUNT_LIMIT',
-        `${config.toss.maxAmount.toLocaleString('ko-KR')}원 이상은 카드·간편결제를 이용할 수 없습니다. 무통장입금을 이용해 주세요.`,
+        `${config.toss.maxAmount.toLocaleString('ko-KR')}원을 넘는 금액은 카드·간편결제를 이용할 수 없습니다. 무통장입금을 이용해 주세요.`,
       );
     }
     const { order, user, paid } = await createOrder(db, { userId: req.user.id, plan, input, bank: config.bank });

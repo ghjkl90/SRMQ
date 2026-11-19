@@ -190,3 +190,219 @@
     padding: 18px;
   }
 }
+
+/* ==========================================================
+   회비 상품 카드 (이미지 · 혜택 · 결제 금액 · 이용 기간 · 결제하기)
+   ========================================================== */
+.member-section-box .section-title {
+  margin: 0;
+}
+
+.member-section-desc {
+  margin: 0 0 8px;
+  font-size: 13.5px;
+  color: #6b7280;
+  word-break: keep-all;
+}
+
+.member-product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 16px;
+  transition: opacity 0.2s;
+}
+
+.member-product-grid.is-loading {
+  opacity: 0.6;
+}
+
+.member-product {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.member-product-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.member-product-name {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.member-product-name span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+}
+
+.member-product .member-list {
+  flex: 1;
+}
+
+.member-product-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 0 0;
+  border-top: 1px dashed #e5e7eb;
+}
+
+.member-product-meta > div {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.member-product-meta dt {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.member-product-meta dd {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.member-product-meta dd strong {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.member-product-meta dd small {
+  font-size: 12px;
+  font-weight: 400;
+  color: #6b7280;
+  word-break: keep-all;
+}
+
+.member-product-buy {
+  width: 100%;
+}
+
+/* 특별회원: 카드 1장이라 가로로 펼침 */
+.member-product-grid.is-special {
+  grid-template-columns: 1fr;
+}
+
+.member-product-grid.is-special .member-product {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 24px;
+  padding: 20px;
+}
+
+.member-product-grid.is-special .ms-plan-art {
+  flex: 0 0 300px;
+  align-self: flex-start;
+}
+
+.member-product-grid.is-special .member-product-buy {
+  align-self: flex-start;
+  width: auto;
+  min-width: 180px;
+}
+
+/* 결제 및 이용 안내 */
+.member-info-table {
+  display: flex;
+  flex-direction: column;
+  margin: 4px 0 0;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.member-info-table > div {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.member-info-table > div:last-child {
+  border-bottom: none;
+}
+
+.member-info-table dt {
+  padding: 12px 16px;
+  background: #f9fafb;
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.member-info-table dd {
+  display: block;
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #374151;
+  word-break: keep-all;
+}
+
+.member-info-table dd > small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12.5px;
+  color: #b45309;
+}
+
+@media (max-width: 768px) {
+  .member-product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .member-product-grid.is-special .member-product {
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .member-product-grid.is-special .ms-plan-art {
+    flex-basis: auto;
+    align-self: stretch;
+  }
+
+  .member-product-grid.is-special .member-product-buy {
+    width: 100%;
+  }
+
+  .member-info-table > div {
+    grid-template-columns: 1fr;
+  }
+
+  .member-info-table dt {
+    padding: 10px 14px 4px;
+    background: transparent;
+  }
+
+  .member-info-table dd {
+    padding: 0 14px 12px;
+  }
+}

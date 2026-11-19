@@ -1,5 +1,5 @@
 /* src/components/pages/ProgramPage.css
-   첫 화면(도메인/). 기존 인라인 스타일 값을 그대로 옮겨 왔습니다. */
+   첫 화면(도메인/). 상단 타이틀 + 관리자가 정하는 사진 슬라이드 */
 
 .program-container {
   width: 100%;
@@ -36,8 +36,10 @@
   max-width: 700px;
 }
 
-/* 사진 슬라이더
-   PC: 글 아래 남은 화면 높이를 사진이 모두 채움 (글과 사진 사이 빈 여백 없음) */
+/* ==========================================================
+   사진 슬라이드
+   PC: 글 아래 남은 화면 높이를 사진이 모두 채움
+   ========================================================== */
 .program-slider {
   position: relative;
   width: 100%;
@@ -45,32 +47,135 @@
   min-height: 400px; /* 세로가 짧은 노트북 화면에서도 너무 납작해지지 않도록 */
   margin: 40px 0 0;
   overflow: hidden;
+  background-color: #eef2ee; /* 사진을 불러오기 전 */
 }
 
-.program-slider-track {
-  position: absolute; /* 슬라이더 높이가 늘어나는 만큼 사진도 함께 늘어남 */
-  top: 0;
-  left: 0;
-  display: flex;
-  height: 100%;
-  transition: transform 0.6s ease-in-out;
-}
-
+/* 한 장씩 겹쳐 두고 서서히 바뀜 */
 .program-slide {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.9s ease,
+    visibility 0s linear 0.9s;
+}
+
+.program-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.9s ease;
+  z-index: 1;
+}
+
+.program-slide img {
+  display: block;
+  width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
-  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  object-fit: cover;
+  object-position: center;
+}
+
+/* 보이는 동안 천천히 다가오는 움직임 */
+.program-slide.is-active img {
+  animation: program-zoom 7s ease-out both;
+}
+
+@keyframes program-zoom {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+
+/* 문구 · 자세히 보기 */
+.program-slide-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 72px 40px 52px;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.62) 100%);
+  color: #ffffff;
+}
+
+.program-slide-caption p {
+  margin: 0;
+  max-width: 760px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.45;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  word-break: keep-all;
+}
+
+.program-slide-link {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  backdrop-filter: blur(2px);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.program-slide-link:hover,
+.program-slide-link:focus-visible {
+  background-color: #ffffff;
+  color: #2e7d32;
+}
+
+/* 이전 · 다음 */
+.program-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  margin-top: -23px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.82);
+  color: #111827;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.25s, background-color 0.2s;
+}
+
+.program-arrow.is-prev { left: 20px; }
+.program-arrow.is-next { right: 20px; }
+
+.program-slider:hover .program-arrow,
+.program-arrow:focus-visible {
+  opacity: 1;
+}
+
+.program-arrow:hover { background: #ffffff; }
+
+/* 점 · 정지 버튼 */
+.program-controls {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateX(-50%);
 }
 
 .program-dots {
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   gap: 8px;
-  z-index: 10;
 }
 
 .program-dot {
@@ -89,15 +194,46 @@
   background-color: #82C91E;
 }
 
-/* 하단 법적 고지 */
-.program-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  color: #9ca3af;
-  border-top: 1px solid #f3f4f6;
-  padding-top: 16px;
+.program-pause {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.45);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.program-pause:hover { background: rgba(15, 23, 42, 0.7); }
+
+.program-dot:focus-visible,
+.program-pause:focus-visible,
+.program-arrow:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* 관리자 전용 */
+.program-admin-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 4;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .program-slide,
+  .program-slide.is-active {
+    transition: none;
+  }
+
+  .program-slide.is-active img {
+    animation: none;
+  }
 }
 
 /* ==========================================================
@@ -129,8 +265,23 @@
     margin: 28px 0;
   }
 
-  .program-footer {
-    margin-top: auto; /* 내용이 짧으면 하단 고지를 화면 맨 아래로 */
+  /* 터치 화면은 마우스를 올릴 수 없으므로 화살표를 항상 보여 줌 */
+  .program-arrow {
+    opacity: 1;
+    width: 38px;
+    height: 38px;
+    margin-top: -19px;
+  }
+
+  .program-arrow.is-prev { left: 12px; }
+  .program-arrow.is-next { right: 12px; }
+
+  .program-slide-caption {
+    padding: 56px 24px 46px;
+  }
+
+  .program-slide-caption p {
+    font-size: 17px;
   }
 }
 
@@ -162,13 +313,34 @@
     margin: 24px 0;
   }
 
-  .program-dots {
+  /* 좁은 화면은 밀어서 넘기므로 화살표 숨김 */
+  .program-arrow {
+    display: none;
+  }
+
+  .program-controls {
     bottom: 12px;
   }
 
-  .program-footer {
-    flex-wrap: wrap;
-    gap: 4px 12px;
+  .program-slide-caption {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 48px 16px 40px;
+  }
+
+  .program-slide-caption p {
+    font-size: 15px;
+  }
+
+  .program-slide-link {
+    padding: 7px 13px;
+    font-size: 12.5px;
+  }
+
+  .program-admin-btn {
+    top: 10px;
+    right: 10px;
   }
 }
 

@@ -12,6 +12,7 @@ import orderRoutes from './routes/orders.js';
 import paymentRoutes from './routes/payments.js';
 import adminRoutes from './routes/admin.js';
 import { galleryAdminRoutes, galleryPublicRoutes } from './routes/gallery.js';
+import { contentAdminRoutes, contentPublicRoutes } from './routes/content.js';
 
 function parseTrustProxy(value) {
   if (value === 'true') return true;
@@ -50,7 +51,8 @@ export function createApp({ config, db, toss, mailer, storage, rateLimit = true,
   app.use('/api/orders', orderRoutes(deps));
   app.use('/api/payments', paymentRoutes(deps));
   app.use('/api/gallery', galleryPublicRoutes(deps));
-  app.use('/api/admin', requireAdmin, adminRoutes(deps), galleryAdminRoutes(deps));
+  app.use('/api', contentPublicRoutes(deps)); // /api/home-slides · /api/best-companies
+  app.use('/api/admin', requireAdmin, adminRoutes(deps), galleryAdminRoutes(deps), contentAdminRoutes(deps));
 
   // 업로드 이미지 (운영에서는 Caddy 가 직접 제공하지만, 개발 · 단독 실행을 위해 API 에서도 제공)
   app.use(

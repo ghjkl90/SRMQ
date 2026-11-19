@@ -48,6 +48,21 @@ export const WITHDRAW_REASONS = [
 
 export const formatWon = (amount) => `${Number(amount || 0).toLocaleString('ko-KR')}원`;
 
+/** 1회 결제로 받는 이용 기간(사용 주기) — 회원 안내 · 결제 화면 · 결제경로 심사에 함께 씀 */
+export function usagePeriodText(plan) {
+  if (!plan) return '-';
+  if (plan.term === 'ANNUAL') return '결제일부터 1년';
+  if (plan.term === 'LIFETIME') return '평생 (연회비 없음)';
+  return '기한 없음 (연회비 없음)';
+}
+
+/** 이용 기간이 끝난 뒤 — 자동결제(정기결제)는 하지 않습니다 */
+export function renewalText(plan) {
+  if (!plan) return '';
+  if (plan.term === 'ANNUAL') return `만료 전 연회비 ${formatWon(plan.annualFee)}을 직접 결제하면 1년 연장 (자동결제 없음)`;
+  return '추가 결제 없음';
+}
+
 /** 2026.11.02 */
 export function formatDate(value) {
   if (!value) return '-';

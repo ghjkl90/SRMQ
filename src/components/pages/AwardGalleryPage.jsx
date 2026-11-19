@@ -34,6 +34,7 @@ const STATIC_ALBUMS = STATIC_FALLBACK
           id: `${entry.year}/${p.file}`,
           url: staticSrc(entry.year, p.file),
           thumbUrl: null,
+          bundled: true, // 화면(프론트) 자체에 들어 있는 사진 → API 주소를 붙이지 않음
           caption: p.caption,
         })),
       })),
@@ -44,7 +45,9 @@ const countPhotos = (albums) =>
   albums.reduce((sum, a) => sum + a.sections.reduce((s, sec) => s + sec.photos.length, 0), 0);
 
 function GalleryPhoto({ photo }) {
-  const full = assetUrl(photo.url);
+  // 서버 사진(/uploads/...)만 API 주소(VITE_API_BASE_URL)를 앞에 붙입니다.
+  // 예비 사진(/assets/...)은 화면과 같은 주소에 있으므로 그대로 씁니다.
+  const full = photo.bundled ? photo.url : assetUrl(photo.url);
   const thumb = photo.thumbUrl ? assetUrl(photo.thumbUrl) : null;
   return (
     <figure className="award-gallery-item">

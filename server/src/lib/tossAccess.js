@@ -10,5 +10,5 @@ export function tossAvailableFor(config, toss, user) {
   return true;
 }
 
-/** 카드 · 간편결제 한도(TOSS_MAX_AMOUNT) 이상인지 */
-export const overTossLimit = (config, amount) => config.toss.maxAmount > 0 && amount >= config.toss.maxAmount;
+/** 카드 · 간편결제 1회 한도(TOSS_MAX_AMOUNT)를 넘는지 — 한도 금액 자체는 결제 가능 */
+export const overTossLimit = (config, amount) => config.toss.maxAmount > 0 && amount > config.toss.maxAmount;

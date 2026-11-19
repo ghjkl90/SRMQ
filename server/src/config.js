@@ -10,6 +10,12 @@ const bool = (value, fallback) => {
   return ['1', 'true', 'yes', 'on'].includes(String(value).toLowerCase());
 };
 
+const amount = (value, fallback) => {
+  if (value === undefined || value === '') return fallback;
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 0 ? n : fallback;
+};
+
 const list = (value) =>
   String(value || '')
     .split(',')
@@ -58,6 +64,11 @@ export function loadConfig(env = process.env) {
       clientKey: env.TOSS_CLIENT_KEY || '', // test_gck_... / live_gck_... (결제위젯 연동 키)
       secretKey: env.TOSS_SECRET_KEY || '', // test_gsk_... / live_gsk_...
       apiBase: (env.TOSS_API_BASE || 'https://api.tosspayments.com').replace(/\/+$/, ''),
+      // 카드사 심사 기간(테스트 키)에 카드 · 간편결제를 열어 줄 계정. 비워 두면 모두 허용, 라이브 키에서는 무시
+      testAllowedEmails: list(env.TOSS_TEST_ALLOWED_EMAILS).map((email) => email.toLowerCase()),
+      // 1회 결제 한도: 이 금액을 넘으면 카드 · 간편결제 대신 무통장입금 (0 = 제한 없음)
+      // 비우면 1,000만 원 = 토스페이먼츠 입점 한도이자 최고가 상품(특별회원 연회비)
+      maxAmount: amount(env.TOSS_MAX_AMOUNT, 10_000_000),
     },
 
     // 0원 테스트 결제: 사업자등록(PG 계약) 없이 결제 흐름을 시험할 때만 켭니다. 실제 오픈 전 반드시 끄기
@@ -67,7 +78,7 @@ export function loadConfig(env = process.env) {
 
     bank: {
       name: env.BANK_NAME || 'KB국민은행',
-      accountNumber: env.BANK_ACCOUNT_NUMBER || '821301-00-058386',
+      accountNumber: env.BANK_ACCOUNT_NUMBER || '821301-00-058360', // 회비 계좌 (기부금 계좌 …058386 과 다름)
       holder: env.BANK_ACCOUNT_HOLDER || '(사)사회적책임경영품질원',
       dueDays: Number(env.BANK_TRANSFER_DUE_DAYS || 7),
     },

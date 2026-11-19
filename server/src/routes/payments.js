@@ -34,7 +34,7 @@ export default function paymentRoutes({ db, config, toss, mailer }) {
     res.json({
       tossEnabled,
       tossClientKey: tossEnabled ? config.toss.clientKey : null,
-      tossMaxAmount: config.toss.maxAmount, // 이 금액 이상은 무통장입금만 (0 이면 제한 없음)
+      tossMaxAmount: config.toss.maxAmount, // 1회 카드 · 간편결제 한도, 넘으면 무통장입금만 (0 이면 제한 없음)
       testPayment: config.testPayment.enabled, // 0원 테스트 결제 (사업자등록 · PG 계약 전 시험용)
       bankTransfer: {
         bankName: config.bank.name,
