@@ -37,9 +37,11 @@ import {
 
 const CATEGORY_ICON = { GENERAL: <UserIcon size={16} />, CORPORATE: <BuildingIcon size={16} />, SPECIAL: <SparkIcon size={16} /> };
 
-function addYearText(fromDate) {
+const TERM_YEARS = { ANNUAL: 1, TEN_YEARS: 10 };
+
+function addYearText(fromDate, years = 1) {
   const d = new Date(fromDate || Date.now());
-  d.setFullYear(d.getFullYear() + 1);
+  d.setFullYear(d.getFullYear() + years);
   return formatDate(d);
 }
 
@@ -507,10 +509,10 @@ export default function MembershipCheckoutPage() {
                     <div>
                       <dt>이용 기간</dt>
                       <dd>
-                        {plan?.term === 'ANNUAL'
+                        {TERM_YEARS[plan?.term]
                           ? quote.data.orderType === 'RENEWAL' && user.membership.expiresAt && new Date(user.membership.expiresAt) > new Date()
-                            ? `${addYearText(user.membership.expiresAt)}까지`
-                            : `결제일 ~ ${addYearText()}`
+                            ? `${addYearText(user.membership.expiresAt, TERM_YEARS[plan.term])}까지`
+                            : `결제일 ~ ${addYearText(null, TERM_YEARS[plan.term])}`
                           : '기한 없음'}
                       </dd>
                     </div>

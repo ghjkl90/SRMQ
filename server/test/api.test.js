@@ -233,8 +233,10 @@ describe('토스페이먼츠 (카드 · 간편결제 · 가상계좌)', () => {
 
     const me = (await member().get('/api/me')).data.user;
     assert.equal(me.membership.planCode, 'LIFETIME');
-    assert.equal(me.membership.expiresAt, null);
-    assert.equal((await member().get('/api/plans/LIFETIME/quote')).data.error.code, 'ALREADY_MEMBER');
+    // 종신회원도 1회 결제로 10년 (토스페이먼츠 정책: 기한 없는 회원권 불가)
+    const years = (new Date(me.membership.expiresAt) - Date.now()) / (365.25 * 864e5);
+    assert.ok(years > 9.9 && years < 10.1, `만료까지 ${years}년`);
+    assert.equal((await member().get('/api/plans/LIFETIME/quote')).data.error.code, 'RENEWAL_NOT_OPEN');
   });
 
   test('관리자 결제취소 → 토스 환불 + 이전 자격(정회원)으로 복구', async () => {

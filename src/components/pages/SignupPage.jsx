@@ -51,7 +51,7 @@ const EMPTY_FORM = {
   taxEmail: '',
 };
 
-const TERM_BADGE = { ANNUAL: '매년 연회비', PERMANENT: '1회 납부', LIFETIME: '평생 회원' };
+const TERM_BADGE = { ANNUAL: '매년 연회비', TEN_YEARS: '1회 납부 · 10년', PERMANENT: '1회 납부', LIFETIME: '평생 회원' };
 
 /** 탭(회원구분)마다 고를 수 있는 등급 */
 const plansForType = (plans, memberType) =>

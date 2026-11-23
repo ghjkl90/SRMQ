@@ -11,7 +11,7 @@ export function serializePlan(row) {
     shortLabel: row.short_label,
     joinFee: row.join_fee,
     annualFee: row.annual_fee,
-    term: row.term, // ANNUAL | PERMANENT | LIFETIME
+    term: row.term, // ANNUAL(1년) | TEN_YEARS(10년) · 예전 값 PERMANENT | LIFETIME(기한 없음)
     memberType: row.member_type, // INDIVIDUAL | ORGANIZATION | ANY
     votingRights: row.voting_rights,
     benefits: row.benefits ?? [],

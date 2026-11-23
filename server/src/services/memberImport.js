@@ -158,6 +158,7 @@ export async function importMembers(db, records, { defaultPlan = 'REGULAR', star
           continue;
         }
         const startYmd = DATE_RE.test(r.startedAt) ? r.startedAt : startedAt || today;
+        // 명부 회원(예전 가입)은 연회비 등급만 기간을 계산하고, 준회원 · 종신회원은 예전처럼 기한 없이 둡니다.
         let expires = null;
         if (plan.term === 'ANNUAL') {
           const ymd = DATE_RE.test(r.expiresAt) ? r.expiresAt : expiresAt;

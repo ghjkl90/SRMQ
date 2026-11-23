@@ -447,7 +447,7 @@ function MembersTab({ onChanged }) {
           </div>
         </FormRow>
         {form.status === 'ACTIVE' && (
-          <FormRow label="만료일" sub={selectedPlan?.term === 'ANNUAL' ? '비워 두면 오늘부터 1년' : '종신 · 준회원은 비워 두세요'}>
+          <FormRow label="만료일" sub={selectedPlan?.term === 'ANNUAL' ? '비워 두면 오늘부터 1년' : selectedPlan?.term === 'TEN_YEARS' ? '비워 두면 오늘부터 10년' : '비워 두면 기한 없음'}>
             <input type="date" className="ms-input" value={form.expiresAt} onChange={(e) => setForm({ ...form, expiresAt: e.target.value })} />
           </FormRow>
         )}

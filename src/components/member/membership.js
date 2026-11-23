@@ -9,6 +9,7 @@ export const CATEGORY_LABEL = {
 
 export const TERM_LABEL = {
   ANNUAL: '1년 (매년 연회비)',
+  TEN_YEARS: '10년 (1회 결제)',
   PERMANENT: '기한 없음 (입회비 1회)',
   LIFETIME: '평생 (종신)',
 };
@@ -29,7 +30,7 @@ export const ORDER_STATUS = {
   EXPIRED: { label: '기한만료', tone: 'slate' },
 };
 
-export const ORDER_TYPE_LABEL = { NEW: '신규 가입', CHANGE: '등급 변경', RENEWAL: '연회비 갱신' };
+export const ORDER_TYPE_LABEL = { NEW: '신규 가입', CHANGE: '등급 변경', RENEWAL: '기간 연장' };
 
 export const METHOD_LABEL = { TOSS: '카드·간편결제', BANK_TRANSFER: '무통장입금', TEST: '테스트 결제(0원)' };
 
@@ -52,6 +53,7 @@ export const formatWon = (amount) => `${Number(amount || 0).toLocaleString('ko-K
 export function usagePeriodText(plan) {
   if (!plan) return '-';
   if (plan.term === 'ANNUAL') return '결제일부터 1년';
+  if (plan.term === 'TEN_YEARS') return '결제일부터 10년';
   if (plan.term === 'LIFETIME') return '평생 (연회비 없음)';
   return '기한 없음 (연회비 없음)';
 }
@@ -60,6 +62,7 @@ export function usagePeriodText(plan) {
 export function renewalText(plan) {
   if (!plan) return '';
   if (plan.term === 'ANNUAL') return `만료 전 연회비 ${formatWon(plan.annualFee)}을 직접 결제하면 1년 연장 (자동결제 없음)`;
+  if (plan.term === 'TEN_YEARS') return `만료 전 ${formatWon(plan.joinFee)}을 다시 결제하면 10년 연장 (자동결제 없음)`;
   return '추가 결제 없음';
 }
 
@@ -134,5 +137,7 @@ export const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v || '
 export function periodText(plan, expiresAt) {
   if (expiresAt) return `${formatDate(expiresAt)}까지`;
   if (!plan) return '-';
-  return plan.term === 'ANNUAL' ? '결제일로부터 1년' : '기한 없음';
+  if (plan.term === 'ANNUAL') return '결제일로부터 1년';
+  if (plan.term === 'TEN_YEARS') return '결제일로부터 10년';
+  return '기한 없음';
 }

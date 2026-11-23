@@ -5,7 +5,7 @@ import { badRequest, notFound } from '../lib/errors.js';
 import { addYears, formatKstDate } from '../lib/dates.js';
 import { idParam, parse } from '../lib/validation.js';
 import { paymentCompletedEmail } from '../services/emails.js';
-import { effectiveMembershipStatus } from '../services/membership.js';
+import { effectiveMembershipStatus, termYears } from '../services/membership.js';
 import { cancelOrderByAdmin, confirmBankDeposit, logPaymentEvent, serializeOrder } from '../services/orders.js';
 import { getPlan } from '../services/plans.js';
 import { findUserById } from '../services/users.js';
@@ -237,7 +237,7 @@ export default function adminRoutes({ db, config, toss, mailer }) {
       const plan = await getPlan(db, planCode, { activeOnly: false });
       planCode = plan.code;
       if (data.expiresAt) expiresAt = new Date(`${data.expiresAt}T23:59:59+09:00`);
-      else if (plan.term === 'ANNUAL') expiresAt = addYears(new Date(), 1);
+      else if (termYears(plan)) expiresAt = addYears(new Date(), termYears(plan));
     }
 
     await db.query(
