@@ -37,9 +37,9 @@ describe('회원등급', () => {
     assert.equal(status, 200);
     assert.equal(data.plans.length, 8);
     const byCode = Object.fromEntries(data.plans.map((p) => [p.code, p]));
-    assert.deepEqual([byCode.ASSOCIATE.joinFee, byCode.ASSOCIATE.annualFee], [50000, 0]);
+    assert.deepEqual([byCode.ASSOCIATE.joinFee, byCode.ASSOCIATE.annualFee], [0, 50000]);
     assert.deepEqual([byCode.REGULAR.joinFee, byCode.REGULAR.annualFee], [100000, 50000]);
-    assert.deepEqual([byCode.LIFETIME.joinFee, byCode.LIFETIME.annualFee], [500000, 0]);
+    assert.deepEqual([byCode.LIFETIME.joinFee, byCode.LIFETIME.annualFee], [0, 500000]);
     assert.deepEqual([byCode.GROUP.joinFee, byCode.GROUP.annualFee], [0, 100000]);
     assert.equal(byCode.NES.annualFee, 2000000);
     assert.equal(byCode.BES.annualFee, 3000000);
@@ -235,7 +235,7 @@ describe('토스페이먼츠 (카드 · 간편결제 · 가상계좌)', () => {
     assert.equal(me.membership.planCode, 'LIFETIME');
     // 종신회원도 1회 결제로 10년 (토스페이먼츠 정책: 기한 없는 회원권 불가)
     const years = (new Date(me.membership.expiresAt) - Date.now()) / (365.25 * 864e5);
-    assert.ok(years > 9.9 && years < 10.1, `만료까지 ${years}년`);
+    assert.ok(years > 0.99 && years < 1.01, `만료까지 ${years}년`);
     assert.equal((await member().get('/api/plans/LIFETIME/quote')).data.error.code, 'RENEWAL_NOT_OPEN');
   });
 

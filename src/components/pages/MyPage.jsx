@@ -1,4 +1,3 @@
-// src/components/pages/MyPage.jsx — 마이페이지 (회원 자격 · 결제 내역 · 회원정보 수정 · 비밀번호 변경)
 import { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { api } from '../../api/client';
@@ -46,7 +45,7 @@ function MembershipPanel({ user, orders }) {
   const plan = m.plan;
   const pending = orders?.find((o) => o.status === 'WAITING_FOR_DEPOSIT');
   const daysLeft = m.expiresAt ? Math.ceil((new Date(m.expiresAt) - Date.now()) / 864e5) : null;
-  const renewable = ['ANNUAL', 'TEN_YEARS'].includes(plan?.term) && (m.status === 'EXPIRED' || (daysLeft !== null && daysLeft <= RENEWAL_WINDOW_DAYS));
+  const renewable = plan?.term === 'ANNUAL' && (m.status === 'EXPIRED' || (daysLeft !== null && daysLeft <= RENEWAL_WINDOW_DAYS));
   const initial = (user.companyName || user.name || '?').replace(/^\(주\)\s*/, '').charAt(0);
 
   return (
@@ -97,7 +96,7 @@ function MembershipPanel({ user, orders }) {
               </ButtonLink>
             )}
             {renewable && !pending && (
-              <ButtonLink to={`/membership/checkout?plan=${m.planCode}`} icon={<RefreshIcon size={15} />}>{plan.term === 'ANNUAL' ? '연회비 갱신하기' : '10년 연장하기'}</ButtonLink>
+              <ButtonLink to={`/membership/checkout?plan=${m.planCode}`} icon={<RefreshIcon size={15} />}>연회비 갱신하기</ButtonLink>
             )}
             {m.status !== 'NONE' && !pending && (
               <ButtonLink to="/membership/checkout" variant="outline">등급 변경</ButtonLink>

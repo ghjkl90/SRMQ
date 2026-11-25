@@ -1,5 +1,3 @@
-// src/components/pages/SignupPage.jsx — 회원가입 (STEP 01 약관동의 → 02 회원유형 선택 → 03 정보입력 → 04 가입완료)
-// 가입이 끝나면 자동 로그인되며, 04 단계에서 바로 회비 결제(/membership/checkout) 또는 마이페이지로 이동합니다.
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { api } from '../../api/client';
@@ -51,9 +49,8 @@ const EMPTY_FORM = {
   taxEmail: '',
 };
 
-const TERM_BADGE = { ANNUAL: '매년 연회비', TEN_YEARS: '1회 납부 · 10년', PERMANENT: '1회 납부', LIFETIME: '평생 회원' };
+const TERM_BADGE = { ANNUAL: '매년 연회비', PERMANENT: '1회 납부', LIFETIME: '평생 회원' };
 
-/** 탭(회원구분)마다 고를 수 있는 등급 */
 const plansForType = (plans, memberType) =>
   plans.filter((p) =>
     memberType === 'INDIVIDUAL'
@@ -97,7 +94,7 @@ export default function SignupPage() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
   const [formError, setFormError] = useState(null);
-  const [emailCheck, setEmailCheck] = useState({ state: 'idle', email: '' }); // idle | checking | ok | taken
+  const [emailCheck, setEmailCheck] = useState({ state: 'idle', email: '' });
   const [submitting, setSubmitting] = useState(false);
   const [created, setCreated] = useState(null);
   const [quote, setQuote] = useState(null);
@@ -111,7 +108,6 @@ export default function SignupPage() {
     topRef.current?.scrollIntoView({ block: 'start' });
   }, [step]);
 
-  // 등급을 고르면 그 등급에 맞는 입력 양식(개인/기업)으로 맞춥니다.
   const choosePlan = (plan) => {
     setPlanCode(plan.code);
     if (plan.memberType === 'ORGANIZATION') setMemberType('ORGANIZATION');
@@ -205,8 +201,6 @@ export default function SignupPage() {
     }
   }
 
-  /* ---------------------------------------------------------------- */
-
   if (user && !created) {
     return (
       <MemberPage width="narrow">
@@ -269,7 +263,6 @@ export default function SignupPage() {
 
       <StepIndicator steps={STEPS} current={step} />
 
-      {/* ───────────── STEP 01 약관동의 ───────────── */}
       {step === 1 && (
         <Card title="약관 동의" aside={<span><span className="ms-req">*</span> 필수 동의 항목</span>}>
           <div className="ms-agree">
@@ -318,7 +311,6 @@ export default function SignupPage() {
         </Card>
       )}
 
-      {/* ───────────── STEP 02 회원유형 선택 ───────────── */}
       {step === 2 && (
         <Card title="회원 유형 선택" aside="가입 후 회비를 납부하면 회원 자격이 시작됩니다.">
           {plansError && <Alert tone="danger">회원 유형을 불러오지 못했습니다. {plansError.message}</Alert>}
@@ -347,7 +339,6 @@ export default function SignupPage() {
         </Card>
       )}
 
-      {/* ───────────── STEP 03 정보입력 ───────────── */}
       {step === 3 && plans && (
         <form onSubmit={onSubmit} noValidate className="ms-stack" style={{ gap: 20 }}>
           <div className="ms-segment-wrap">
@@ -511,7 +502,6 @@ export default function SignupPage() {
         </form>
       )}
 
-      {/* ───────────── STEP 04 가입완료 ───────────── */}
       {step === 4 && created && (
         <Card>
           <div className="ms-result">

@@ -1,12 +1,8 @@
-// src/data/membershipPlans.js
-// 회원 안내(회비 상품) 화면이 서버(/api/plans)를 불러오지 못했을 때 보여 줄 기본값입니다.
-// 실제 결제 금액은 항상 서버 DB(membership_plans)가 기준이며, 이 값은 002 시드 + 005(준회원 · 종신회원 10년, 표시 순서) 마이그레이션 결과와 같습니다.
-
 export const FALLBACK_PLANS = [
   {
     code: 'LIFETIME', category: 'GENERAL', name: '종신회원', nameEn: 'Lifetime Member', shortLabel: '종신회원',
-    joinFee: 500000, annualFee: 0, term: 'TEN_YEARS', badgeTone: 'lime',
-    benefits: ['본원 산하 분과 · 연구회 등 모든 사업에 참여 가능', '본원 소식 및 행사정보 이메일 수신', '연회비 없이 10년간 회원 자격 유지'],
+    joinFee: 0, annualFee: 500000, term: 'ANNUAL', badgeTone: 'lime',
+    benefits: ['본원 산하 분과 · 연구회 등 모든 사업에 참여 가능', '본원 소식 및 행사정보 이메일 수신'],
   },
   {
     code: 'REGULAR', category: 'GENERAL', name: '정회원', nameEn: 'Regular Member', shortLabel: '정회원',
@@ -15,7 +11,7 @@ export const FALLBACK_PLANS = [
   },
   {
     code: 'ASSOCIATE', category: 'GENERAL', name: '준회원', nameEn: 'Associate Member', shortLabel: '준회원',
-    joinFee: 50000, annualFee: 0, term: 'TEN_YEARS', badgeTone: 'lime',
+    joinFee: 0, annualFee: 50000, term: 'ANNUAL', badgeTone: 'lime',
     benefits: ['총회 참석 및 의결권 부여', '본원 산하 분과 · 연구회 등 모든 사업에 참여 가능', '본원 소식 및 행사정보 이메일 수신'],
   },
   {

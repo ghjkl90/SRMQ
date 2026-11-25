@@ -1,6 +1,3 @@
-// src/components/pages/MembershipCheckoutPage.jsx — 회비 결제
-// 회원 유형 선택 → (기업정보 · 후원금 사용용도) → 결제수단(토스페이먼츠 위젯 / 무통장입금) → 결제
-// 금액은 서버(/api/plans/:code/quote)가 계산하며, 화면 금액은 표시용입니다.
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { api } from '../../api/client';
@@ -37,7 +34,7 @@ import {
 
 const CATEGORY_ICON = { GENERAL: <UserIcon size={16} />, CORPORATE: <BuildingIcon size={16} />, SPECIAL: <SparkIcon size={16} /> };
 
-const TERM_YEARS = { ANNUAL: 1, TEN_YEARS: 10 };
+const TERM_YEARS = { ANNUAL: 1 };
 
 function addYearText(fromDate, years = 1) {
   const d = new Date(fromDate || Date.now());
@@ -69,7 +66,6 @@ export default function MembershipCheckoutPage() {
   const pending = orders?.find((o) => o.status === 'WAITING_FOR_DEPOSIT');
   const amount = quote.data?.amount;
 
-  // 처음 들어왔을 때: 결제 설정 · 내 주문 · 기업정보 기본값
   useEffect(() => {
     api.get('/api/payments/config').then((c) => {
       setConfig(c);
@@ -98,7 +94,6 @@ export default function MembershipCheckoutPage() {
     }));
   }, [user]);
 
-  // 회원 유형이 바뀌면 서버에 금액 견적 요청
   useEffect(() => {
     if (!planCode) return undefined;
     let alive = true;
@@ -112,7 +107,6 @@ export default function MembershipCheckoutPage() {
     };
   }, [planCode]);
 
-  // 카드 · 간편결제 1회 한도(기본 1,000만 원)를 넘으면 무통장입금만 — 한도 금액 자체는 카드 결제 가능
   const tossLimit = config?.tossMaxAmount || 0;
   const overTossLimit = Boolean(tossLimit && amount && amount > tossLimit);
   const tossSelectable = Boolean(config?.tossEnabled) && !overTossLimit;
@@ -138,7 +132,6 @@ export default function MembershipCheckoutPage() {
   function validate() {
     const e = {};
     if (needsCompany) {
-      // 0원 테스트 결제는 기업명 · 사업자등록번호 없이도 진행 (입력했다면 형식만 확인)
       if (!isTest && !company.companyName.trim()) e.companyName = '기업명을 입력해 주세요.';
       const bizLen = digitsOnly(company.businessNo).length;
       if ((!isTest || bizLen > 0) && bizLen !== 10) e.companyBusinessNo = '사업자등록번호 10자리를 입력해 주세요.';
@@ -189,7 +182,6 @@ export default function MembershipCheckoutPage() {
       if (needsCompany) refresh();
 
       if (method === 'TEST') {
-        // 0원 테스트 결제는 주문과 동시에 결제완료 · 회원 자격 반영
         await refresh();
         navigate(`/membership/orders/${data.order.orderNo}?paid=1`);
         return;
@@ -199,14 +191,12 @@ export default function MembershipCheckoutPage() {
         navigate(`/membership/orders/${data.order.orderNo}?created=1`);
         return;
       }
-      // 토스 결제창 → 성공 시 /membership/payment/success 로 이동
       await toss.requestPayment(data.toss);
     } catch (err) {
       const canceledByUser = ['USER_CANCEL', 'PAY_PROCESS_CANCELED'].includes(err?.code);
       setPayError(canceledByUser ? '결제를 취소하셨습니다. 다시 시도하시려면 결제하기를 눌러 주세요.' : err?.message || '결제를 진행하지 못했습니다.');
       if (err?.fields) setErrors((x) => ({ ...x, ...err.fields }));
       if (err?.code === 'PENDING_ORDER_EXISTS') api.get('/api/orders').then((d) => setOrders(d.orders)).catch(() => {});
-      // 결제창을 열지 못한 카드 주문은 정리
       if (createdOrderNo && method === 'TOSS') api.post(`/api/orders/${createdOrderNo}/cancel`).catch(() => {});
     } finally {
       setPaying(false);
@@ -272,7 +262,6 @@ export default function MembershipCheckoutPage() {
 
       <div className="ms-checkout">
         <div className="ms-checkout-main">
-          {/* 1. 회원 유형 */}
           <Card title="회원 유형 선택" aside={<Link to="/members" className="ms-link ms-text-sm">회원 유형별 혜택 보기</Link>}>
             <div className="ms-segment" role="tablist" aria-label="회원 구분" style={{ marginBottom: 16 }}>
               {['GENERAL', 'CORPORATE', 'SPECIAL'].map((cat) => (
@@ -313,7 +302,6 @@ export default function MembershipCheckoutPage() {
             )}
           </Card>
 
-          {/* 2. 기업 정보 (기업 · 특별회원) */}
           {needsCompany && (
             <Card title="기업 정보" aside="입력한 정보는 회원정보에도 저장됩니다.">
               {isTest && <p className="ms-hint" style={{ margin: '0 0 12px' }}>0원 테스트 결제에서는 기업명 · 사업자등록번호를 비워 둬도 됩니다.</p>}
@@ -332,7 +320,6 @@ export default function MembershipCheckoutPage() {
             </Card>
           )}
 
-          {/* 3. 후원금 사용용도 (특별회원) */}
           {plan?.code === 'SPECIAL' && (
             <Card title="후원금 사용용도 지정" aside="선택 사항">
               <textarea
@@ -346,7 +333,6 @@ export default function MembershipCheckoutPage() {
             </Card>
           )}
 
-          {/* 4. 결제 수단 */}
           <Card title="결제 수단">
             <div className="ms-method-grid">
               <button
@@ -402,7 +388,6 @@ export default function MembershipCheckoutPage() {
               </Alert>
             )}
 
-            {/* 토스 결제위젯은 한 번 그린 뒤 숨김/표시만 바꿉니다 */}
             <div className="ms-toss-area" hidden={method !== 'TOSS'}>
               {toss.status === 'loading' && <Spinner label="결제 수단을 불러오는 중입니다" />}
               {toss.status === 'error' && (
@@ -468,7 +453,6 @@ export default function MembershipCheckoutPage() {
           </Card>
         </div>
 
-        {/* 결제 금액 요약 */}
         <aside className="ms-checkout-side">
           <Card title="결제 금액">
             <div className="ms-summary">

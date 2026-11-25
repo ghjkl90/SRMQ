@@ -1,12 +1,3 @@
-// src/services/memberImport.js
-// 회원명부(CSV) → 회원 계정 + 회비 납부 완료 상태(자격 ACTIVE)로 등록
-//
-// - 이메일이 아이디입니다. 이메일이 없는 행은 건너뛰고 이유를 알려 줍니다.
-// - 새로 만든 계정은 비밀번호가 없습니다(password_set = false).
-//   회원은 로그인 화면의 '비밀번호 찾기'로 비밀번호를 만들고, 그때 약관에 동의합니다.
-// - 같은 이메일이 이미 있으면 새로 만들지 않습니다. 여러 번 실행해도 안전합니다.
-//   · 명부로 만든 계정(사이트 결제 전): CSV 를 고쳐 다시 실행하면 등급 · 기간 · 연락처가 그대로 반영
-//   · 홈페이지에서 가입했거나 결제한 계정: 자격이 살아 있으면 건드리지 않음
 import { addYears, formatKstDate } from '../lib/dates.js';
 import { hashPassword, newCustomerKey, randomToken } from '../lib/security.js';
 
@@ -35,8 +26,8 @@ const PLAN_NAMES = {
 
 const EMAIL_RE = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const OPEN_ENDED_ROSTER_PLANS = new Set(['LIFETIME', 'ASSOCIATE']);
 
-/** RFC 4180 CSV (따옴표 · 쉼표 · 줄바꿈이 들어간 칸 지원). 엑셀의 "CSV UTF-8" 저장 파일을 그대로 읽습니다. */
 export function parseCsv(text) {
   const src = String(text).replace(/^﻿/, '');
   const rows = [];
@@ -76,7 +67,6 @@ export function parseCsv(text) {
   return rows.filter((r) => r.some((c) => c.trim() !== ''));
 }
 
-/** 머리글(한글/영문 아무거나)을 읽어 { name, email, ... } 객체 목록으로 바꿉니다. */
 export function rowsToRecords(rows) {
   if (!rows.length) return [];
   const key = (h) => String(h).trim().toLowerCase().replace(/\s+/g, ' ');
@@ -117,15 +107,6 @@ function normalizePhone(value) {
 const kstStart = (ymd) => new Date(`${ymd}T00:00:00+09:00`);
 const kstEnd = (ymd) => new Date(`${ymd}T23:59:59+09:00`);
 
-/**
- * @param {object} db              createDb() 결과
- * @param {Array}  records         rowsToRecords() 결과
- * @param {object} options
- *   defaultPlan   등급 칸이 비었을 때 (기본 정회원)
- *   startedAt     자격시작 칸이 비었을 때 'YYYY-MM-DD' (기본 오늘)
- *   expiresAt     만료일 칸이 비었을 때 'YYYY-MM-DD' (기본 시작일 + 1년, 연회비 등급만)
- *   dryRun        true 면 확인만 하고 저장하지 않음
- */
 export async function importMembers(db, records, { defaultPlan = 'REGULAR', startedAt = null, expiresAt = null, dryRun = false, now = new Date() } = {}) {
   const plans = Object.fromEntries((await db.query('SELECT * FROM membership_plans')).rows.map((p) => [p.code, p]));
   const result = { created: [], updated: [], unchanged: [], skipped: [] };
@@ -158,9 +139,8 @@ export async function importMembers(db, records, { defaultPlan = 'REGULAR', star
           continue;
         }
         const startYmd = DATE_RE.test(r.startedAt) ? r.startedAt : startedAt || today;
-        // 명부 회원(예전 가입)은 연회비 등급만 기간을 계산하고, 준회원 · 종신회원은 예전처럼 기한 없이 둡니다.
         let expires = null;
-        if (plan.term === 'ANNUAL') {
+        if (plan.term === 'ANNUAL' && !OPEN_ENDED_ROSTER_PLANS.has(plan.code)) {
           const ymd = DATE_RE.test(r.expiresAt) ? r.expiresAt : expiresAt;
           expires = ymd ? kstEnd(ymd) : addYears(kstStart(startYmd), 1);
         }
@@ -196,7 +176,6 @@ export async function importMembers(db, records, { defaultPlan = 'REGULAR', star
 
         const currentEnd = existing.membership_expires_at ? new Date(existing.membership_expires_at) : null;
 
-        // 명부로 만든 계정이고 아직 사이트에서 결제한 적이 없으면 → 명부(CSV)가 기준: 등급 · 기간 · 연락처를 고친 대로 반영
         if (existing.source === 'IMPORT' && !existing.membership_order_id) {
           const same =
             existing.plan_code === plan.code &&
@@ -226,7 +205,6 @@ export async function importMembers(db, records, { defaultPlan = 'REGULAR', star
           continue;
         }
 
-        // 홈페이지에서 가입했거나 결제한 적이 있는 계정: 자격이 살아 있으면(등급 무관) 그대로 두고, 없거나 만료됐으면 명부 기준으로 반영
         const stillActive = existing.membership_status === 'ACTIVE' && (currentEnd === null || currentEnd >= now);
         if (stillActive) {
           result.unchanged.push({ line: r.line, name: r.name, email, reason: '이미 회비 납부 자격이 있음 (그대로 둠)' });

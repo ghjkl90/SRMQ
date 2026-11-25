@@ -1,6 +1,3 @@
-// src/components/pages/MembersPage.jsx — 회원 안내 (회비 상품 목록)
-// 회원 등급별 이미지 · 혜택(상세설명) · 결제 금액 · 이용 기간(사용 주기)을 보여 주고, [결제하기]로 회비 결제 화면에 연결합니다.
-// 금액은 서버(/api/plans) 값을 쓰고, 불러오지 못하면 같은 내용의 기본값(FALLBACK_PLANS)을 보여 줍니다.
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { groupPlans, planFeeText, useMembershipPlans } from '../../hooks/useMembershipPlans';
@@ -66,7 +63,6 @@ export default function MemberPage() {
   return (
     <div className="subpage-container">
       <div className="subpage-content">
-        {/* 상단 헤더 및 타이틀 (SubpageLayout.css 공통) */}
         <header className="subpage-header">
           <div className="subpage-badge-box">
             <span className="subpage-badge-kr">회원 안내</span>
@@ -79,7 +75,6 @@ export default function MemberPage() {
         </header>
 
         <div className="member-body">
-          {/* 회원 유형(회비 상품)별 카드 — 서버 값을 불러오는 동안에는 자리만 잡아 둡니다 */}
           {SECTIONS.map(({ category, title, desc }) => (
             <section key={category} className={`member-section-box${category === 'SPECIAL' ? ' special-box' : ''}`}>
               <h3 className="section-title">{title}</h3>
@@ -92,7 +87,6 @@ export default function MemberPage() {
             </section>
           ))}
 
-          {/* 결제 및 이용 안내 (사용 주기 · 결제 수단 · 환불) */}
           <section className="member-section-box member-pay-info" aria-labelledby="member-pay-info-title">
             <h3 className="section-title" id="member-pay-info-title">결제 및 이용 안내</h3>
             <dl className="member-info-table">
@@ -103,8 +97,7 @@ export default function MemberPage() {
               <div>
                 <dt>사용 주기</dt>
                 <dd>
-                  1회 결제 시 연회비가 있는 등급(정회원 · 단체회원 · 기업회원 · 특별회원)은 <strong>결제일부터 1년</strong>,
-                  준회원 · 종신회원은 <strong>결제일부터 10년</strong> 이용합니다. 정기결제(자동결제)는 하지 않으며, 기간 연장은 만료 전에 회원이 직접 결제합니다.
+                  모든 회원 등급은 1회 결제 시 <strong>결제일부터 1년</strong> 이용합니다. 정기결제(자동결제)는 하지 않으며, 기간 연장은 만료 전에 회원이 연회비를 직접 결제합니다.
                 </dd>
               </div>
               <div>
@@ -131,7 +124,6 @@ export default function MemberPage() {
             </dl>
           </section>
 
-          {/* 회원가입 · 회비 납부 안내 */}
           <div className="ms-cta">
             <div>
               <p className="ms-cta-title">사경원 회원이 되어 주세요</p>

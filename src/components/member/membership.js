@@ -1,6 +1,3 @@
-// src/components/member/membership.js
-// 회원 · 결제 화면에서 함께 쓰는 표시용 문구와 형식 도우미
-
 export const CATEGORY_LABEL = {
   GENERAL: '일반회원',
   CORPORATE: '기업회원',
@@ -9,7 +6,6 @@ export const CATEGORY_LABEL = {
 
 export const TERM_LABEL = {
   ANNUAL: '1년 (매년 연회비)',
-  TEN_YEARS: '10년 (1회 결제)',
   PERMANENT: '기한 없음 (입회비 1회)',
   LIFETIME: '평생 (종신)',
 };
@@ -49,24 +45,19 @@ export const WITHDRAW_REASONS = [
 
 export const formatWon = (amount) => `${Number(amount || 0).toLocaleString('ko-KR')}원`;
 
-/** 1회 결제로 받는 이용 기간(사용 주기) — 회원 안내 · 결제 화면 · 결제경로 심사에 함께 씀 */
 export function usagePeriodText(plan) {
   if (!plan) return '-';
   if (plan.term === 'ANNUAL') return '결제일부터 1년';
-  if (plan.term === 'TEN_YEARS') return '결제일부터 10년';
   if (plan.term === 'LIFETIME') return '평생 (연회비 없음)';
   return '기한 없음 (연회비 없음)';
 }
 
-/** 이용 기간이 끝난 뒤 — 자동결제(정기결제)는 하지 않습니다 */
 export function renewalText(plan) {
   if (!plan) return '';
   if (plan.term === 'ANNUAL') return `만료 전 연회비 ${formatWon(plan.annualFee)}을 직접 결제하면 1년 연장 (자동결제 없음)`;
-  if (plan.term === 'TEN_YEARS') return `만료 전 ${formatWon(plan.joinFee)}을 다시 결제하면 10년 연장 (자동결제 없음)`;
   return '추가 결제 없음';
 }
 
-/** 2026.11.02 */
 export function formatDate(value) {
   if (!value) return '-';
   const d = new Date(value);
@@ -81,7 +72,6 @@ export function formatDate(value) {
   return `${get('year')}.${get('month')}.${get('day')}`;
 }
 
-/** 2026.11.02 14:30 */
 export function formatDateTime(value) {
   if (!value) return '-';
   const d = new Date(value);
@@ -96,7 +86,6 @@ export function formatDateTime(value) {
 
 export const digitsOnly = (v) => String(v ?? '').replace(/\D/g, '');
 
-/** 입력 중 자동 하이픈: 010-1234-5678 */
 export function formatPhoneInput(value) {
   const d = digitsOnly(value).slice(0, 11);
   if (d.startsWith('02')) {
@@ -111,7 +100,6 @@ export function formatPhoneInput(value) {
   return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7)}`;
 }
 
-/** 입력 중 자동 하이픈: 123-45-67890 */
 export function formatBizNoInput(value) {
   const d = digitsOnly(value).slice(0, 10);
   if (d.length <= 3) return d;
@@ -119,7 +107,6 @@ export function formatBizNoInput(value) {
   return `${d.slice(0, 3)}-${d.slice(3, 5)}-${d.slice(5)}`;
 }
 
-/** 회원가입 화면 안내와 같은 규칙: 영문 · 숫자 · 특수문자 포함 8~16자 */
 export function checkPassword(pw = '') {
   return {
     length: pw.length >= 8 && pw.length <= 16,
@@ -133,11 +120,9 @@ export const isPasswordValid = (pw) => Object.values(checkPassword(pw)).every(Bo
 
 export const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v || '').trim());
 
-/** 기간 안내 문구: "2027.11.01까지" / "기한 없음" */
 export function periodText(plan, expiresAt) {
   if (expiresAt) return `${formatDate(expiresAt)}까지`;
   if (!plan) return '-';
   if (plan.term === 'ANNUAL') return '결제일로부터 1년';
-  if (plan.term === 'TEN_YEARS') return '결제일로부터 10년';
   return '기한 없음';
 }
